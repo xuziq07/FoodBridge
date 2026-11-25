@@ -7,7 +7,7 @@
     --cream: #f6f3ea;
     --white: #ffffff;
     --text: #343b32;
-    --muted: #73776d;
+    --muted: #656b61;
     --border: #dedfd6;
 }
 
@@ -19,7 +19,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
+    scroll-padding-top: 100px;
 }
 
 body {
@@ -92,10 +92,6 @@ header {
     white-space: nowrap;
 }
 
-.logo span {
-    color: var(--olive);
-}
-
 .nav-links {
     display: flex;
     align-items: center;
@@ -131,9 +127,9 @@ header {
         linear-gradient(
             90deg,
             rgba(22, 35, 23, 0.76),
-            rgba(22, 35, 23, 0.12)
+            rgba(22, 35, 23, 0.18)
         ),
-        url("images/hero.jpg");
+        url("hero.jpg");
     background-size: cover;
     background-position: center;
     background-color: var(--green);
@@ -211,7 +207,7 @@ header {
     color: var(--green);
 }
 
-/* Section Layout */
+/* General Sections */
 
 .section {
     padding: 100px 8%;
@@ -311,7 +307,7 @@ header {
 
 .filter-bar {
     max-width: 1200px;
-    margin: 0 auto 40px;
+    margin: 0 auto 25px;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     gap: 15px;
@@ -333,6 +329,21 @@ input:focus,
 select:focus,
 textarea:focus {
     border-color: var(--green);
+    outline: 2px solid var(--olive);
+    outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--olive);
+    outline-offset: 4px;
+}
+
+.availability-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 25px;
 }
 
 .food-grid {
@@ -347,17 +358,14 @@ textarea:focus {
     background: white;
     border: 1px solid #e7e7df;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .food-image {
     width: 100%;
     height: 245px;
-    object-fit: cover;
     background: #e6e9de;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 65px;
     overflow: hidden;
 }
 
@@ -365,10 +373,18 @@ textarea:focus {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.food-card:hover .food-image img {
+    transform: scale(1.03);
 }
 
 .food-content {
     padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .food-card h3 {
@@ -384,12 +400,23 @@ textarea:focus {
 }
 
 .stock {
-    display: inline-block;
+    align-self: flex-start;
     font-size: 12px;
     color: var(--green);
     background: #edf0e7;
     padding: 3px 10px;
     margin-bottom: 12px;
+}
+
+.photo-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+.price-row {
+    margin-top: 15px;
+    margin-bottom: 18px;
 }
 
 .price {
@@ -399,7 +426,7 @@ textarea:focus {
 }
 
 .original-price {
-    color: #999999;
+    color: #777777;
     font-size: 14px;
     text-decoration: line-through;
     margin-left: 8px;
@@ -411,7 +438,7 @@ textarea:focus {
     color: white;
     border: none;
     padding: 12px;
-    margin-top: 20px;
+    margin-top: auto;
     font-size: 14px;
 }
 
@@ -420,7 +447,7 @@ textarea:focus {
 }
 
 .reserve-btn:disabled {
-    background: #b5b9b0;
+    background: #777d74;
     cursor: not-allowed;
 }
 
@@ -434,6 +461,7 @@ textarea:focus {
     text-align: center;
     color: var(--green);
     margin-top: 25px;
+    font-size: 14px;
 }
 
 /* How It Works */
@@ -478,7 +506,8 @@ textarea:focus {
 }
 
 .impact-section h2,
-.impact-section .eyebrow {
+.impact-section .eyebrow,
+.impact-section .section-heading p {
     color: var(--cream);
 }
 
@@ -513,7 +542,7 @@ textarea:focus {
     margin: 0;
 }
 
-/* Sustainable Development Goals */
+/* SDGs */
 
 .sdg-grid {
     display: grid;
@@ -597,7 +626,7 @@ textarea:focus {
             rgba(25, 40, 26, 0.65),
             rgba(25, 40, 26, 0.65)
         ),
-        url("images/partner.jpg");
+        url("partner.jpg");
     background-size: cover;
     background-position: center;
     background-color: var(--green);
@@ -646,7 +675,6 @@ textarea:focus {
     border: 1px solid var(--border);
     border-radius: 0;
     background: #fafaf7;
-    outline: none;
     font-size: 15px;
 }
 
@@ -656,6 +684,13 @@ textarea:focus {
 
 #contactForm .btn {
     width: 100%;
+}
+
+#contactStatus {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: center;
 }
 
 /* Footer */
@@ -770,7 +805,7 @@ footer p {
 @media (max-width: 650px) {
 
     html {
-        scroll-padding-top: 140px;
+        scroll-padding-top: 150px;
     }
 
     .navbar {
@@ -802,7 +837,7 @@ footer p {
     }
 
     .hero h1 {
-        font-size: 48px;
+        font-size: 44px;
     }
 
     .hero p {
@@ -812,6 +847,7 @@ footer p {
     .hero .btn,
     .hero .btn-outline {
         padding: 12px 20px;
+        margin-bottom: 10px;
     }
 
     .section {
@@ -873,7 +909,10 @@ footer p {
     }
 }
 
+/* Accessibility */
+
 @media (prefers-reduced-motion: reduce) {
+
     html {
         scroll-behavior: auto;
     }
