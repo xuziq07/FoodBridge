@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodBridge | Save Food, Share Hope</title>
+    <meta name="description" content="FoodBridge connects local businesses and consumers to reduce food waste and promote sustainable living.">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <a href="#home" class="logo">🌱 FoodBridge</a>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#food">Find Food</a></li>
+                <li><a href="#impact">Our Impact</a></li>
+                <li><a href="#stores">For Stores</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <span class="tag">SDG 2 × SDG 12</span>
+
+            <h1>
+                Save Food.<br>
+                Share Hope.<br>
+                Build a Better Future.
+            </h1>
+
+            <p>
+                Connecting local businesses and communities
+                to give surplus food a second chance.
+                Together, we can reduce food waste and
+                create a more sustainable future.
+            </p>
+
+            <a href="#food" class="btn">Find Food →</a>
+            <a href="#about" class="btn-outline">Learn More</a>
+
+        </div>
+
+        <div class="hero-image">🥗</div>
+
+    </section>
+
+    <!-- About Us -->
+    <section id="about" class="section">
+
+        <h2>About FoodBridge</h2>
+
+        <p class="subtitle">
+            Building a Bridge Between Food and People
+        </p>
+
+        <p>
+            FoodBridge is a sustainable food-sharing platform
+            that connects local businesses with consumers.
+            Our mission is to reduce food waste by making safe,
+            unsold food available at affordable prices.
+        </p>
+
+        <div class="feature-grid">
+
+            <article class="feature-card">
+                <span>🌍</span>
+                <h3>Reduce Food Waste</h3>
+                <p>
+                    Give surplus food a second chance
+                    instead of letting it go to waste.
+                </p>
+            </article>
+
+            <article class="feature-card">
+                <span>🤝</span>
+                <h3>Connect Communities</h3>
+                <p>
+                    Bring local businesses and
+                    consumers together.
+                </p>
+            </article>
+
+            <article class="feature-card">
+                <span>💚</span>
+                <h3>Promote Sustainability</h3>
+                <p>
+                    Make sustainable choices part
+                    of everyday life.
+                </p>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- Available Food -->
+    <section id="food" class="section food-section">
+
+        <h2>Today's Available Food</h2>
+
+        <p class="subtitle">
+            Great food, affordable prices, and a greener planet.
+        </p>
+
+        <div class="filter-bar">
+
+            <input type="search"
+                   id="searchInput"
+                   placeholder="Search for food..."
+                   aria-label="Search for food">
+
+            <select id="regionFilter" aria-label="Filter by location">
+                <option value="all">All Locations</option>
+                <option value="Taipei">Taipei</option>
+                <option value="New Taipei">New Taipei</option>
+            </select>
+
+            <select id="categoryFilter" aria-label="Filter by category">
+                <option value="all">All Categories</option>
+                <option value="Meals">Meals</option>
+                <option value="Noodles">Noodles</option>
+                <option value="Bakery">Bakery</option>
+                <option value="Light Meals">Light Meals</option>
+            </select>
+
+        </div>
+
+        <div id="foodList" class="food-grid"></div>
+
+        <p id="message" role="status"></p>
+
+        <small>
+            * Food listings are simulated for
+            academic demonstration purposes.
+        </small>
+
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="section">
+
+        <h2>How It Works</h2>
+
+        <p class="subtitle">
+            Three simple steps to make a difference.
+        </p>
+
+        <div class="feature-grid">
+
+            <article class="feature-card">
+                <span>🔍</span>
+                <h3>01. Discover Food</h3>
+                <p>
+                    Browse available surplus food
+                    from local businesses.
+                </p>
+            </article>
+
+            <article class="feature-card">
+                <span>📱</span>
+                <h3>02. Make a Reservation</h3>
+                <p>
+                    Select your favorite meal
+                    and reserve it online.
+                </p>
+            </article>
+
+            <article class="feature-card">
+                <span>🍱</span>
+                <h3>03. Pick Up Your Food</h3>
+                <p>
+                    Collect your meal from the store
+                    during the designated pickup time.
+                </p>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- Environmental Impact -->
+    <section id="impact" class="section impact-section">
+
+        <h2>Small Actions, Big Impact</h2>
+
+        <p class="subtitle">
+            Every meal saved makes a difference.
+        </p>
+
+        <div class="impact-grid">
+
+            <div>
+                <h3 id="savedMeals">0</h3>
+                <p>Meals Reserved (Demo)</p>
+            </div>
+
+            <div>
+                <h3 id="savedWaste">0.0</h3>
+                <p>Potential Food Waste Avoided (kg)</p>
+            </div>
+
+            <div>
+                <h3 id="savedMoney">0</h3>
+                <p>Estimated Money Saved (NT$)</p>
+            </div>
+
+        </div>
+
+        <small>
+            Demonstration estimate: each meal
+            weighs approximately 0.4 kg.
+        </small>
+
+    </section>
+
+    <!-- Sustainable Development Goals -->
+    <section id="sdgs" class="section">
+
+        <h2>Our Commitment to the SDGs</h2>
+
+        <p class="subtitle">
+            Supporting the United Nations
+            Sustainable Development Goals.
+        </p>
+
+        <div class="sdg-grid">
+
+            <article class="sdg-card sdg2">
+                <h3>SDG 2</h3>
+                <h4>Zero Hunger</h4>
+                <p>
+                    Improve access to affordable food
+                    and promote the efficient use
+                    of food resources.
+                </p>
+            </article>
+
+            <article class="sdg-card sdg12">
+                <h3>SDG 12</h3>
+                <h4>Responsible Consumption and Production</h4>
+                <p>
+                    Reduce food waste and encourage
+                    sustainable consumption through
+                    responsible food redistribution.
+                </p>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- Store Partnership -->
+    <section id="stores" class="section">
+
+        <h2>Become a FoodBridge Partner</h2>
+
+        <p class="subtitle">
+            Turn Surplus Food into Positive Change
+        </p>
+
+        <p>
+            Are you a restaurant, bakery, cafe,
+            or food retailer? Join FoodBridge
+            and help us reduce food waste while
+            reaching new customers.
+        </p>
+
+        <div class="feature-grid">
+
+            <article class="feature-card">
+                <span>♻️</span>
+                <h3>Reduce Waste</h3>
+                <p>Make better use of unsold food.</p>
+            </article>
+
+            <article class="feature-card">
+                <span>📈</span>
+                <h3>Recover Revenue</h3>
+                <p>Generate value from surplus meals.</p>
+            </article>
+
+            <article class="feature-card">
+                <span>🌱</span>
+                <h3>Build a Greener Brand</h3>
+                <p>Show your commitment to sustainability.</p>
+            </article>
+
+        </div>
+
+        <a href="#contact" class="btn">Become a Partner →</a>
+
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="section">
+
+        <h2>Contact Us</h2>
+
+        <p class="subtitle">
+            Let's work together for a more sustainable future.
+        </p>
+
+        <form id="contactForm">
+
+            <label for="name">Full Name</label>
+
+            <input id="name"
+                   type="text"
+                   placeholder="Enter your name"
+                   required>
+
+            <label for="email">Email Address</label>
+
+            <input id="email"
+                   type="email"
+                   placeholder="Enter your email"
+                   required>
+
+            <label for="feedback">Message</label>
+
+            <textarea id="feedback"
+                      rows="5"
+                      placeholder="Enter your message..."
+                      required></textarea>
+
+            <button type="submit" class="btn">
+                Send Message
+            </button>
+
+        </form>
+
+        <small>
+            * This contact form is for demonstration only.
+            Messages are not sent to a server.
+        </small>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+
+        <h3>🌱 FoodBridge</h3>
+
+        <p>Save Food. Share Hope. Build a Better Future.</p>
+
+        <p>
+            &copy; 2026 FoodBridge |
+            Web Programming Final Project
+        </p>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
