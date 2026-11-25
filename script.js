@@ -1,96 +1,56 @@
 
-/* ========================================
-   FoodBridge - Interactive Features
-   ======================================== */
+// FoodBridge - Food Listings and Interactive Features
 
-// 1. Food Database
+// 1. Food Data
 
 const defaultFoods = [
     {
         id: 1,
-        name: "Chicken Bento",
-        store: "Green Kitchen",
+        name: "Freshly Baked Bread",
+        store: "Green Leaf Bakery",
         region: "Taipei",
+        category: "Bakery",
+        price: 35,
+        originalPrice: 65,
+        stock: 5,
+        weight: 0.25,
+        pickup: "5:00 PM - 7:00 PM",
+        image: "green-leaf.jpg"
+    },
+    {
+        id: 2,
+        name: "Assorted Pastries",
+        store: "Sweetbread Bakery",
+        region: "New Taipei",
+        category: "Bakery",
+        price: 50,
+        originalPrice: 90,
+        stock: 4,
+        weight: 0.30,
+        pickup: "6:00 PM - 8:00 PM",
+        image: "sweetbread.jpg"
+    },
+    {
+        id: 3,
+        name: "Traditional Bento",
+        store: "Sunny Bento Shop",
+        region: "Tainan",
         category: "Meals",
         price: 60,
         originalPrice: 110,
         stock: 5,
         weight: 0.45,
         pickup: "5:00 PM - 7:00 PM",
-        image: "🍱"
-    },
-    {
-        id: 2,
-        name: "Sesame Cold Noodles",
-        store: "Happy Noodle House",
-        region: "New Taipei",
-        category: "Noodles",
-        price: 35,
-        originalPrice: 65,
-        stock: 4,
-        weight: 0.35,
-        pickup: "4:00 PM - 6:00 PM",
-        image: "🍜"
-    },
-    {
-        id: 3,
-        name: "Artisan Bread",
-        store: "Sunrise Bakery",
-        region: "Taipei",
-        category: "Bakery",
-        price: 25,
-        originalPrice: 50,
-        stock: 6,
-        weight: 0.25,
-        pickup: "6:00 PM - 8:00 PM",
-        image: "🥐"
-    },
-    {
-        id: 4,
-        name: "Vegetable Salad Bowl",
-        store: "Fresh & Green",
-        region: "Taipei",
-        category: "Light Meals",
-        price: 50,
-        originalPrice: 95,
-        stock: 3,
-        weight: 0.4,
-        pickup: "5:00 PM - 7:00 PM",
-        image: "🥗"
-    },
-    {
-        id: 5,
-        name: "Teriyaki Rice Bowl",
-        store: "Daily Rice Kitchen",
-        region: "New Taipei",
-        category: "Meals",
-        price: 70,
-        originalPrice: 130,
-        stock: 4,
-        weight: 0.5,
-        pickup: "6:00 PM - 8:00 PM",
-        image: "🍚"
-    },
-    {
-        id: 6,
-        name: "Fresh Sandwich",
-        store: "Morning Cafe",
-        region: "New Taipei",
-        category: "Light Meals",
-        price: 40,
-        originalPrice: 80,
-        stock: 5,
-        weight: 0.3,
-        pickup: "3:00 PM - 5:00 PM",
-        image: "🥪"
+        image: "sunny-bento.jpg"
     }
 ];
 
-// 2. Load Saved Data
 
-let foods = JSON.parse(
-    JSON.stringify(defaultFoods)
-);
+// 2. Initialize Data
+
+const storageKey = "foodbridge_midterm_v3";
+
+let foods = defaultFoods.map(food => ({ ...food }));
 
 let impact = {
     meals: 0,
@@ -98,71 +58,89 @@ let impact = {
     money: 0
 };
 
+
+// 3. Load Saved Reservations
+
 try {
-    const savedData = localStorage.getItem(
-        "foodbridgeData"
+
+    const saved = JSON.parse(
+        localStorage.getItem(storageKey)
     );
 
-    if (savedData) {
-        const data = JSON.parse(savedData);
+    if (saved && saved.stock) {
 
-        if (Array.isArray(data.foods) && data.impact) {
-            foods = data.foods;
-            impact = data.impact;
-        }
+        foods.forEach(food => {
+
+            const stock = saved.stock[food.id];
+
+            if (
+                Number.isInteger(stock) &&
+                stock >= 0 &&
+                stock <= food.stock
+            ) {
+                food.stock = stock;
+            }
+
+        });
+
     }
+
 } catch (error) {
-    console.warn("Saved data could not be loaded.");
+
+    console.warn("Unable to load saved data.");
+
 }
 
-// 3. Select HTML Elements
 
-const foodList = document.getElementById("foodList");
+// 4. HTML Elements
 
-const searchInput = document.getElementById(
-    "searchInput"
-);
+const foodList =
+    document.getElementById("foodList");
 
-const regionFilter = document.getElementById(
-    "regionFilter"
-);
+const searchInput =
+    document.getElementById("searchInput");
 
-const categoryFilter = document.getElementById(
-    "categoryFilter"
-);
+const regionFilter =
+    document.getElementById("regionFilter");
 
-const message = document.getElementById("message");
+const categoryFilter =
+    document.getElementById("categoryFilter");
 
-const contactForm = document.getElementById(
-    "contactForm"
-);
+const message =
+    document.getElementById("message");
 
-// 4. Display Food Cards
+const contactForm =
+    document.getElementById("contactForm");
 
-function displayFoods(foodArray) {
+const contactStatus =
+    document.getElementById("contactStatus");
+
+
+// 5. Display Food Cards
+
+function displayFoods(items) {
 
     foodList.innerHTML = "";
 
-    if (foodArray.length === 0) {
+    if (items.length === 0) {
 
         foodList.innerHTML = `
             <div class="empty-state">
-                <h3>No food found</h3>
+
+                <h3>No matching meals</h3>
+
                 <p>
-                    Try another keyword or change
-                    your filters.
+                    Try another search or change your filters.
                 </p>
+
             </div>
         `;
 
         return;
+
     }
 
-    foodArray.forEach(food => {
-
-        const discount = Math.round(
-            (1 - food.price / food.originalPrice) * 100
-        );
+    items.forEach(food => {
 
         const card = document.createElement("article");
 
@@ -171,30 +149,38 @@ function displayFoods(foodArray) {
         card.innerHTML = `
 
             <div class="food-image">
-                ${food.image}
+
+                <img
+                    src="${food.image}"
+                    alt="${food.name}"
+                    loading="lazy"
+                >
+
             </div>
 
             <div class="food-content">
 
                 <span class="stock">
-                    ${
-                        food.stock > 0
-                        ? food.stock + " left"
-                        : "Sold Out"
-                    }
+
+                    ${food.stock > 0
+                        ? food.stock + " available"
+                        : "Sold out"}
+
                 </span>
 
                 <h3>${food.name}</h3>
 
-                <p>🏪 ${food.store}</p>
+                <p>${food.store}</p>
 
-                <p>📍 ${food.region}</p>
+                <p>${food.region} · ${food.category}</p>
 
-                <p>🕒 Pickup: ${food.pickup}</p>
+                <p>Pickup: ${food.pickup}</p>
 
-                <p>Category: ${food.category}</p>
+                <span class="photo-note">
+                    Illustrative photo
+                </span>
 
-                <div>
+                <div class="price-row">
 
                     <span class="price">
                         NT$${food.price}
@@ -206,21 +192,20 @@ function displayFoods(foodArray) {
 
                 </div>
 
-                <p>${discount}% OFF</p>
-
                 <button
                     class="reserve-btn"
                     data-id="${food.id}"
                     ${food.stock === 0 ? "disabled" : ""}
                 >
-                    ${
-                        food.stock > 0
-                        ? "Reserve Now"
-                        : "Sold Out"
-                    }
+
+                    ${food.stock > 0
+                        ? "Reserve"
+                        : "Sold Out"}
+
                 </button>
 
             </div>
+
         `;
 
         foodList.appendChild(card);
@@ -229,17 +214,19 @@ function displayFoods(foodArray) {
 
 }
 
-// 5. Search and Filter Food
+
+// 6. Search and Filter
 
 function filterFoods() {
 
-    const keyword = searchInput.value
-        .toLowerCase()
-        .trim();
+    const keyword =
+        searchInput.value.toLowerCase().trim();
 
-    const selectedRegion = regionFilter.value;
+    const region =
+        regionFilter.value;
 
-    const selectedCategory = categoryFilter.value;
+    const category =
+        categoryFilter.value;
 
     const filteredFoods = foods.filter(food => {
 
@@ -248,12 +235,12 @@ function filterFoods() {
             food.store.toLowerCase().includes(keyword);
 
         const matchesRegion =
-            selectedRegion === "all" ||
-            food.region === selectedRegion;
+            region === "all" ||
+            food.region === region;
 
         const matchesCategory =
-            selectedCategory === "all" ||
-            food.category === selectedCategory;
+            category === "all" ||
+            food.category === category;
 
         return (
             matchesKeyword &&
@@ -267,7 +254,8 @@ function filterFoods() {
 
 }
 
-// 6. Reservation System
+
+// 7. Reservation
 
 function reserveFood(id) {
 
@@ -276,32 +264,36 @@ function reserveFood(id) {
     );
 
     if (!food || food.stock <= 0) {
-        showMessage("This item is no longer available.");
+
+        showMessage(
+            "This item is no longer available."
+        );
+
         return;
+
     }
 
-    const confirmed = confirm(
-        `Reserve one ${food.name} for NT$${food.price}?`
+    const confirmed = window.confirm(
+
+        food.name + "\n\n" +
+
+        "Store: " + food.store + "\n" +
+
+        "Price: NT$" + food.price + "\n" +
+
+        "Pickup: " + food.pickup + "\n\n" +
+
+        "Continue with reservation preview?\n" +
+
+        "No order or payment will be sent to the store."
+
     );
 
     if (!confirmed) {
         return;
     }
 
-    // Reduce available stock
-
     food.stock -= 1;
-
-    // Update environmental impact
-
-    impact.meals += 1;
-
-    impact.waste += food.weight;
-
-    impact.money +=
-        food.originalPrice - food.price;
-
-    // Save and refresh data
 
     saveData();
 
@@ -310,41 +302,76 @@ function reserveFood(id) {
     updateImpact();
 
     showMessage(
-        `Demo reservation successful! You reserved ${food.name}.`
+        food.name +
+        " selected. Reservation preview completed."
     );
 
 }
 
-// 7. Environmental Impact Calculator
+
+// 8. Environmental Impact
 
 function updateImpact() {
 
-    document.getElementById(
-        "savedMeals"
-    ).textContent = impact.meals;
+    impact = {
+        meals: 0,
+        waste: 0,
+        money: 0
+    };
 
-    document.getElementById(
-        "savedWaste"
-    ).textContent = impact.waste.toFixed(2);
+    foods.forEach(food => {
 
-    document.getElementById(
-        "savedMoney"
-    ).textContent = impact.money.toLocaleString("en-US");
+        const original = defaultFoods.find(
+            item => item.id === food.id
+        );
+
+        const reserved =
+            original.stock - food.stock;
+
+        impact.meals += reserved;
+
+        impact.waste += reserved * food.weight;
+
+        impact.money += reserved *
+            (food.originalPrice - food.price);
+
+    });
+
+    document.getElementById("savedMeals")
+        .textContent = impact.meals;
+
+    document.getElementById("savedWaste")
+        .textContent = impact.waste.toFixed(2);
+
+    document.getElementById("savedMoney")
+        .textContent =
+            impact.money.toLocaleString("en-US");
 
 }
 
-// 8. Save Data to Local Storage
+
+// 9. Save Data
 
 function saveData() {
+
+    const stock = {};
+
+    foods.forEach(food => {
+
+        stock[food.id] = food.stock;
+
+    });
 
     try {
 
         localStorage.setItem(
-            "foodbridgeData",
+
+            storageKey,
+
             JSON.stringify({
-                foods: foods,
-                impact: impact
+                stock: stock
             })
+
         );
 
     } catch (error) {
@@ -355,7 +382,8 @@ function saveData() {
 
 }
 
-// 9. Display Notification
+
+// 10. Notifications
 
 let messageTimer;
 
@@ -366,50 +394,78 @@ function showMessage(text) {
     message.textContent = text;
 
     messageTimer = setTimeout(() => {
+
         message.textContent = "";
-    }, 5000);
+
+    }, 6000);
 
 }
 
-// 10. Contact Form
 
-contactForm.addEventListener(
-    "submit",
-    function(event) {
+// 11. Store Links
 
-        event.preventDefault();
+document.querySelectorAll("[data-store]")
+    .forEach(link => {
 
-        const name = document.getElementById(
-            "name"
-        ).value.trim();
+        link.addEventListener("click", () => {
 
-        const email = document.getElementById(
-            "email"
-        ).value.trim();
+            searchInput.value =
+                link.dataset.store;
 
-        const feedback = document.getElementById(
-            "feedback"
-        ).value.trim();
+            regionFilter.value = "all";
 
-        if (!name || !email || !feedback) {
+            categoryFilter.value = "all";
 
-            alert("Please complete all fields.");
+            filterFoods();
 
-            return;
-        }
+        });
 
-        alert(
-            `Thank you, ${name}! ` +
-            "Your demo form was completed successfully. " +
-            "No message has been sent to a server."
-        );
+    });
 
-        contactForm.reset();
+
+// 12. Contact Form
+
+contactForm.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const feedback =
+        document.getElementById("feedback").value.trim();
+
+    if (!name || !email || !feedback) {
+
+        contactStatus.textContent =
+            "Please complete all fields.";
+
+        return;
 
     }
-);
 
-// 11. Event Listeners
+    window.alert(
+
+        "Message Preview\n\n" +
+
+        "Name: " + name + "\n" +
+
+        "Email: " + email + "\n\n" +
+
+        feedback
+
+    );
+
+    contactStatus.textContent =
+        "Your message is ready. Online messaging is coming soon.";
+
+});
+
+
+// 13. Event Listeners
 
 searchInput.addEventListener(
     "input",
@@ -426,17 +482,23 @@ categoryFilter.addEventListener(
     filterFoods
 );
 
-foodList.addEventListener("click", function(event) {
+foodList.addEventListener("click", event => {
 
-    const button = event.target.closest(".reserve-btn");
+    const button =
+        event.target.closest(".reserve-btn");
 
     if (button && !button.disabled) {
-        reserveFood(Number(button.dataset.id));
+
+        reserveFood(
+            Number(button.dataset.id)
+        );
+
     }
 
 });
 
-// 12. Initialize Website
+
+// 14. Initialize Website
 
 filterFoods();
 
