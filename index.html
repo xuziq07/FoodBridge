@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +22,7 @@
     <header>
         <nav class="navbar">
 
-            <a href="#home" class="logo">
-                FoodBridge<span>.</span>
-            </a>
+            <a href="#home" class="logo">FoodBridge.</a>
 
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -35,511 +32,513 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
 
-            <a href="#food" class="nav-button">
-                Reserve
-            </a>
+            <a href="#food" class="nav-button">Find a Meal</a>
 
         </nav>
     </header>
 
+    <main>
 
-    <!-- Homepage -->
+        <!-- Homepage -->
 
-    <section id="home" class="hero">
+        <section id="home" class="hero">
 
-        <div class="hero-content">
+            <div class="hero-content">
 
-            <h1>Reducing waste,<br>feeding hope.</h1>
-
-            <p>
-                Discover surplus meals from local eateries.
-                Enjoy good food at affordable prices and help
-                reduce food waste in your community.
-            </p>
-
-            <a href="#food" class="btn">
-                Find Food
-            </a>
-
-            <a href="#about" class="btn-outline">
-                Learn More
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- About Us -->
-
-    <section id="about" class="section">
-
-        <div class="section-heading">
-
-            <span class="eyebrow">ABOUT US</span>
-
-            <h2>Good food deserves a second chance.</h2>
-
-            <p>
-                FoodBridge connects local eateries with people
-                looking for affordable meals. Together, we can
-                make better use of the food around us.
-            </p>
-
-        </div>
-
-        <div class="feature-grid">
-
-            <article class="feature-card">
-
-                <img
-                    src="images/reservation.jpg"
-                    alt="Ordering a meal online"
-                    loading="lazy">
-
-                <h3>Easy Reservations</h3>
+                <h1>Reducing waste,<br>feeding hope.</h1>
 
                 <p>
-                    Find and reserve meals online before
-                    heading to the store.
+                    Good food shouldn't go to waste.
+                    Discover surplus meals from local eateries
+                    and enjoy delicious food at affordable prices.
                 </p>
 
-            </article>
+                <a href="#food" class="btn">Find Food</a>
 
-            <article class="feature-card">
+                <a href="#about" class="btn-outline">
+                    Learn More
+                </a>
 
-                <img
-                    src="images/bakery.jpg"
-                    alt="Fresh bread at a local bakery"
-                    loading="lazy">
-
-                <h3>Available Inventory</h3>
-
-                <p>
-                    Browse available food and check
-                    how many portions are left.
-                </p>
-
-            </article>
-
-            <article class="feature-card">
-
-                <img
-                    src="images/sustainability.jpg"
-                    alt="Fresh vegetables and groceries"
-                    loading="lazy">
-
-                <h3>Support Sustainability</h3>
-
-                <p>
-                    Help reduce unnecessary waste
-                    while supporting local businesses.
-                </p>
-
-            </article>
-
-        </div>
-
-    </section>
-
-
-    <!-- Our Mission -->
-
-    <section class="mission-section">
-
-        <div class="mission-image">
-
-            <img
-                src="images/mission.jpg"
-                alt="Preparing food for the community"
-                loading="lazy">
-
-        </div>
-
-        <div class="mission-content">
-
-            <span class="eyebrow">OUR MISSION</span>
-
-            <h2>Dedicated to Ending Hunger</h2>
-
-            <p>
-                Food should bring people together,
-                not go to waste.
-            </p>
-
-            <p>
-                By connecting surplus food with our
-                community, FoodBridge supports greater
-                access to affordable meals and more
-                responsible food consumption.
-            </p>
-
-            <a href="#food" class="btn">
-                Join Our Mission
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- Available Food -->
-
-    <section id="food" class="section food-section">
-
-        <div class="section-heading">
-
-            <span class="eyebrow">EXPLORE</span>
-
-            <h2>Find Your Next Meal</h2>
-
-            <p>
-                Discover delicious meals at better prices.
-            </p>
-
-        </div>
-
-        <div class="filter-bar">
-
-            <input
-                type="search"
-                id="searchInput"
-                placeholder="Search meals or stores"
-                aria-label="Search meals or stores">
-
-            <select id="regionFilter" aria-label="Location">
-
-                <option value="all">All Locations</option>
-                <option value="Taipei">Taipei</option>
-                <option value="New Taipei">New Taipei</option>
-                <option value="Tainan">Tainan</option>
-
-            </select>
-
-            <select id="categoryFilter" aria-label="Food category">
-
-                <option value="all">All Categories</option>
-                <option value="Meals">Meals</option>
-                <option value="Noodles">Noodles</option>
-                <option value="Bakery">Bakery</option>
-                <option value="Light Meals">Light Meals</option>
-
-            </select>
-
-        </div>
-
-        <div id="foodList" class="food-grid"></div>
-
-        <p id="message" role="status" aria-live="polite"></p>
-
-    </section>
-
-
-    <!-- How It Works -->
-
-    <section id="how-it-works" class="section">
-
-        <div class="section-heading">
-
-            <span class="eyebrow">GET STARTED</span>
-
-            <h2>How It Works</h2>
-
-        </div>
-
-        <div class="steps-grid">
-
-            <article class="step">
-
-                <span class="step-number">01</span>
-
-                <h3>Browse</h3>
-
-                <p>
-                    Explore available meals from
-                    local food stores.
-                </p>
-
-            </article>
-
-            <article class="step">
-
-                <span class="step-number">02</span>
-
-                <h3>Choose</h3>
-
-                <p>
-                    Select your preferred meal
-                    and check the pickup time.
-                </p>
-
-            </article>
-
-            <article class="step">
-
-                <span class="step-number">03</span>
-
-                <h3>Reserve</h3>
-
-                <p>
-                    Reserve your meal directly
-                    through FoodBridge.
-                </p>
-
-            </article>
-
-            <article class="step">
-
-                <span class="step-number">04</span>
-
-                <h3>Pick Up</h3>
-
-                <p>
-                    Collect your meal during
-                    the scheduled pickup period.
-                </p>
-
-            </article>
-
-        </div>
-
-    </section>
-
-
-    <!-- Sustainability -->
-
-    <section id="impact" class="impact-section section">
-
-        <div class="section-heading">
-
-            <span class="eyebrow">OUR IMPACT</span>
-
-            <h2>Every Meal Makes a Difference</h2>
-
-        </div>
-
-        <div class="impact-grid">
-
-            <div>
-                <h3 id="savedMeals">0</h3>
-                <p>Meals Reserved</p>
             </div>
 
-            <div>
-                <h3><span id="savedWaste">0.00</span> kg</h3>
-                <p>Potential Food Waste Avoided</p>
+        </section>
+
+
+        <!-- About Us -->
+
+        <section id="about" class="section">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">ABOUT US</span>
+
+                <h2>Good food deserves a second chance.</h2>
+
+                <p>
+                    FoodBridge aims to connect local food businesses
+                    with people looking for affordable meals,
+                    creating a more sustainable food community.
+                </p>
+
             </div>
 
-            <div>
-                <h3>NT$<span id="savedMoney">0</span></h3>
-                <p>Estimated Savings</p>
-            </div>
+            <div class="feature-grid">
 
-        </div>
+                <article class="feature-card">
 
-    </section>
+                    <img src="reservation.jpg"
+                         alt="Online food reservations"
+                         loading="lazy">
 
-
-    <!-- Sustainable Development Goals -->
-
-    <section id="sdgs" class="section">
-
-        <div class="section-heading">
-
-            <span class="eyebrow">SUSTAINABILITY</span>
-
-            <h2>Building a Better Future</h2>
-
-        </div>
-
-        <div class="sdg-grid">
-
-            <article class="sdg-card sdg2">
-
-                <img
-                    src="images/sdg2.png"
-                    alt="United Nations Sustainable Development Goal 2">
-
-                <div>
-
-                    <h3>Zero Hunger</h3>
+                    <h3>Easy Reservations</h3>
 
                     <p>
-                        Improving access to affordable
-                        food and reducing food insecurity.
+                        Find your favorite meals and explore
+                        our reservation process.
                     </p>
 
-                </div>
+                </article>
 
-            </article>
+                <article class="feature-card">
 
-            <article class="sdg-card sdg12">
+                    <img src="bakery.jpg"
+                         alt="Local food business"
+                         loading="lazy">
 
-                <img
-                    src="images/sdg12.png"
-                    alt="United Nations Sustainable Development Goal 12">
-
-                <div>
-
-                    <h3>Responsible Consumption and Production</h3>
+                    <h3>Available Inventory</h3>
 
                     <p>
-                        Encouraging responsible food consumption
-                        and reducing unnecessary food waste.
+                        Browse food listings, prices,
+                        and available portions in one place.
                     </p>
 
+                </article>
+
+                <article class="feature-card">
+
+                    <img src="sustainability.jpg"
+                         alt="Sustainable food choices"
+                         loading="lazy">
+
+                    <h3>Support Sustainability</h3>
+
+                    <p>
+                        Make more responsible food choices
+                        and help reduce unnecessary waste.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Our Mission -->
+
+        <section class="mission-section">
+
+            <div class="mission-image">
+
+                <img src="mission.jpg"
+                     alt="Community food sharing"
+                     loading="lazy">
+
+            </div>
+
+            <div class="mission-content">
+
+                <span class="eyebrow">OUR MISSION</span>
+
+                <h2>Dedicated to Ending Hunger</h2>
+
+                <p>
+                    Food should bring people together,
+                    not go to waste.
+                </p>
+
+                <p>
+                    We believe that making better use of surplus
+                    food can improve access to affordable meals
+                    and support a more sustainable future.
+                </p>
+
+                <a href="#food" class="btn">Explore Food</a>
+
+            </div>
+
+        </section>
+
+
+        <!-- Find Food -->
+
+        <section id="food" class="section food-section">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">FIND FOOD</span>
+
+                <h2>Find Your Next Meal</h2>
+
+                <p>
+                    Discover delicious food at better prices.
+                </p>
+
+            </div>
+
+            <div class="filter-bar">
+
+                <input type="search"
+                       id="searchInput"
+                       placeholder="Search meals or stores"
+                       aria-label="Search meals or stores">
+
+                <select id="regionFilter"
+                        aria-label="Location">
+
+                    <option value="all">All Locations</option>
+                    <option value="Taipei">Taipei</option>
+                    <option value="New Taipei">New Taipei</option>
+                    <option value="Tainan">Tainan</option>
+
+                </select>
+
+                <select id="categoryFilter"
+                        aria-label="Food category">
+
+                    <option value="all">All Categories</option>
+                    <option value="Meals">Meals</option>
+                    <option value="Bakery">Bakery</option>
+
+                </select>
+
+            </div>
+
+            <p class="availability-note">
+                Explore our sample menu. Online ordering is coming soon.
+            </p>
+
+            <div id="foodList" class="food-grid"></div>
+
+            <p id="message"
+               role="status"
+               aria-live="polite"></p>
+
+        </section>
+
+
+        <!-- How It Works -->
+
+        <section id="how-it-works" class="section">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">GET STARTED</span>
+
+                <h2>How It Works</h2>
+
+            </div>
+
+            <div class="steps-grid">
+
+                <article class="step">
+
+                    <span class="step-number">01</span>
+
+                    <h3>Browse</h3>
+
+                    <p>
+                        Discover food from local bakeries
+                        and eateries.
+                    </p>
+
+                </article>
+
+                <article class="step">
+
+                    <span class="step-number">02</span>
+
+                    <h3>Choose</h3>
+
+                    <p>
+                        Select a meal and check its price
+                        and pickup information.
+                    </p>
+
+                </article>
+
+                <article class="step">
+
+                    <span class="step-number">03</span>
+
+                    <h3>Reserve</h3>
+
+                    <p>
+                        Preview the online reservation process.
+                    </p>
+
+                </article>
+
+                <article class="step">
+
+                    <span class="step-number">04</span>
+
+                    <h3>Pick Up</h3>
+
+                    <p>
+                        Once ordering launches, collect your
+                        meal during the scheduled pickup period.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Environmental Impact -->
+
+        <section id="impact" class="section impact-section">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">SUSTAINABILITY</span>
+
+                <h2>Every Meal Makes a Difference</h2>
+
+                <p>Explore the potential impact of saving surplus food.</p>
+
+            </div>
+
+            <div class="impact-grid">
+
+                <div>
+                    <h3 id="savedMeals">0</h3>
+                    <p>Meals Selected</p>
                 </div>
 
-            </article>
+                <div>
+                    <h3><span id="savedWaste">0.00</span> kg</h3>
+                    <p>Potential Food Waste Avoided</p>
+                </div>
 
-        </div>
+                <div>
+                    <h3>NT$<span id="savedMoney">0</span></h3>
+                    <p>Estimated Savings</p>
+                </div>
 
-    </section>
+            </div>
 
-
-    <!-- Stores -->
-
-    <section id="stores" class="section stores-section">
-
-        <div class="section-heading">
-
-            <span class="eyebrow">LOCAL FOOD</span>
-
-            <h2>Featured Stores</h2>
-
-            <p>
-                Discover bakeries and eateries in your community.
-            </p>
-
-        </div>
-
-        <div class="store-grid">
-
-            <article class="store-card">
-
-                <img
-                    src="images/green-leaf.jpg"
-                    alt="Local bakery"
-                    loading="lazy">
-
-                <h3>Green Leaf Bakery</h3>
-
-                <p>Bakery</p>
-
-                <a href="#food">Explore Food</a>
-
-            </article>
-
-            <article class="store-card">
-
-                <img
-                    src="images/sweetbread.jpg"
-                    alt="Fresh pastries at a bakery"
-                    loading="lazy">
-
-                <h3>Sweetbread Bakery</h3>
-
-                <p>Bread &amp; Pastries</p>
-
-                <a href="#food">Explore Food</a>
-
-            </article>
-
-            <article class="store-card">
-
-                <img
-                    src="images/sunny-bento.jpg"
-                    alt="Freshly prepared bento meals"
-                    loading="lazy">
-
-                <h3>Sunny Bento Shop</h3>
-
-                <p>Bento &amp; Rice Meals</p>
-
-                <a href="#food">Explore Food</a>
-
-            </article>
-
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- Store Partnership -->
+        <!-- SDGs -->
 
-    <section class="partner-section">
+        <section id="sdgs" class="section">
 
-        <div class="partner-content">
+            <div class="section-heading">
 
-            <span class="eyebrow">FOR BUSINESSES</span>
+                <span class="eyebrow">OUR COMMITMENT</span>
 
-            <h2>Have food to share?</h2>
+                <h2>Building a Better Future</h2>
 
-            <p>
-                Give your surplus food a second chance.
-                Connect with your local community and
-                make the most of every meal.
-            </p>
+            </div>
 
-            <a href="#contact" class="btn">
-                Get in Touch
-            </a>
+            <div class="sdg-grid">
 
-        </div>
+                <article class="sdg-card">
 
-    </section>
+                    <img src="sdg2.png"
+                         alt="SDG 2 Zero Hunger"
+                         loading="lazy">
+
+                    <div>
+
+                        <h3>Zero Hunger</h3>
+
+                        <p>
+                            Supporting access to affordable food
+                            and raising awareness of food insecurity.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <article class="sdg-card">
+
+                    <img src="sdg12.png"
+                         alt="SDG 12 Responsible Consumption and Production"
+                         loading="lazy">
+
+                    <div>
+
+                        <h3>Responsible Consumption and Production</h3>
+
+                        <p>
+                            Encouraging responsible consumption
+                            and reducing unnecessary food waste.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
 
 
-    <!-- Contact -->
+        <!-- Stores -->
 
-    <section id="contact" class="section contact-section">
+        <section id="stores" class="section stores-section">
 
-        <div class="section-heading">
+            <div class="section-heading">
 
-            <span class="eyebrow">CONTACT</span>
+                <span class="eyebrow">LOCAL FOOD</span>
 
-            <h2>Let's Get in Touch</h2>
+                <h2>Explore Our Store Listings</h2>
 
-            <p>
-                Questions, ideas or partnership opportunities?
-                We'd love to hear from you.
-            </p>
+                <p>
+                    From freshly baked bread to delicious meals.
+                </p>
 
-        </div>
+            </div>
 
-        <form id="contactForm">
+            <div class="store-grid">
 
-            <label for="name">Name</label>
+                <article class="store-card">
 
-            <input
-                type="text"
-                id="name"
-                placeholder="Your name"
-                required>
+                    <img src="green-leaf.jpg"
+                         alt="Freshly baked bread"
+                         loading="lazy">
 
-            <label for="email">Email Address</label>
+                    <h3>Green Leaf Bakery</h3>
 
-            <input
-                type="email"
-                id="email"
-                placeholder="Your email address"
-                required>
+                    <p>Bakery</p>
 
-            <label for="feedback">Message</label>
+                    <a href="#food"
+                       data-store="Green Leaf Bakery">
+                        Explore Food
+                    </a>
 
-            <textarea
-                id="feedback"
-                rows="5"
-                placeholder="How can we help?"
-                required></textarea>
+                </article>
 
-            <button type="submit" class="btn">
-                Send Message
-            </button>
+                <article class="store-card">
 
-        </form>
+                    <img src="sweetbread.jpg"
+                         alt="Assorted pastries"
+                         loading="lazy">
 
-    </section>
+                    <h3>Sweetbread Bakery</h3>
+
+                    <p>Bread &amp; Pastries</p>
+
+                    <a href="#food"
+                       data-store="Sweetbread Bakery">
+                        Explore Food
+                    </a>
+
+                </article>
+
+                <article class="store-card">
+
+                    <img src="sunny-bento.jpg"
+                         alt="Traditional bento meals"
+                         loading="lazy">
+
+                    <h3>Sunny Bento Shop</h3>
+
+                    <p>Bento &amp; Rice Meals</p>
+
+                    <a href="#food"
+                       data-store="Sunny Bento Shop">
+                        Explore Food
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- Store Partnership -->
+
+        <section class="partner-section">
+
+            <div class="partner-content">
+
+                <span class="eyebrow">FOR BUSINESSES</span>
+
+                <h2>Have food to share?</h2>
+
+                <p>
+                    Give surplus food a second chance.
+                    Connect with your community and make
+                    the most of every meal.
+                </p>
+
+                <a href="#contact" class="btn">Get in Touch</a>
+
+            </div>
+
+        </section>
+
+
+        <!-- Contact -->
+
+        <section id="contact" class="section contact-section">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">CONTACT</span>
+
+                <h2>Let's Get in Touch</h2>
+
+                <p>
+                    Questions, ideas or partnership opportunities?
+                </p>
+
+            </div>
+
+            <form id="contactForm">
+
+                <label for="name">Name</label>
+
+                <input type="text"
+                       id="name"
+                       placeholder="Your name"
+                       required>
+
+                <label for="email">Email Address</label>
+
+                <input type="email"
+                       id="email"
+                       placeholder="Your email address"
+                       required>
+
+                <label for="feedback">Message</label>
+
+                <textarea id="feedback"
+                          rows="5"
+                          placeholder="How can we help?"
+                          required></textarea>
+
+                <button type="submit" class="btn">
+                    Preview Message
+                </button>
+
+                <p id="contactStatus"
+                   role="status"
+                   aria-live="polite"></p>
+
+            </form>
+
+        </section>
+
+    </main>
 
 
     <!-- Footer -->
