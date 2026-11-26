@@ -1,0 +1,1810 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Savings Calculator | FoodBridge</title>
+
+    <link rel="stylesheet" href="../style-v2.css">
+
+    <style>
+
+        .calculator-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .calculator-panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .calculator-panel h2 {
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .panel-description {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .calculator-field {
+            margin-bottom: 26px;
+        }
+
+        .calculator-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--green);
+        }
+
+        .calculator-field input {
+            width: 100%;
+        }
+
+        .field-note {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        .range-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .range-value {
+            font-size: 23px;
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        input[type="range"] {
+            accent-color: #304832;
+            cursor: pointer;
+            width: 100%;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .discount-information {
+            background: #e8eee4;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .discount-information strong {
+            color: #304832;
+            font-size: 30px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .discount-information p {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .calculator-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .result-highlight {
+            background: #304832;
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 22px;
+        }
+
+        .result-highlight p {
+            color: #e1e9dc;
+            margin-bottom: 8px;
+        }
+
+        .result-highlight h2 {
+            color: white;
+            font-size: clamp(36px, 6vw, 52px);
+            margin-bottom: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .result-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .result-card p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .result-card strong {
+            color: var(--green);
+            font-size: 26px;
+            overflow-wrap: anywhere;
+        }
+
+        .comparison-panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 25px;
+        }
+
+        .comparison-panel h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .chart-row {
+            margin-bottom: 22px;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .chart-label strong {
+            color: var(--green);
+        }
+
+        .chart-track {
+            width: 100%;
+            height: 24px;
+            background: #f0f1ed;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .chart-bar {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        .original-bar {
+            background: #c4c9c1;
+        }
+
+        .foodbridge-bar {
+            background: #304832;
+        }
+
+        .savings-bar {
+            background: #91a887;
+        }
+
+        .chart-period {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .period-button {
+            background: white;
+            color: var(--green);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 15px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .period-button.active {
+            background: #304832;
+            color: white;
+            border-color: #304832;
+        }
+
+        .environment-panel {
+            background: #e8eee4;
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .environment-panel h3 {
+            margin-bottom: 15px;
+        }
+
+        .environment-value {
+            color: #304832;
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .environment-panel p {
+            color: #52634e;
+            font-size: 14px;
+        }
+
+        .actual-impact {
+            margin-top: 45px;
+        }
+
+        .actual-impact h2 {
+            margin-bottom: 12px;
+        }
+
+        .assumptions {
+            margin-top: 25px;
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: white;
+        }
+
+        .assumptions h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .assumptions ul {
+            padding-left: 20px;
+        }
+
+        .assumptions li {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 900px) {
+
+            .calculator-layout {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .calculator-panel,
+            .comparison-panel,
+            .environment-panel {
+                padding: 20px;
+            }
+
+            .result-card {
+                padding: 16px;
+            }
+
+            .result-card strong {
+                font-size: 21px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Customer Navigation -->
+
+    <header class="site-header">
+
+        <div class="container navbar">
+
+            <a href="../index.html" class="logo">
+                FoodBridge<span>.</span>
+            </a>
+
+            <nav aria-label="Customer navigation">
+
+                <ul class="nav-links">
+
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="food.html">Find Food</a>
+                    </li>
+
+                    <li>
+                        <a href="favorites.html">
+                            Favorites
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="orders.html">
+                            My Orders
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="calculator.html"
+                           class="active">
+
+                            Savings Calculator
+
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+            <div class="nav-actions">
+
+                <a href="cart.html"
+                   class="btn btn-primary btn-small">
+
+                    🛒 Cart
+
+                    <span class="cart-count"
+                          id="cartCount">0</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- Page Heading -->
+
+        <section class="page-header">
+
+            <div class="container">
+
+                <div class="eyebrow">
+                    Smart Spending. Sustainable Living.
+                </div>
+
+                <h1>Savings Calculator</h1>
+
+                <p>
+                    Discover how much money you could save
+                    and how much food waste you could help
+                    prevent by choosing surplus food.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Calculator -->
+
+        <section class="container"
+                 style="padding-bottom: 80px;">
+
+            <div class="calculator-layout">
+
+                <!-- User Inputs -->
+
+                <div class="calculator-panel">
+
+                    <h2>Customize Your Savings</h2>
+
+                    <p class="panel-description">
+
+                        Adjust your eating habits below
+                        to estimate your potential savings.
+
+                    </p>
+
+
+                    <div class="calculator-field">
+
+                        <label for="mealPrice">
+
+                            Average Original Meal Price (NT$)
+
+                        </label>
+
+                        <input
+                            type="number"
+                            id="mealPrice"
+                            min="1"
+                            max="10000"
+                            step="1"
+                            value="120">
+
+                        <p class="field-note">
+
+                            How much do you normally spend
+                            on one meal?
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="calculator-field">
+
+                        <div class="range-heading">
+
+                            <label for="mealsPerWeek">
+
+                                Surplus Meals per Week
+
+                            </label>
+
+                            <span class="range-value"
+                                  id="mealCountValue">
+
+                                5
+
+                            </span>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="mealsPerWeek"
+                            min="1"
+                            max="21"
+                            step="1"
+                            value="5">
+
+                        <div class="range-labels">
+
+                            <span>1 meal</span>
+
+                            <span>21 meals</span>
+
+                        </div>
+
+                        <p class="field-note">
+
+                            How many regular meals would
+                            you replace with surplus food?
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="calculator-field">
+
+                        <div class="range-heading">
+
+                            <label for="mealWeight">
+
+                                Estimated Weight per Meal
+
+                            </label>
+
+                            <span class="range-value"
+                                  id="weightValue">
+
+                                0.40 kg
+
+                            </span>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="mealWeight"
+                            min="0.1"
+                            max="1"
+                            step="0.05"
+                            value="0.4">
+
+                        <div class="range-labels">
+
+                            <span>0.1 kg</span>
+
+                            <span>1 kg</span>
+
+                        </div>
+
+                        <p class="field-note">
+
+                            Adjust the estimated food weight
+                            based on your typical meal size.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- FoodBridge Pricing -->
+
+                    <div class="discount-information">
+
+                        <strong>70% OFF</strong>
+
+                        <p>
+
+                            FoodBridge's standard pricing
+                            model offers surplus food at
+                            approximately 30% of its
+                            original price.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="calculator-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="calculateButton">
+
+                            Calculate Savings
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="resetButton">
+
+                            Reset
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Calculation Results -->
+
+                <div aria-live="polite">
+
+                    <div class="result-highlight">
+
+                        <p>
+
+                            Your Estimated Annual Savings
+
+                        </p>
+
+                        <h2 id="annualSavings">
+
+                            NT$21,840
+
+                        </h2>
+
+                        <p>
+
+                            Small daily choices can lead
+                            to meaningful long-term savings.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="result-grid">
+
+                        <article class="result-card">
+
+                            <p>FoodBridge Price per Meal</p>
+
+                            <strong id="discountedPrice">
+
+                                NT$36
+
+                            </strong>
+
+                        </article>
+
+
+                        <article class="result-card">
+
+                            <p>Savings per Meal</p>
+
+                            <strong id="savingPerMeal">
+
+                                NT$84
+
+                            </strong>
+
+                        </article>
+
+
+                        <article class="result-card">
+
+                            <p>Weekly Savings</p>
+
+                            <strong id="weeklySavings">
+
+                                NT$420
+
+                            </strong>
+
+                        </article>
+
+
+                        <article class="result-card">
+
+                            <p>Average Monthly Savings</p>
+
+                            <strong id="monthlySavings">
+
+                                NT$1,820
+
+                            </strong>
+
+                        </article>
+
+                    </div>
+
+
+                    <!-- Spending Comparison -->
+
+                    <div class="comparison-panel">
+
+                        <h3>Spending Comparison</h3>
+
+                        <div class="chart-period">
+
+                            <button
+                                type="button"
+                                class="period-button"
+                                data-period="weekly"
+                                aria-pressed="false">
+
+                                Weekly
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="period-button active"
+                                data-period="monthly"
+                                aria-pressed="true">
+
+                                Monthly
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="period-button"
+                                data-period="annual"
+                                aria-pressed="false">
+
+                                Annually
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="chart-row">
+
+                            <div class="chart-label">
+
+                                <span>Original Spending</span>
+
+                                <strong id="originalSpending">
+
+                                    NT$2,600
+
+                                </strong>
+
+                            </div>
+
+                            <div class="chart-track">
+
+                                <div
+                                    class="chart-bar original-bar"
+                                    id="originalBar"
+                                    style="width: 100%;">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-row">
+
+                            <div class="chart-label">
+
+                                <span>FoodBridge Spending</span>
+
+                                <strong id="foodbridgeSpending">
+
+                                    NT$780
+
+                                </strong>
+
+                            </div>
+
+                            <div class="chart-track">
+
+                                <div
+                                    class="chart-bar foodbridge-bar"
+                                    id="foodbridgeBar"
+                                    style="width: 30%;">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chart-row">
+
+                            <div class="chart-label">
+
+                                <span>Money Saved</span>
+
+                                <strong id="chartSavings">
+
+                                    NT$1,820
+
+                                </strong>
+
+                            </div>
+
+                            <div class="chart-track">
+
+                                <div
+                                    class="chart-bar savings-bar"
+                                    id="savingsBar"
+                                    style="width: 70%;">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Environmental Impact -->
+
+                    <div class="environment-panel">
+
+                        <h3>🌱 Your Potential Annual Impact</h3>
+
+                        <div class="environment-value"
+                             id="annualWaste">
+
+                            104.0 kg
+
+                        </div>
+
+                        <p>
+
+                            Estimated food weight that
+                            could be rescued each year.
+
+                        </p>
+
+                        <p>
+
+                            Approximately
+
+                            <strong id="annualMeals">
+
+                                260
+
+                            </strong>
+
+                            surplus meals per year.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Calculation Assumptions -->
+
+            <div class="assumptions">
+
+                <h3>How We Calculate Your Savings</h3>
+
+                <ul>
+
+                    <li>
+                        FoodBridge prices are estimated at
+                        30% of the original meal price,
+                        rounded to the nearest NT dollar.
+                    </li>
+
+                    <li>
+                        Annual estimates assume 52 weeks.
+                    </li>
+
+                    <li>
+                        Average monthly estimates are
+                        calculated by dividing annual
+                        totals by 12.
+                    </li>
+
+                    <li>
+                        Potential food waste avoided is
+                        estimated using the number of
+                        surplus meals and their assumed
+                        average weight.
+                    </li>
+
+                    <li>
+                        Results are illustrative estimates,
+                        not guaranteed financial savings
+                        or measured environmental outcomes.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- Actual Reservation Impact -->
+
+            <div class="actual-impact">
+
+                <div class="eyebrow">
+
+                    Your FoodBridge Journey
+
+                </div>
+
+                <h2>Your Recorded Impact</h2>
+
+                <p class="panel-description">
+
+                    These totals are calculated from
+                    your completed demonstration
+                    reservations.
+
+                </p>
+
+
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+
+                        <div class="feature-icon">🍽️</div>
+
+                        <div class="stat-label">
+
+                            Meals Rescued
+
+                        </div>
+
+                        <div class="stat-value"
+                             id="actualMeals">0</div>
+
+                        <div class="stat-note">
+
+                            Completed pickups
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <div class="feature-icon">💰</div>
+
+                        <div class="stat-label">
+
+                            Money Saved
+
+                        </div>
+
+                        <div class="stat-value"
+                             id="actualSavings">NT$0</div>
+
+                        <div class="stat-note">
+
+                            Recorded order savings
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <div class="feature-icon">🌱</div>
+
+                        <div class="stat-label">
+
+                            Estimated Waste Avoided
+
+                        </div>
+
+                        <div class="stat-value"
+                             id="actualWaste">0 kg</div>
+
+                        <div class="stat-note">
+
+                            Based on recorded food weight
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <div class="feature-icon">💳</div>
+
+                        <div class="stat-label">
+
+                            Total Spending
+
+                        </div>
+
+                        <div class="stat-value"
+                             id="actualSpending">NT$0</div>
+
+                        <div class="stat-note">
+
+                            Completed demo purchases
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <a href="orders.html"
+                   class="btn btn-outline"
+                   style="margin-top: 25px;">
+
+                    View My Orders →
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- Sustainability Section -->
+
+        <section class="section section-green">
+
+            <div class="container center">
+
+                <div class="section-heading center">
+
+                    <div class="eyebrow">
+
+                        Make a Difference Today
+
+                    </div>
+
+                    <h2>
+
+                        Eat well. Spend less. Waste less.
+
+                    </h2>
+
+                    <p>
+
+                        Discover affordable surplus food
+                        and turn your potential savings
+                        into sustainable everyday choices.
+
+                    </p>
+
+                </div>
+
+                <a href="food.html"
+                   class="btn btn-primary">
+
+                    Find Affordable Food →
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div>
+
+                    <a href="../index.html"
+                       class="logo">
+
+                        FoodBridge<span>.</span>
+
+                    </a>
+
+                    <p style="margin-top: 15px;">
+
+                        Reducing waste, feeding hope.
+
+                    </p>
+
+                    <p>
+
+                        Affordable food.
+                        Responsible choices.
+                        A sustainable future.
+
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Customer Portal</h3>
+
+                    <div class="footer-links">
+
+                        <a href="index.html">
+                            Customer Home
+                        </a>
+
+                        <a href="food.html">
+                            Find Food
+                        </a>
+
+                        <a href="favorites.html">
+                            My Favorites
+                        </a>
+
+                        <a href="cart.html">
+                            Shopping Cart
+                        </a>
+
+                        <a href="orders.html">
+                            My Orders
+                        </a>
+
+                        <a href="calculator.html">
+                            Savings Calculator
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h3>FoodBridge</h3>
+
+                    <div class="footer-links">
+
+                        <a href="../index.html">
+                            Main Website
+                        </a>
+
+                        <a href="../index.html#about">
+                            About Us
+                        </a>
+
+                        <a href="../index.html#sdgs">
+                            Our SDGs
+                        </a>
+
+                        <a href="../merchant/index.html">
+                            Switch to Merchant Portal
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>© 2026 FoodBridge.</p>
+
+                <p>
+
+                    Educational demonstration project.
+                    No real payments or transactions
+                    are processed.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Shared Database -->
+
+    <script src="../database.js"></script>
+
+
+    <!-- Calculator Functions -->
+
+    <script>
+
+        const db = window.FoodBridgeDB;
+
+        const DISCOUNT = 70;
+
+        const WEEKS_PER_YEAR = 52;
+
+        const MONTHS_PER_YEAR = 12;
+
+
+        const mealPriceInput =
+            document.getElementById("mealPrice");
+
+        const mealsPerWeekInput =
+            document.getElementById("mealsPerWeek");
+
+        const mealWeightInput =
+            document.getElementById("mealWeight");
+
+
+        let selectedPeriod = "monthly";
+
+        let calculationResults = null;
+
+
+        // Utility Functions
+
+        function formatMoney(value) {
+
+            return "NT$" +
+
+                Math.round(value).toLocaleString("en-US");
+
+        }
+
+
+        function formatNumber(value) {
+
+            return Number(value).toLocaleString("en-US");
+
+        }
+
+
+        function setText(id, value) {
+
+            document.getElementById(id).textContent = value;
+
+        }
+
+
+        // Validate Meal Price
+
+        function getMealPrice() {
+
+            const value = Number(mealPriceInput.value);
+
+            if (!Number.isFinite(value)) {
+
+                return 0;
+
+            }
+
+            return Math.min(
+
+                10000,
+
+                Math.max(0, Math.round(value))
+
+            );
+
+        }
+
+
+        // Calculate Savings
+
+        function calculateSavings() {
+
+            const originalPrice =
+                getMealPrice();
+
+            const mealsPerWeek =
+                Number(mealsPerWeekInput.value);
+
+            const mealWeight =
+                Number(mealWeightInput.value);
+
+
+            const discountedPrice =
+
+                db.calculatePrice(
+
+                    originalPrice,
+
+                    DISCOUNT
+
+                );
+
+
+            const savingsPerMeal =
+
+                originalPrice - discountedPrice;
+
+
+            // Weekly Results
+
+            const weeklyOriginal =
+
+                originalPrice * mealsPerWeek;
+
+
+            const weeklySpending =
+
+                discountedPrice * mealsPerWeek;
+
+
+            const weeklySavings =
+
+                savingsPerMeal * mealsPerWeek;
+
+
+            // Annual Results
+
+            const annualOriginal =
+
+                weeklyOriginal * WEEKS_PER_YEAR;
+
+
+            const annualSpending =
+
+                weeklySpending * WEEKS_PER_YEAR;
+
+
+            const annualSavings =
+
+                weeklySavings * WEEKS_PER_YEAR;
+
+
+            // Monthly Results
+
+            const monthlyOriginal =
+
+                annualOriginal / MONTHS_PER_YEAR;
+
+
+            const monthlySpending =
+
+                annualSpending / MONTHS_PER_YEAR;
+
+
+            const monthlySavings =
+
+                annualSavings / MONTHS_PER_YEAR;
+
+
+            // Estimated Environmental Impact
+
+            const annualMeals =
+
+                mealsPerWeek * WEEKS_PER_YEAR;
+
+
+            const annualWaste =
+
+                annualMeals * mealWeight;
+
+
+            // Store Results
+
+            calculationResults = {
+
+                weekly: {
+
+                    original: weeklyOriginal,
+
+                    spending: weeklySpending,
+
+                    savings: weeklySavings
+
+                },
+
+                monthly: {
+
+                    original: monthlyOriginal,
+
+                    spending: monthlySpending,
+
+                    savings: monthlySavings
+
+                },
+
+                annual: {
+
+                    original: annualOriginal,
+
+                    spending: annualSpending,
+
+                    savings: annualSavings
+
+                }
+
+            };
+
+
+            // Update Display
+
+            setText(
+
+                "mealCountValue",
+
+                mealsPerWeek
+
+            );
+
+
+            setText(
+
+                "weightValue",
+
+                mealWeight.toFixed(2) + " kg"
+
+            );
+
+
+            setText(
+
+                "discountedPrice",
+
+                formatMoney(discountedPrice)
+
+            );
+
+
+            setText(
+
+                "savingPerMeal",
+
+                formatMoney(savingsPerMeal)
+
+            );
+
+
+            setText(
+
+                "weeklySavings",
+
+                formatMoney(weeklySavings)
+
+            );
+
+
+            setText(
+
+                "monthlySavings",
+
+                formatMoney(monthlySavings)
+
+            );
+
+
+            setText(
+
+                "annualSavings",
+
+                formatMoney(annualSavings)
+
+            );
+
+
+            setText(
+
+                "annualMeals",
+
+                formatNumber(annualMeals)
+
+            );
+
+
+            setText(
+
+                "annualWaste",
+
+                annualWaste.toFixed(1) + " kg"
+
+            );
+
+
+            updateChart();
+
+        }
+
+
+        // Update Spending Chart
+
+        function updateChart() {
+
+            if (!calculationResults) {
+
+                return;
+
+            }
+
+
+            const results =
+
+                calculationResults[selectedPeriod];
+
+
+            const original = results.original;
+
+            const spending = results.spending;
+
+            const savings = results.savings;
+
+
+            const spendingPercentage =
+
+                original > 0
+
+                    ? spending / original * 100
+
+                    : 0;
+
+
+            const savingsPercentage =
+
+                original > 0
+
+                    ? savings / original * 100
+
+                    : 0;
+
+
+            setText(
+
+                "originalSpending",
+
+                formatMoney(original)
+
+            );
+
+
+            setText(
+
+                "foodbridgeSpending",
+
+                formatMoney(spending)
+
+            );
+
+
+            setText(
+
+                "chartSavings",
+
+                formatMoney(savings)
+
+            );
+
+
+            document.getElementById(
+
+                "originalBar"
+
+            ).style.width =
+
+                original > 0 ? "100%" : "0%";
+
+
+            document.getElementById(
+
+                "foodbridgeBar"
+
+            ).style.width =
+
+                spendingPercentage + "%";
+
+
+            document.getElementById(
+
+                "savingsBar"
+
+            ).style.width =
+
+                savingsPercentage + "%";
+
+        }
+
+
+        // Change Chart Period
+
+        function changePeriod(period) {
+
+            selectedPeriod = period;
+
+
+            document.querySelectorAll(
+
+                ".period-button"
+
+            ).forEach(button => {
+
+                const active =
+
+                    button.dataset.period === period;
+
+
+                button.classList.toggle(
+
+                    "active",
+
+                    active
+
+                );
+
+
+                button.setAttribute(
+
+                    "aria-pressed",
+
+                    String(active)
+
+                );
+
+            });
+
+
+            updateChart();
+
+        }
+
+
+        // Reset Calculator
+
+        function resetCalculator() {
+
+            mealPriceInput.value = 120;
+
+            mealsPerWeekInput.value = 5;
+
+            mealWeightInput.value = 0.4;
+
+
+            changePeriod("monthly");
+
+            calculateSavings();
+
+        }
+
+
+        // Validate User Input
+
+        function normalizePrice() {
+
+            const value = getMealPrice();
+
+            mealPriceInput.value = Math.max(1, value);
+
+            calculateSavings();
+
+        }
+
+
+        // Recorded Customer Impact
+
+        function updateActualImpact() {
+
+            const impact = db.getCustomerImpact();
+
+
+            setText(
+
+                "actualMeals",
+
+                formatNumber(impact.meals)
+
+            );
+
+
+            setText(
+
+                "actualSavings",
+
+                formatMoney(impact.savings)
+
+            );
+
+
+            setText(
+
+                "actualWaste",
+
+                Number(impact.waste).toFixed(2) + " kg"
+
+            );
+
+
+            setText(
+
+                "actualSpending",
+
+                formatMoney(impact.spending)
+
+            );
+
+
+            setText(
+
+                "cartCount",
+
+                db.getCartTotals().quantity
+
+            );
+
+        }
+
+
+        // Event Listeners
+
+        mealPriceInput.addEventListener(
+
+            "input",
+
+            calculateSavings
+
+        );
+
+
+        mealPriceInput.addEventListener(
+
+            "change",
+
+            normalizePrice
+
+        );
+
+
+        mealsPerWeekInput.addEventListener(
+
+            "input",
+
+            calculateSavings
+
+        );
+
+
+        mealWeightInput.addEventListener(
+
+            "input",
+
+            calculateSavings
+
+        );
+
+
+        document.getElementById(
+
+            "calculateButton"
+
+        ).addEventListener(
+
+            "click",
+
+            normalizePrice
+
+        );
+
+
+        document.getElementById(
+
+            "resetButton"
+
+        ).addEventListener(
+
+            "click",
+
+            resetCalculator
+
+        );
+
+
+        document.querySelectorAll(
+
+            ".period-button"
+
+        ).forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                changePeriod(button.dataset.period);
+
+            });
+
+        });
+
+
+        window.addEventListener(
+
+            "storage",
+
+            updateActualImpact
+
+        );
+
+
+        window.addEventListener(
+
+            "pageshow",
+
+            updateActualImpact
+
+        );
+
+
+        // Initialize Calculator
+
+        calculateSavings();
+
+        updateActualImpact();
+
+    </script>
+
+</body>
+</html>
