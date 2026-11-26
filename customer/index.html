@@ -1,0 +1,1000 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Portal | FoodBridge</title>
+
+    <link rel="stylesheet" href="../style-v2.css">
+
+</head>
+
+<body>
+
+    <!-- Customer Navigation -->
+
+    <header class="site-header">
+
+        <div class="container navbar">
+
+            <a href="../index.html" class="logo">
+                FoodBridge<span>.</span>
+            </a>
+
+            <nav aria-label="Customer navigation">
+
+                <ul class="nav-links">
+
+                    <li>
+                        <a href="index.html" class="active">
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="food.html">
+                            Find Food
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="favorites.html">
+                            Favorites
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="orders.html">
+                            My Orders
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="calculator.html">
+                            Savings Calculator
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+            <div class="nav-actions">
+
+                <a href="cart.html"
+                   class="btn btn-primary btn-small">
+
+                    🛒 Cart
+
+                    <span class="cart-count"
+                          id="cartCount">0</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- Customer Hero -->
+
+        <section class="hero">
+
+            <div class="container hero-grid">
+
+                <div class="hero-content">
+
+                    <div class="eyebrow">
+                        Welcome to FoodBridge
+                    </div>
+
+                    <h1>
+                        Eat well.<br>
+                        Spend less.<br>
+                        Waste less.
+                    </h1>
+
+                    <p>
+                        Discover delicious surplus food
+                        from local businesses at affordable prices.
+                    </p>
+
+                    <p>
+                        Enjoy meals at around 70% off
+                        their original prices and make
+                        every meal count.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a href="food.html"
+                           class="btn btn-primary">
+
+                            Explore Available Food →
+
+                        </a>
+
+                        <a href="calculator.html"
+                           class="btn btn-outline">
+
+                            Calculate Your Savings
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <img src="../hero.jpg"
+                         class="hero-image"
+                         alt="Fresh and affordable food">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Customer Overview -->
+
+        <section class="section section-white">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="eyebrow">
+                        Your FoodBridge Journey
+                    </div>
+
+                    <h2>Your Personal Overview</h2>
+
+                    <p>
+                        Keep track of your completed reservations
+                        and estimated sustainability impact.
+                    </p>
+
+                </div>
+
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+
+                        <div class="feature-icon">🍽️</div>
+
+                        <div class="stat-label">
+                            Meals Rescued
+                        </div>
+
+                        <div class="stat-value"
+                             id="mealsRescued">0</div>
+
+                        <div class="stat-note">
+                            Completed meal pickups
+                        </div>
+
+                    </article>
+
+                    <article class="stat-card">
+
+                        <div class="feature-icon">💰</div>
+
+                        <div class="stat-label">
+                            Total Money Saved
+                        </div>
+
+                        <div class="stat-value"
+                             id="moneySaved">NT$0</div>
+
+                        <div class="stat-note">
+                            Compared with original prices
+                        </div>
+
+                    </article>
+
+                    <article class="stat-card">
+
+                        <div class="feature-icon">🌱</div>
+
+                        <div class="stat-label">
+                            Potential Food Waste Avoided
+                        </div>
+
+                        <div class="stat-value"
+                             id="wasteAvoided">0 kg</div>
+
+                        <div class="stat-note">
+                            Estimated food weight rescued
+                        </div>
+
+                    </article>
+
+                    <article class="stat-card">
+
+                        <div class="feature-icon">📦</div>
+
+                        <div class="stat-label">
+                            Total Reservations
+                        </div>
+
+                        <div class="stat-value"
+                             id="totalOrders">0</div>
+
+                        <div class="stat-note">
+                            Your reservation history
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Featured Food -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="eyebrow">
+                        Discover Local Food
+                    </div>
+
+                    <h2>Available Food Today</h2>
+
+                    <p>
+                        Explore surplus meals currently
+                        available from participating stores.
+                    </p>
+
+                </div>
+
+                <div id="featuredFoods"
+                     class="food-grid">
+
+                    <!-- Generated by JavaScript -->
+
+                </div>
+
+                <div class="center"
+                     style="margin-top: 35px;">
+
+                    <a href="food.html"
+                       class="btn btn-primary">
+
+                        View All Available Food →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Quick Access -->
+
+        <section class="section section-green">
+
+            <div class="container">
+
+                <div class="section-heading center">
+
+                    <div class="eyebrow">
+                        Your Customer Tools
+                    </div>
+
+                    <h2>Make the Most of FoodBridge</h2>
+
+                    <p>
+                        Everything you need to manage
+                        your sustainable shopping experience.
+                    </p>
+
+                </div>
+
+                <div class="grid-3">
+
+                    <!-- Find Food -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">🔍</div>
+
+                        <h3>Find Food</h3>
+
+                        <p>
+                            Search and filter affordable meals
+                            by location, category, and price.
+                        </p>
+
+                        <a href="food.html"
+                           class="btn btn-outline btn-block"
+                           style="margin-top: 22px;">
+
+                            Explore Food →
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- Favorites -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">♡</div>
+
+                        <h3>My Favorites</h3>
+
+                        <p>
+                            Save your favorite food listings
+                            and find them again easily.
+                        </p>
+
+                        <a href="favorites.html"
+                           class="btn btn-outline btn-block"
+                           style="margin-top: 22px;">
+
+                            View Favorites →
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- Cart -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">🛒</div>
+
+                        <h3>Shopping Cart</h3>
+
+                        <p>
+                            Review your selected meals,
+                            adjust quantities, and reserve food.
+                        </p>
+
+                        <a href="cart.html"
+                           class="btn btn-outline btn-block"
+                           style="margin-top: 22px;">
+
+                            View Cart →
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- Orders -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">📋</div>
+
+                        <h3>My Orders</h3>
+
+                        <p>
+                            View your reservation history,
+                            pickup details, and order status.
+                        </p>
+
+                        <a href="orders.html"
+                           class="btn btn-outline btn-block"
+                           style="margin-top: 22px;">
+
+                            View Orders →
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- Savings Calculator -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">🧮</div>
+
+                        <h3>Savings Calculator</h3>
+
+                        <p>
+                            Estimate how much money
+                            you could save every week,
+                            month, and year.
+                        </p>
+
+                        <a href="calculator.html"
+                           class="btn btn-outline btn-block"
+                           style="margin-top: 22px;">
+
+                            Calculate Savings →
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- Sustainability -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">🌍</div>
+
+                        <h3>My Sustainability Impact</h3>
+
+                        <p>
+                            Discover how your food choices
+                            can contribute to a more
+                            sustainable future.
+                        </p>
+
+                        <button class="btn btn-light btn-block"
+                                style="margin-top: 22px;"
+                                disabled>
+
+                            Coming Soon
+
+                        </button>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- How It Works -->
+
+        <section class="section section-white">
+
+            <div class="container">
+
+                <div class="section-heading center">
+
+                    <div class="eyebrow">
+                        Simple and Convenient
+                    </div>
+
+                    <h2>Rescue Food in Four Steps</h2>
+
+                </div>
+
+                <div class="grid-4">
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">🔍</div>
+
+                        <h3>01. Browse</h3>
+
+                        <p>
+                            Find available surplus meals
+                            from local businesses.
+                        </p>
+
+                    </article>
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">🛒</div>
+
+                        <h3>02. Add to Cart</h3>
+
+                        <p>
+                            Choose your favorite food
+                            and select the quantity.
+                        </p>
+
+                    </article>
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">📋</div>
+
+                        <h3>03. Reserve</h3>
+
+                        <p>
+                            Review your cart and
+                            complete your reservation.
+                        </p>
+
+                    </article>
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">🥡</div>
+
+                        <h3>04. Pick Up</h3>
+
+                        <p>
+                            Collect your meals during
+                            the designated pickup period.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Sustainability Message -->
+
+        <section class="section">
+
+            <div class="container hero-grid">
+
+                <img src="../sustainability.jpg"
+                     class="hero-image"
+                     alt="Sustainable food consumption"
+                     loading="lazy">
+
+                <div class="hero-content">
+
+                    <div class="eyebrow">
+                        Every Meal Matters
+                    </div>
+
+                    <h2>
+                        Good for your wallet.
+                        Better for the planet.
+                    </h2>
+
+                    <br>
+
+                    <p>
+                        Choosing surplus food can help
+                        reduce unnecessary food waste
+                        while supporting local businesses.
+                    </p>
+
+                    <p>
+                        Together, we can contribute to
+                        SDG 2: Zero Hunger and SDG 12:
+                        Responsible Consumption and Production.
+                    </p>
+
+                    <a href="../index.html#sdgs"
+                       class="btn btn-outline">
+
+                        Learn About Our SDGs
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div>
+
+                    <a href="../index.html"
+                       class="logo">
+
+                        FoodBridge<span>.</span>
+
+                    </a>
+
+                    <p style="margin-top: 15px;">
+                        Reducing waste, feeding hope.
+                    </p>
+
+                    <p>
+                        Affordable food.
+                        Responsible choices.
+                        A sustainable future.
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <h3>Customer Portal</h3>
+
+                    <div class="footer-links">
+
+                        <a href="food.html">
+                            Find Food
+                        </a>
+
+                        <a href="favorites.html">
+                            My Favorites
+                        </a>
+
+                        <a href="cart.html">
+                            Shopping Cart
+                        </a>
+
+                        <a href="orders.html">
+                            My Orders
+                        </a>
+
+                        <a href="calculator.html">
+                            Savings Calculator
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <h3>FoodBridge</h3>
+
+                    <div class="footer-links">
+
+                        <a href="../index.html">
+                            Main Website
+                        </a>
+
+                        <a href="../index.html#about">
+                            About Us
+                        </a>
+
+                        <a href="../index.html#sdgs">
+                            Our SDGs
+                        </a>
+
+                        <a href="../merchant/index.html">
+                            Switch to Merchant Portal
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p>© 2026 FoodBridge.</p>
+
+                <p>
+                    Educational demonstration project.
+                    No real payments or transactions
+                    are processed.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Shared Database -->
+
+    <script src="../database.js"></script>
+
+
+    <!-- Customer Homepage Functions -->
+
+    <script>
+
+        const db = window.FoodBridgeDB;
+
+        function escapeHTML(value) {
+
+            return String(value ?? "").replace(
+                /[&<>"']/g,
+                character => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                })[character]
+            );
+
+        }
+
+        function formatMoney(value) {
+
+            return "NT$" +
+                Number(value).toLocaleString("en-US");
+
+        }
+
+        function getImagePath(image) {
+
+            const value = String(image || "bakery.jpg");
+
+            if (/^https?:\/\//i.test(value)) {
+                return value;
+            }
+
+            if (/^data:image\/(png|jpeg|webp|gif);base64,/i.test(value)) {
+                return value;
+            }
+
+            return "../" + value.replace(/^\/+/, "");
+
+        }
+
+
+        // Update personal overview
+
+        function updateOverview() {
+
+            const impact = db.getCustomerImpact();
+
+            document.getElementById(
+                "mealsRescued"
+            ).textContent = impact.meals;
+
+            document.getElementById(
+                "moneySaved"
+            ).textContent = formatMoney(
+                impact.savings
+            );
+
+            document.getElementById(
+                "wasteAvoided"
+            ).textContent =
+                impact.waste.toFixed(2) + " kg";
+
+            document.getElementById(
+                "totalOrders"
+            ).textContent = db.getOrders().length;
+
+            document.getElementById(
+                "cartCount"
+            ).textContent = db.getCartTotals().quantity;
+
+        }
+
+
+        // Display featured food listings
+
+        function displayFeaturedFoods() {
+
+            const container =
+                document.getElementById("featuredFoods");
+
+            const foods =
+                db.getAvailableFoods().slice(0, 3);
+
+            if (foods.length === 0) {
+
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🍽️</div>
+                        <h3>No Food Available</h3>
+                        <p>
+                            Please check again later
+                            for new surplus meals.
+                        </p>
+                    </div>
+                `;
+
+                return;
+
+            }
+
+            container.innerHTML = foods.map(food => {
+
+                const favorite =
+                    db.isFavorite(food.id);
+
+                const actualDiscount = Math.round(
+                    (1 - food.price / food.originalPrice) * 100
+                );
+
+                return `
+
+                    <article class="food-card">
+
+                        <div class="food-image">
+
+                            <img
+                                src="${escapeHTML(getImagePath(food.image))}"
+                                alt="${escapeHTML(food.name)}"
+                                loading="lazy">
+
+                            <button
+                                type="button"
+                                class="favorite-btn ${favorite ? "active" : ""}"
+                                aria-label="${favorite ? "Remove from favorites" : "Add to favorites"}"
+                                aria-pressed="${favorite}"
+                                onclick="toggleFavorite(${Number(food.id)})">
+
+                                ${favorite ? "♥" : "♡"}
+
+                            </button>
+
+                        </div>
+
+                        <div class="food-content">
+
+                            <span class="stock">
+                                ${food.stock} available
+                            </span>
+
+                            <h3>
+                                ${escapeHTML(food.name)}
+                            </h3>
+
+                            <p>
+                                🏪 ${escapeHTML(food.store)}
+                            </p>
+
+                            <p>
+                                📍 ${escapeHTML(food.region)}
+                                · ${escapeHTML(food.category)}
+                            </p>
+
+                            <p>
+                                🕒 ${escapeHTML(food.pickup)}
+                            </p>
+
+                            <div class="price-row">
+
+                                <span class="price">
+                                    ${formatMoney(food.price)}
+                                </span>
+
+                                <span class="original-price">
+                                    ${formatMoney(food.originalPrice)}
+                                </span>
+
+                                <span class="discount-badge">
+                                    ${actualDiscount}% OFF
+                                </span>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-block"
+                                onclick="addToCart(${Number(food.id)})">
+
+                                Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }).join("");
+
+            container.querySelectorAll("img").forEach(img => {
+
+                img.addEventListener("error", () => {
+
+                    if (!img.dataset.fallback) {
+
+                        img.dataset.fallback = "true";
+                        img.src = "../bakery.jpg";
+
+                    }
+
+                });
+
+            });
+
+        }
+
+
+        // Favorite functionality
+
+        function toggleFavorite(id) {
+
+            const favorite = db.toggleFavorite(id);
+
+            displayFeaturedFoods();
+
+            showToast(
+                favorite
+                    ? "Added to your favorites!"
+                    : "Removed from your favorites."
+            );
+
+        }
+
+
+        // Shopping cart functionality
+
+        function addToCart(id) {
+
+            const result = db.addToCart(id, 1);
+
+            showToast(result.message);
+
+            updateOverview();
+
+        }
+
+
+        // Toast notification
+
+        let toastTimer;
+
+        function showToast(message) {
+
+            const existing =
+                document.querySelector(".toast");
+
+            if (existing) {
+                existing.remove();
+            }
+
+            clearTimeout(toastTimer);
+
+            const toast =
+                document.createElement("div");
+
+            toast.className = "toast";
+
+            toast.setAttribute("role", "status");
+
+            toast.textContent = message;
+
+            document.body.appendChild(toast);
+
+            toastTimer = setTimeout(() => {
+
+                toast.remove();
+
+            }, 3000);
+
+        }
+
+
+        // Refresh when shared data changes
+
+        function refreshPage() {
+
+            updateOverview();
+
+            displayFeaturedFoods();
+
+        }
+
+        window.addEventListener("storage", refreshPage);
+
+        window.addEventListener("pageshow", refreshPage);
+
+        refreshPage();
+
+    </script>
+
+</body>
+</html>
