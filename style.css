@@ -102,6 +102,7 @@ header {
 .nav-links a {
     font-size: 14px;
     font-weight: 500;
+    white-space: nowrap;
     transition: color 0.2s;
 }
 
@@ -114,6 +115,7 @@ header {
     background: var(--green);
     color: white;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 /* Homepage */
@@ -123,21 +125,27 @@ header {
     display: flex;
     align-items: center;
     padding: 100px 9%;
-    background:
+
+    background-image:
         linear-gradient(
             90deg,
-            rgba(22, 35, 23, 0.76),
-            rgba(22, 35, 23, 0.18)
+            rgba(20, 35, 23, 0.85) 0%,
+            rgba(20, 35, 23, 0.55) 45%,
+            rgba(20, 35, 23, 0.10) 100%
         ),
         url("hero.jpg");
+
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     background-color: var(--green);
     color: white;
 }
 
 .hero-content {
     max-width: 650px;
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
@@ -387,8 +395,12 @@ button:focus-visible {
     flex: 1;
 }
 
+/* Updated Food Titles */
+
 .food-card h3 {
-    font-size: 21px;
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.4;
     color: var(--green);
     margin-bottom: 10px;
 }
@@ -414,23 +426,55 @@ button:focus-visible {
     margin-bottom: 10px;
 }
 
+/* Updated Price and Discount Layout */
+
 .price-row {
-    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 20px;
     margin-bottom: 18px;
 }
 
 .price {
     color: var(--green);
-    font-size: 25px;
-    font-weight: 600;
+    font-size: 27px;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 .original-price {
-    color: #777777;
-    font-size: 14px;
+    color: #888888;
+    font-size: 15px;
     text-decoration: line-through;
-    margin-left: 8px;
+    margin: 0;
+    white-space: nowrap;
 }
+
+.discount-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--green);
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+
+    padding: 7px 12px;
+    margin: 0;
+
+    width: auto;
+    flex-shrink: 0;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+/* Reservation Button */
 
 .reserve-btn {
     width: 100%;
@@ -438,8 +482,8 @@ button:focus-visible {
     color: white;
     border: none;
     padding: 12px;
-    margin-top: auto;
     font-size: 14px;
+    transition: background 0.2s;
 }
 
 .reserve-btn:hover {
@@ -542,7 +586,7 @@ button:focus-visible {
     margin: 0;
 }
 
-/* SDGs */
+/* Sustainable Development Goals */
 
 .sdg-grid {
     display: grid;
@@ -621,12 +665,14 @@ button:focus-visible {
 .partner-section {
     padding: 110px 8%;
     text-align: center;
+
     background:
         linear-gradient(
             rgba(25, 40, 26, 0.65),
             rgba(25, 40, 26, 0.65)
         ),
         url("partner.jpg");
+
     background-size: cover;
     background-position: center;
     background-color: var(--green);
@@ -886,6 +932,31 @@ footer p {
         padding: 45px 7%;
     }
 
+    .food-card h3 {
+        font-size: 23px;
+    }
+
+    .food-content {
+        padding: 20px;
+    }
+
+    .price-row {
+        gap: 8px;
+    }
+
+    .price {
+        font-size: 25px;
+    }
+
+    .original-price {
+        font-size: 14px;
+    }
+
+    .discount-badge {
+        font-size: 16px;
+        padding: 6px 10px;
+    }
+
     .impact-grid > div {
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -920,26 +991,4 @@ footer p {
     * {
         transition: none !important;
     }
-}
-
-/* Homepage Background Fix */
-
-.hero {
-    background-image:
-        linear-gradient(
-            90deg,
-            rgba(20, 35, 23, 0.85) 0%,
-            rgba(20, 35, 23, 0.55) 45%,
-            rgba(20, 35, 23, 0.10) 100%
-        ),
-        url("https://xuziq07.github.io/FoodBridge/hero.jpg");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
 }
