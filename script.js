@@ -1,56 +1,72 @@
 
 // FoodBridge - Food Listings and Interactive Features
 
-// 1. Food Data
+// 1. Pricing Strategy
+
+const discountRate = 0.70;
+
+function calculatePrice(originalPrice) {
+    return Math.round(originalPrice * (1 - discountRate));
+}
+
+
+// 2. Food Data
 
 const defaultFoods = [
+
     {
         id: 1,
         name: "Freshly Baked Bread",
         store: "Green Leaf Bakery",
         region: "Taipei",
         category: "Bakery",
-        price: 35,
         originalPrice: 65,
         stock: 5,
         weight: 0.25,
         pickup: "5:00 PM - 7:00 PM",
         image: "green-leaf.jpg"
     },
+
     {
         id: 2,
         name: "Assorted Pastries",
         store: "Sweetbread Bakery",
         region: "New Taipei",
         category: "Bakery",
-        price: 50,
         originalPrice: 90,
         stock: 4,
         weight: 0.30,
         pickup: "6:00 PM - 8:00 PM",
         image: "sweetbread.jpg"
     },
+
     {
         id: 3,
         name: "Traditional Bento",
         store: "Sunny Bento Shop",
         region: "Tainan",
         category: "Meals",
-        price: 60,
         originalPrice: 110,
         stock: 5,
         weight: 0.45,
         pickup: "5:00 PM - 7:00 PM",
         image: "sunny-bento.jpg"
     }
+
 ];
 
 
-// 2. Initialize Data
+// 3. Initialize Data
 
-const storageKey = "foodbridge_midterm_v3";
+const storageKey = "foodbridge_discount_v4";
 
-let foods = defaultFoods.map(food => ({ ...food }));
+let foods = defaultFoods.map(food => ({
+
+    ...food,
+
+    price: calculatePrice(food.originalPrice)
+
+}));
 
 let impact = {
     meals: 0,
@@ -59,7 +75,7 @@ let impact = {
 };
 
 
-// 3. Load Saved Reservations
+// 4. Load Saved Data
 
 try {
 
@@ -92,31 +108,24 @@ try {
 }
 
 
-// 4. HTML Elements
+// 5. HTML Elements
 
-const foodList =
-    document.getElementById("foodList");
+const foodList = document.getElementById("foodList");
 
-const searchInput =
-    document.getElementById("searchInput");
+const searchInput = document.getElementById("searchInput");
 
-const regionFilter =
-    document.getElementById("regionFilter");
+const regionFilter = document.getElementById("regionFilter");
 
-const categoryFilter =
-    document.getElementById("categoryFilter");
+const categoryFilter = document.getElementById("categoryFilter");
 
-const message =
-    document.getElementById("message");
+const message = document.getElementById("message");
 
-const contactForm =
-    document.getElementById("contactForm");
+const contactForm = document.getElementById("contactForm");
 
-const contactStatus =
-    document.getElementById("contactStatus");
+const contactStatus = document.getElementById("contactStatus");
 
 
-// 5. Display Food Cards
+// 6. Display Food Cards
 
 function displayFoods(items) {
 
@@ -126,13 +135,11 @@ function displayFoods(items) {
 
         foodList.innerHTML = `
             <div class="empty-state">
-
                 <h3>No matching meals</h3>
 
                 <p>
                     Try another search or change your filters.
                 </p>
-
             </div>
         `;
 
@@ -145,6 +152,12 @@ function displayFoods(items) {
         const card = document.createElement("article");
 
         card.className = "food-card";
+
+        const savings = food.originalPrice - food.price;
+
+        const actualDiscount = Math.round(
+            (savings / food.originalPrice) * 100
+        );
 
         card.innerHTML = `
 
@@ -165,6 +178,20 @@ function displayFoods(items) {
                     ${food.stock > 0
                         ? food.stock + " available"
                         : "Sold out"}
+
+                </span>
+
+                <span style="
+                    display: inline-block;
+                    background: #304833;
+                    color: #ffffff;
+                    padding: 5px 10px;
+                    margin-left: 5px;
+                    font-size: 13px;
+                    font-weight: 600;
+                ">
+
+                    ${actualDiscount}% OFF
 
                 </span>
 
@@ -192,6 +219,14 @@ function displayFoods(items) {
 
                 </div>
 
+                <p style="
+                    color: #304833;
+                    font-weight: 600;
+                    margin-bottom: 15px;
+                ">
+                    You save NT$${savings}
+                </p>
+
                 <button
                     class="reserve-btn"
                     data-id="${food.id}"
@@ -215,18 +250,16 @@ function displayFoods(items) {
 }
 
 
-// 6. Search and Filter
+// 7. Search and Filter
 
 function filterFoods() {
 
     const keyword =
         searchInput.value.toLowerCase().trim();
 
-    const region =
-        regionFilter.value;
+    const region = regionFilter.value;
 
-    const category =
-        categoryFilter.value;
+    const category = categoryFilter.value;
 
     const filteredFoods = foods.filter(food => {
 
@@ -255,7 +288,7 @@ function filterFoods() {
 }
 
 
-// 7. Reservation
+// 8. Reservation Preview
 
 function reserveFood(id) {
 
@@ -273,24 +306,35 @@ function reserveFood(id) {
 
     }
 
+    const savings = food.originalPrice - food.price;
+
     const confirmed = window.confirm(
 
         food.name + "\n\n" +
 
         "Store: " + food.store + "\n" +
 
-        "Price: NT$" + food.price + "\n" +
+        "Original Price: NT$" +
+        food.originalPrice + "\n" +
+
+        "FoodBridge Price: NT$" +
+        food.price + "\n" +
+
+        "You Save: NT$" +
+        savings + "\n" +
 
         "Pickup: " + food.pickup + "\n\n" +
 
         "Continue with reservation preview?\n" +
 
-        "No order or payment will be sent to the store."
+        "No actual order or payment will be sent to the store."
 
     );
 
     if (!confirmed) {
+
         return;
+
     }
 
     food.stock -= 1;
@@ -302,14 +346,18 @@ function reserveFood(id) {
     updateImpact();
 
     showMessage(
+
         food.name +
-        " selected. Reservation preview completed."
+        " selected successfully! " +
+        "Estimated savings: NT$" +
+        savings + "."
+
     );
 
 }
 
 
-// 8. Environmental Impact
+// 9. Environmental Impact
 
 function updateImpact() {
 
@@ -330,9 +378,11 @@ function updateImpact() {
 
         impact.meals += reserved;
 
-        impact.waste += reserved * food.weight;
+        impact.waste +=
+            reserved * food.weight;
 
-        impact.money += reserved *
+        impact.money +=
+            reserved *
             (food.originalPrice - food.price);
 
     });
@@ -350,7 +400,7 @@ function updateImpact() {
 }
 
 
-// 9. Save Data
+// 10. Save Data
 
 function saveData() {
 
@@ -383,7 +433,7 @@ function saveData() {
 }
 
 
-// 10. Notifications
+// 11. Notifications
 
 let messageTimer;
 
@@ -402,7 +452,7 @@ function showMessage(text) {
 }
 
 
-// 11. Store Links
+// 12. Store Links
 
 document.querySelectorAll("[data-store]")
     .forEach(link => {
@@ -423,7 +473,7 @@ document.querySelectorAll("[data-store]")
     });
 
 
-// 12. Contact Form
+// 13. Contact Form
 
 contactForm.addEventListener("submit", event => {
 
@@ -460,12 +510,12 @@ contactForm.addEventListener("submit", event => {
     );
 
     contactStatus.textContent =
-        "Your message is ready. Online messaging is coming soon.";
+        "Message preview completed. No message has been sent.";
 
 });
 
 
-// 13. Event Listeners
+// 14. Event Listeners
 
 searchInput.addEventListener(
     "input",
@@ -498,7 +548,7 @@ foodList.addEventListener("click", event => {
 });
 
 
-// 14. Initialize Website
+// 15. Initialize Website
 
 filterFoods();
 
