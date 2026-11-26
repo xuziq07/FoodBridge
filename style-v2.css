@@ -1213,3 +1213,23 @@ input[type="range"] {
         transition: none !important;
     }
 }
+/* Minimal line icons */
+.feature-icon svg,
+.step-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: #304832;
+    stroke-width: 1.6;
+    fill: none;
+}
+
+.feature-icon,
+.step-icon {
+    background: #e8eee4;
+    border-radius: 10px;
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
