@@ -1,0 +1,1630 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart | FoodBridge</title>
+
+    <link rel="stylesheet" href="../style-v2.css">
+
+    <style>
+
+        .cart-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .cart-toolbar h2 {
+            font-size: 26px;
+        }
+
+        .cart-item-info h3 {
+            margin-bottom: 8px;
+        }
+
+        .cart-item-info p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            text-align: right;
+            min-width: 95px;
+        }
+
+        .cart-item-price strong {
+            color: var(--green);
+            font-size: 23px;
+        }
+
+        .cart-original-price {
+            color: var(--muted);
+            text-decoration: line-through;
+            font-size: 14px;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--red);
+            font-size: 13px;
+            text-decoration: underline;
+            margin-top: 10px;
+        }
+
+        .cart-warning {
+            color: var(--red) !important;
+            font-weight: 600;
+        }
+
+        .order-summary {
+            position: sticky;
+            top: 100px;
+        }
+
+        .order-summary h3 {
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .checkout-form {
+            margin-top: 25px;
+        }
+
+        .impact-box {
+            background: var(--green-light);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 22px;
+        }
+
+        .impact-box h4 {
+            margin-bottom: 8px;
+        }
+
+        .impact-box p {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .demo-notice {
+            background: #f7f4ec;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 18px;
+        }
+
+        .success-panel {
+            max-width: 760px;
+            margin: 0 auto 40px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 45px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .success-icon {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: var(--green-light);
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            margin: 0 auto 25px;
+        }
+
+        .success-panel h2 {
+            margin-bottom: 15px;
+        }
+
+        .reservation-number {
+            background: var(--green-light);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .reservation-number strong {
+            display: block;
+            color: var(--green);
+            font-size: 25px;
+            overflow-wrap: anywhere;
+        }
+
+        .pickup-list {
+            text-align: left;
+            margin: 25px 0;
+        }
+
+        .pickup-entry {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pickup-entry p {
+            margin-bottom: 4px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .success-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 760px) {
+
+            .order-summary {
+                position: static;
+            }
+
+            .cart-item-price {
+                text-align: left;
+                width: 100%;
+            }
+
+            .success-panel {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Customer Navigation -->
+
+    <header class="site-header">
+
+        <div class="container navbar">
+
+            <a href="../index.html" class="logo">
+                FoodBridge<span>.</span>
+            </a>
+
+            <nav aria-label="Customer navigation">
+
+                <ul class="nav-links">
+
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="food.html">Find Food</a>
+                    </li>
+
+                    <li>
+                        <a href="favorites.html">
+                            Favorites
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="orders.html">
+                            My Orders
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="calculator.html">
+                            Savings Calculator
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+            <div class="nav-actions">
+
+                <a href="cart.html"
+                   class="btn btn-primary btn-small"
+                   aria-current="page">
+
+                    🛒 Cart
+
+                    <span class="cart-count"
+                          id="cartCount">0</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- Page Heading -->
+
+        <section class="page-header">
+
+            <div class="container">
+
+                <div class="eyebrow">
+                    Your Sustainable Shopping
+                </div>
+
+                <h1>Shopping Cart</h1>
+
+                <p>
+                    Review your selected meals,
+                    check your savings, and complete
+                    your food reservation.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Shopping Cart Section -->
+
+        <section class="container"
+                 style="padding-bottom: 80px;">
+
+            <div id="successPanel"
+                 class="success-panel"
+                 hidden>
+
+                <!-- Reservation confirmation -->
+
+            </div>
+
+
+            <div id="cartMessage"
+                 class="message"
+                 role="status"
+                 hidden>
+            </div>
+
+
+            <div class="cart-layout"
+                 id="cartLayout">
+
+                <!-- Selected Food -->
+
+                <div>
+
+                    <div class="cart-toolbar">
+
+                        <h2>
+                            Your Selected Food
+                        </h2>
+
+                        <button type="button"
+                                class="btn btn-outline btn-small"
+                                id="clearCart">
+
+                            Clear Cart
+
+                        </button>
+
+                    </div>
+
+                    <div id="cartItems">
+
+                        <!-- Generated by JavaScript -->
+
+                    </div>
+
+                    <a href="food.html"
+                       class="btn btn-outline"
+                       style="margin-top: 20px;">
+
+                        ← Continue Shopping
+
+                    </a>
+
+                </div>
+
+
+                <!-- Order Summary -->
+
+                <aside class="order-summary">
+
+                    <h3>Order Summary</h3>
+
+                    <div class="summary-row">
+
+                        <span>Total Items</span>
+
+                        <strong id="totalQuantity">0</strong>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>Original Price</span>
+
+                        <span id="originalTotal">
+                            NT$0
+                        </span>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>Total Discount</span>
+
+                        <span class="savings-text"
+                              id="discountTotal">
+
+                            -NT$0
+
+                        </span>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>Service Fee</span>
+
+                        <span>NT$0</span>
+
+                    </div>
+
+                    <div class="summary-row summary-total">
+
+                        <span>Total</span>
+
+                        <span id="finalTotal">
+                            NT$0
+                        </span>
+
+                    </div>
+
+
+                    <!-- Savings -->
+
+                    <div class="impact-box">
+
+                        <h4>🌱 Your Potential Impact</h4>
+
+                        <p>
+
+                            Money saved:
+
+                            <strong id="moneySaved">
+                                NT$0
+                            </strong>
+
+                        </p>
+
+                        <p>
+
+                            Potential food waste avoided:
+
+                            <strong id="wasteSaved">
+                                0 kg
+                            </strong>
+
+                        </p>
+
+                        <p>
+
+                            Average discount:
+
+                            <strong id="averageDiscount">
+                                0%
+                            </strong>
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- Checkout Form -->
+
+                    <form id="checkoutForm"
+                          class="checkout-form">
+
+                        <div class="form-group">
+
+                            <label for="customerName">
+
+                                Reservation Name
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="customerName"
+                                maxlength="60"
+                                placeholder="Enter your name"
+                                required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Payment Method
+
+                            </label>
+
+                            <div class="card"
+                                 style="padding: 15px;">
+
+                                Pay at Pickup (Demo)
+
+                            </div>
+
+                        </div>
+
+                        <button type="submit"
+                                id="reserveButton"
+                                class="btn btn-primary btn-block">
+
+                            Confirm Reservation →
+
+                        </button>
+
+                    </form>
+
+
+                    <div class="demo-notice">
+
+                        <strong>Demonstration Only</strong>
+
+                        <br>
+
+                        This is an educational project.
+                        No real payment, food purchase,
+                        or store reservation will occur.
+                        Please use a fictional name.
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- Sustainability Section -->
+
+        <section class="section section-green">
+
+            <div class="container center">
+
+                <div class="section-heading center">
+
+                    <div class="eyebrow">
+                        Make Every Meal Count
+                    </div>
+
+                    <h2>
+                        Small choices. Meaningful change.
+                    </h2>
+
+                    <p>
+                        Every surplus meal you choose
+                        can help reduce food waste
+                        and support a more sustainable
+                        food system.
+                    </p>
+
+                </div>
+
+                <a href="../index.html#sdgs"
+                   class="btn btn-outline">
+
+                    Learn About Our SDGs
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div>
+
+                    <a href="../index.html"
+                       class="logo">
+
+                        FoodBridge<span>.</span>
+
+                    </a>
+
+                    <p style="margin-top: 15px;">
+                        Reducing waste, feeding hope.
+                    </p>
+
+                    <p>
+                        Affordable food.
+                        Responsible choices.
+                        A sustainable future.
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <h3>Customer Portal</h3>
+
+                    <div class="footer-links">
+
+                        <a href="index.html">
+                            Customer Home
+                        </a>
+
+                        <a href="food.html">
+                            Find Food
+                        </a>
+
+                        <a href="favorites.html">
+                            My Favorites
+                        </a>
+
+                        <a href="cart.html">
+                            Shopping Cart
+                        </a>
+
+                        <a href="orders.html">
+                            My Orders
+                        </a>
+
+                        <a href="calculator.html">
+                            Savings Calculator
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <h3>FoodBridge</h3>
+
+                    <div class="footer-links">
+
+                        <a href="../index.html">
+                            Main Website
+                        </a>
+
+                        <a href="../index.html#about">
+                            About Us
+                        </a>
+
+                        <a href="../index.html#sdgs">
+                            Our SDGs
+                        </a>
+
+                        <a href="../merchant/index.html">
+                            Switch to Merchant Portal
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p>© 2026 FoodBridge.</p>
+
+                <p>
+                    Educational demonstration project.
+                    No real payments or transactions
+                    are processed.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Shared Database -->
+
+    <script src="../database.js"></script>
+
+
+    <!-- Shopping Cart Functions -->
+
+    <script>
+
+        const db = window.FoodBridgeDB;
+
+        const cartItems =
+            document.getElementById("cartItems");
+
+        const reserveButton =
+            document.getElementById("reserveButton");
+
+        const clearCartButton =
+            document.getElementById("clearCart");
+
+        const checkoutForm =
+            document.getElementById("checkoutForm");
+
+        const customerNameInput =
+            document.getElementById("customerName");
+
+        let submitting = false;
+
+
+        // Utility Functions
+
+        function escapeHTML(value) {
+
+            return String(value ?? "").replace(
+                /[&<>"']/g,
+                character => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                })[character]
+            );
+
+        }
+
+
+        function formatMoney(value) {
+
+            return "NT$" +
+                Number(value).toLocaleString("en-US");
+
+        }
+
+
+        function getImagePath(image) {
+
+            const value =
+                String(image || "bakery.jpg");
+
+            if (/^https?:\/\//i.test(value)) {
+                return value;
+            }
+
+            if (
+                /^data:image\/(png|jpeg|webp|gif);base64,/i
+                    .test(value)
+            ) {
+                return value;
+            }
+
+            return "../" + value.replace(/^\/+/, "");
+
+        }
+
+
+        // Display Shopping Cart
+
+        function displayCart() {
+
+            const cart = db.getCart();
+
+            clearCartButton.disabled =
+                cart.length === 0;
+
+
+            // Empty Cart
+
+            if (cart.length === 0) {
+
+                cartItems.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            🛒
+                        </div>
+
+                        <h3>Your Cart Is Empty</h3>
+
+                        <p>
+                            Discover affordable surplus food
+                            and add your favorite meals
+                            to your shopping cart.
+                        </p>
+
+                        <a href="food.html"
+                           class="btn btn-primary">
+
+                            Explore Available Food →
+
+                        </a>
+
+                    </div>
+
+                `;
+
+                updateSummary();
+
+                return;
+
+            }
+
+
+            // Render Cart Items
+
+            cartItems.innerHTML = cart.map(item => {
+
+                const food = item.food;
+
+                const quantity = item.quantity;
+
+                const subtotal =
+                    food.price * quantity;
+
+                const originalSubtotal =
+                    food.originalPrice * quantity;
+
+                const savings =
+                    originalSubtotal - subtotal;
+
+                const available =
+                    food.active && food.stock >= quantity;
+
+                const canIncrease =
+                    food.active && quantity < food.stock;
+
+
+                return `
+
+                    <article class="cart-item">
+
+                        <img
+                            src="${escapeHTML(
+                                getImagePath(food.image)
+                            )}"
+                            alt="${escapeHTML(food.name)}">
+
+
+                        <div class="cart-item-info">
+
+                            <h3>
+                                ${escapeHTML(food.name)}
+                            </h3>
+
+                            <p>
+                                🏪 ${escapeHTML(food.store)}
+                            </p>
+
+                            <p>
+                                📍 ${escapeHTML(food.region)}
+                            </p>
+
+                            <p>
+                                🕒 ${escapeHTML(food.pickup)}
+                            </p>
+
+                            <p>
+                                ${formatMoney(food.price)}
+                                per item
+                            </p>
+
+
+                            ${!available ? `
+
+                                <p class="cart-warning">
+
+                                    ${!food.active
+                                        ? "This item is unavailable."
+                                        : "Only " + food.stock +
+                                          " item(s) available."}
+
+                                </p>
+
+                            ` : `
+
+                                <p>
+                                    ${food.stock} in stock
+                                </p>
+
+                            `}
+
+
+                            <!-- Quantity Control -->
+
+                            <div class="quantity-control">
+
+                                <button
+                                    type="button"
+                                    aria-label="Decrease quantity"
+                                    onclick="changeQuantity(
+                                        ${Number(food.id)}, -1
+                                    )">
+
+                                    −
+
+                                </button>
+
+                                <strong>
+                                    ${quantity}
+                                </strong>
+
+                                <button
+                                    type="button"
+                                    aria-label="Increase quantity"
+                                    onclick="changeQuantity(
+                                        ${Number(food.id)}, 1
+                                    )"
+                                    ${canIncrease
+                                        ? ""
+                                        : "disabled"}>
+
+                                    +
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Item Subtotal -->
+
+                        <div class="cart-item-price">
+
+                            <div class="cart-original-price">
+
+                                ${formatMoney(originalSubtotal)}
+
+                            </div>
+
+                            <strong>
+
+                                ${formatMoney(subtotal)}
+
+                            </strong>
+
+                            <p class="savings-text"
+                               style="font-size: 12px;">
+
+                                Save ${formatMoney(savings)}
+
+                            </p>
+
+                            <button
+                                type="button"
+                                class="remove-btn"
+                                onclick="removeItem(
+                                    ${Number(food.id)}
+                                )">
+
+                                Remove
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }).join("");
+
+
+            // Image Fallback
+
+            cartItems.querySelectorAll("img")
+                .forEach(img => {
+
+                    img.addEventListener("error", () => {
+
+                        if (!img.dataset.fallback) {
+
+                            img.dataset.fallback = "true";
+
+                            img.src = "../bakery.jpg";
+
+                        }
+
+                    });
+
+                });
+
+
+            updateSummary();
+
+        }
+
+
+        // Update Quantity
+
+        function changeQuantity(id, change) {
+
+            const item = db.getCart().find(
+                entry => entry.foodId === id
+            );
+
+            if (!item) {
+                return;
+            }
+
+            const newQuantity =
+                item.quantity + change;
+
+
+            if (newQuantity <= 0) {
+
+                removeItem(id);
+
+                return;
+
+            }
+
+
+            const updated =
+                db.updateCartQuantity(
+                    id,
+                    newQuantity
+                );
+
+            if (!updated) {
+
+                showMessage(
+                    "Unable to update quantity. " +
+                    "Please check available stock.",
+                    true
+                );
+
+            } else {
+
+                hideMessage();
+
+            }
+
+            displayCart();
+
+        }
+
+
+        // Remove Item
+
+        function removeItem(id) {
+
+            db.removeFromCart(id);
+
+            showMessage(
+                "Item removed from your cart."
+            );
+
+            displayCart();
+
+        }
+
+
+        // Clear Shopping Cart
+
+        function clearAllItems() {
+
+            if (db.getCart().length === 0) {
+                return;
+            }
+
+            const confirmed = window.confirm(
+
+                "Are you sure you want to remove " +
+                "all items from your cart?"
+
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            db.clearCart();
+
+            showMessage(
+                "Your shopping cart has been cleared."
+            );
+
+            displayCart();
+
+        }
+
+
+        // Update Order Summary
+
+        function updateSummary() {
+
+            const totals = db.getCartTotals();
+
+            const cart = db.getCart();
+
+            const averageDiscount =
+                totals.originalTotal > 0
+
+                    ? Math.round(
+                        totals.savings /
+                        totals.originalTotal * 100
+                    )
+
+                    : 0;
+
+
+            document.getElementById(
+                "cartCount"
+            ).textContent = totals.quantity;
+
+
+            document.getElementById(
+                "totalQuantity"
+            ).textContent = totals.quantity;
+
+
+            document.getElementById(
+                "originalTotal"
+            ).textContent =
+                formatMoney(totals.originalTotal);
+
+
+            document.getElementById(
+                "discountTotal"
+            ).textContent =
+                "-" + formatMoney(totals.savings);
+
+
+            document.getElementById(
+                "finalTotal"
+            ).textContent =
+                formatMoney(totals.total);
+
+
+            document.getElementById(
+                "moneySaved"
+            ).textContent =
+                formatMoney(totals.savings);
+
+
+            document.getElementById(
+                "wasteSaved"
+            ).textContent =
+                totals.waste.toFixed(2) + " kg";
+
+
+            document.getElementById(
+                "averageDiscount"
+            ).textContent =
+                averageDiscount + "%";
+
+
+            // Validate Availability
+
+            const hasUnavailableItems =
+                cart.some(item =>
+
+                    !item.food.active ||
+                    item.food.stock < item.quantity
+
+                );
+
+
+            reserveButton.disabled =
+
+                cart.length === 0 ||
+                hasUnavailableItems ||
+                submitting;
+
+
+            if (cart.length === 0) {
+
+                reserveButton.textContent =
+                    "Your Cart Is Empty";
+
+            } else if (hasUnavailableItems) {
+
+                reserveButton.textContent =
+                    "Check Item Availability";
+
+            } else if (submitting) {
+
+                reserveButton.textContent =
+                    "Processing...";
+
+            } else {
+
+                reserveButton.textContent =
+                    "Confirm Reservation →";
+
+            }
+
+        }
+
+
+        // Checkout and Reservation
+
+        function completeReservation(event) {
+
+            event.preventDefault();
+
+            if (submitting) {
+                return;
+            }
+
+            const customerName =
+                customerNameInput.value.trim();
+
+            if (!customerName) {
+
+                showMessage(
+                    "Please enter a reservation name.",
+                    true
+                );
+
+                customerNameInput.focus();
+
+                return;
+
+            }
+
+
+            const totals = db.getCartTotals();
+
+            if (totals.quantity === 0) {
+
+                showMessage(
+                    "Your cart is empty.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            const confirmed = window.confirm(
+
+                "Confirm your FoodBridge reservation?\n\n" +
+
+                "Reservation Name: " +
+                customerName + "\n" +
+
+                "Total Items: " +
+                totals.quantity + "\n" +
+
+                "Total Amount: " +
+                formatMoney(totals.total) + "\n" +
+
+                "Total Savings: " +
+                formatMoney(totals.savings) + "\n\n" +
+
+                "This is a demonstration only. " +
+                "No real payment will be processed."
+
+            );
+
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            submitting = true;
+
+            updateSummary();
+
+
+            try {
+
+                // Create Order and Deduct Inventory
+
+                const result =
+                    db.createOrder(customerName);
+
+
+                if (!result.success) {
+
+                    showMessage(
+                        result.message ||
+                        "Unable to complete reservation.",
+                        true
+                    );
+
+                    displayCart();
+
+                    return;
+
+                }
+
+
+                // Show Successful Reservation
+
+                checkoutForm.reset();
+
+                displayCart();
+
+                showSuccess(result.order);
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                showMessage(
+
+                    "Unable to save your reservation. " +
+                    "Please try again.",
+
+                    true
+
+                );
+
+            } finally {
+
+                submitting = false;
+
+                updateSummary();
+
+            }
+
+        }
+
+
+        // Reservation Success Screen
+
+        function showSuccess(order) {
+
+            const successPanel =
+                document.getElementById("successPanel");
+
+            const cartLayout =
+                document.getElementById("cartLayout");
+
+            const totalQuantity =
+                order.items.reduce(
+
+                    (sum, item) =>
+                        sum + item.quantity,
+
+                    0
+
+                );
+
+            const totalWaste =
+                order.items.reduce(
+
+                    (sum, item) =>
+                        sum + item.weight * item.quantity,
+
+                    0
+
+                );
+
+
+            const pickupDetails =
+                order.items.map(item => `
+
+                    <div class="pickup-entry">
+
+                        <h4>
+
+                            ${escapeHTML(item.name)}
+                            × ${item.quantity}
+
+                        </h4>
+
+                        <p>
+
+                            Store:
+                            ${escapeHTML(item.store)}
+
+                        </p>
+
+                        <p>
+
+                            Pickup:
+                            ${escapeHTML(item.pickup)}
+
+                        </p>
+
+                        <p>
+
+                            Status:
+                            ${escapeHTML(item.status)}
+
+                        </p>
+
+                    </div>
+
+                `).join("");
+
+
+            successPanel.innerHTML = `
+
+                <div class="success-icon">
+
+                    ✓
+
+                </div>
+
+                <div class="eyebrow">
+
+                    Reservation Successful
+
+                </div>
+
+                <h2>
+
+                    Thank You for Choosing FoodBridge!
+
+                </h2>
+
+                <p>
+
+                    Your demonstration reservation
+                    has been successfully created.
+
+                </p>
+
+
+                <div class="reservation-number">
+
+                    Reservation Number
+
+                    <strong>
+
+                        ${escapeHTML(order.id)}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Reservation Name</span>
+
+                    <strong>
+
+                        ${escapeHTML(order.customerName)}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Total Items</span>
+
+                    <strong>
+
+                        ${totalQuantity}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Total Amount</span>
+
+                    <strong>
+
+                        ${formatMoney(order.total)}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Potential Money Saved</span>
+
+                    <strong class="savings-text">
+
+                        ${formatMoney(order.savings)}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Potential Food Waste Avoided</span>
+
+                    <strong class="savings-text">
+
+                        ${totalWaste.toFixed(2)} kg
+
+                    </strong>
+
+                </div>
+
+
+                <div class="pickup-list">
+
+                    <h3>Pickup Information</h3>
+
+                    ${pickupDetails}
+
+                </div>
+
+
+                <div class="demo-notice">
+
+                    Your reservation is pending confirmation.
+                    This is a demonstration and does not
+                    create a real food order.
+
+                </div>
+
+
+                <div class="success-actions">
+
+                    <a href="orders.html"
+                       class="btn btn-primary">
+
+                        View My Orders →
+
+                    </a>
+
+                    <a href="food.html"
+                       class="btn btn-outline">
+
+                        Continue Shopping
+
+                    </a>
+
+                </div>
+
+            `;
+
+
+            hideMessage();
+
+            cartLayout.hidden = true;
+
+            successPanel.hidden = false;
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        }
+
+
+        // Notifications
+
+        function showMessage(message, isError = false) {
+
+            const element =
+                document.getElementById("cartMessage");
+
+            element.textContent = message;
+
+            element.className =
+                isError ? "message error" : "message";
+
+            element.hidden = false;
+
+        }
+
+
+        function hideMessage() {
+
+            document.getElementById(
+                "cartMessage"
+            ).hidden = true;
+
+        }
+
+
+        // Event Listeners
+
+        clearCartButton.addEventListener(
+
+            "click",
+
+            clearAllItems
+
+        );
+
+
+        checkoutForm.addEventListener(
+
+            "submit",
+
+            completeReservation
+
+        );
+
+
+        // Refresh Shared Data
+
+        function refreshPage() {
+
+            const cartLayout =
+                document.getElementById("cartLayout");
+
+            const successPanel =
+                document.getElementById("successPanel");
+
+            if (
+                !successPanel.hidden &&
+                db.getCart().length > 0
+            ) {
+
+                successPanel.hidden = true;
+
+                cartLayout.hidden = false;
+
+            }
+
+            displayCart();
+
+        }
+
+
+        window.addEventListener(
+
+            "storage",
+
+            refreshPage
+
+        );
+
+
+        window.addEventListener(
+
+            "pageshow",
+
+            refreshPage
+
+        );
+
+
+        // Initialize Shopping Cart
+
+        refreshPage();
+
+    </script>
+
+</body>
+</html>
