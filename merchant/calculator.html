@@ -1,0 +1,1616 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Calculator | FoodBridge</title>
+    <link rel="stylesheet" href="../style-v2.css">
+
+    <style>
+
+        .merchant-layout {
+            display: grid;
+            grid-template-columns: 250px minmax(0, 1fr);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: #203523;
+            color: white;
+            padding: 30px 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar .logo {
+            color: white;
+            font-size: 29px;
+        }
+
+        .sidebar-subtitle {
+            color: #b5c6ae;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin: 12px 0 35px;
+        }
+
+        .sidebar-label {
+            color: #a4b69e;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            margin: 25px 12px 12px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 15px;
+            color: #e0e8dd;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: #405b40;
+            color: white;
+        }
+
+        .sidebar-divider {
+            border: none;
+            border-top: 1px solid #49604a;
+            margin: 25px 0;
+        }
+
+        .merchant-main {
+            min-width: 0;
+            padding: 0;
+            background: #f7f4ec;
+        }
+
+        .merchant-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px 35px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topbar-title {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .store-label {
+            background: #e8eee4;
+            color: #304832;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .dashboard-content {
+            max-width: 1500px;
+            margin: auto;
+            padding: 35px;
+        }
+
+        .dashboard-heading {
+            margin-bottom: 28px;
+        }
+
+        .dashboard-heading h1 {
+            font-size: clamp(30px, 4vw, 42px);
+            margin: 8px 0;
+        }
+
+        .dashboard-heading p {
+            color: var(--muted);
+        }
+
+        .calculator-banner {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            background: #304832;
+            color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .banner-content {
+            padding: 35px;
+        }
+
+        .banner-content h2 {
+            color: white;
+            font-size: 32px;
+            margin: 10px 0 15px;
+        }
+
+        .banner-content p {
+            color: #dce7d8;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .calculator-banner img {
+            width: 100%;
+            height: 100%;
+            min-height: 220px;
+            object-fit: cover;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .calculator-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 25px;
+        }
+
+        .calculator-card h2 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--green);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .input-group input[type="number"] {
+            width: 100%;
+        }
+
+        .input-group input[type="range"] {
+            width: 100%;
+            accent-color: #304832;
+            cursor: pointer;
+            padding: 0;
+            border: none;
+        }
+
+        .range-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .range-heading label {
+            margin-bottom: 0;
+        }
+
+        .range-value {
+            background: #e8eee4;
+            color: #304832;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 8px;
+        }
+
+        .discount-box {
+            background: #e8eee4;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .discount-box p {
+            color: #52634e;
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .discount-box strong {
+            color: #304832;
+            font-size: 32px;
+        }
+
+        .discount-tag {
+            display: inline-block;
+            background: #304832;
+            color: white;
+            border-radius: 6px;
+            padding: 5px 9px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .result-hero {
+            background: #304832;
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .result-hero p {
+            color: #dce7d8;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .result-hero strong {
+            color: white;
+            font-size: clamp(30px, 4vw, 43px);
+            display: block;
+            overflow-wrap: anywhere;
+        }
+
+        .result-hero small {
+            color: #dce7d8;
+            display: block;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .revenue-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .result-box {
+            background: #f7f4ec;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .result-box p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .result-box strong {
+            color: var(--green);
+            font-size: 26px;
+            overflow-wrap: anywhere;
+        }
+
+        .result-section-title {
+            color: var(--green);
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .impact-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 17px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .impact-row span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .impact-row strong {
+            color: var(--green);
+            font-size: 20px;
+            text-align: right;
+        }
+
+        .impact-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 25px;
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .comparison-header h2 {
+            font-size: 25px;
+            margin: 0;
+        }
+
+        .comparison-header select {
+            width: auto;
+            min-width: 140px;
+        }
+
+        .chart-row {
+            margin-bottom: 25px;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--green);
+        }
+
+        .chart-track {
+            height: 35px;
+            background: #f0f1ed;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .chart-bar {
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.3s ease;
+        }
+
+        .discard-bar {
+            background: #b9bdb6;
+            width: 0%;
+        }
+
+        .foodbridge-bar {
+            background: #648052;
+            width: 100%;
+        }
+
+        .comparison-note {
+            background: #e8eee4;
+            color: #304832;
+            padding: 18px;
+            border-radius: 9px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .actual-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .actual-stat {
+            background: #f7f4ec;
+            border-radius: 10px;
+            padding: 22px;
+        }
+
+        .actual-stat p {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 10px 0;
+        }
+
+        .actual-stat strong {
+            display: block;
+            color: var(--green);
+            font-size: 28px;
+            overflow-wrap: anywhere;
+        }
+
+        .sdg-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .sdg-box {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .sdg-box img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+        }
+
+        .sdg-box h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .sdg-box p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .demo-note {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+            margin-top: 22px;
+        }
+
+        .dashboard-footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            padding: 30px;
+        }
+
+        @media (max-width: 1100px) {
+
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 760px) {
+
+            .merchant-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                height: auto;
+                padding: 20px;
+            }
+
+            .sidebar-subtitle {
+                margin-bottom: 20px;
+            }
+
+            .sidebar-nav {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .sidebar-nav a {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .merchant-topbar,
+            .dashboard-content {
+                padding: 20px;
+            }
+
+            .calculator-banner {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-banner img {
+                height: 200px;
+            }
+
+            .actual-stats,
+            .sdg-section {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-card,
+            .comparison-panel {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="merchant-layout">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <a href="../index.html" class="logo">
+            FoodBridge<span>.</span>
+        </a>
+
+        <div class="sidebar-subtitle">
+            MERCHANT PORTAL
+        </div>
+
+        <div class="sidebar-label">
+            MANAGEMENT
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="add-food.html">
+                <span>＋</span> Add Food
+            </a>
+
+            <a href="listings.html">
+                <span>📦</span> My Listings
+            </a>
+
+            <a href="orders.html">
+                <span>📋</span> Manage Orders
+            </a>
+
+        </nav>
+
+        <div class="sidebar-label">
+            BUSINESS TOOLS
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="calculator.html"
+               class="active"
+               aria-current="page">
+
+                <span>🧮</span> Revenue Calculator
+
+            </a>
+
+        </nav>
+
+        <hr class="sidebar-divider">
+
+        <div class="sidebar-label">
+            FOODBRIDGE
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="../index.html">
+                <span>⌂</span> Main Website
+            </a>
+
+            <a href="../customer/index.html">
+                <span>🛒</span> Customer Portal
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- Main Content -->
+
+    <main class="merchant-main">
+
+        <header class="merchant-topbar">
+
+            <div class="topbar-title">
+                Merchant Management Center
+            </div>
+
+            <div class="store-label">
+                🏪 <span id="currentStore">Loading...</span>
+            </div>
+
+        </header>
+
+        <div class="dashboard-content">
+
+            <div class="dashboard-heading">
+
+                <div class="eyebrow">
+                    Business Tools
+                </div>
+
+                <h1>Revenue Calculator</h1>
+
+                <p>
+                    Discover the financial and environmental
+                    value of your surplus food.
+                </p>
+
+            </div>
+
+
+            <!-- Banner -->
+
+            <section class="calculator-banner">
+
+                <div class="banner-content">
+
+                    <div style="font-size:12px;
+                                letter-spacing:2px;
+                                color:#dce7d8;">
+
+                        TURN WASTE INTO VALUE
+
+                    </div>
+
+                    <h2>Less Waste. More Revenue.</h2>
+
+                    <p>
+                        Instead of throwing away unsold food,
+                        recover potential revenue, offer affordable
+                        meals, and contribute to a more
+                        sustainable community.
+                    </p>
+
+                </div>
+
+                <img src="../partner.jpg"
+                     alt="FoodBridge business partnership">
+
+            </section>
+
+
+            <div class="calculator-grid">
+
+
+                <!-- Calculator Inputs -->
+
+                <section class="calculator-card">
+
+                    <h2>Business Information</h2>
+
+                    <p class="card-description">
+                        Adjust the values below to estimate
+                        your potential business revenue.
+                    </p>
+
+
+                    <div class="input-group">
+
+                        <label for="originalPrice">
+                            Original Price per Item (NT$)
+                        </label>
+
+                        <input type="number"
+                               id="originalPrice"
+                               min="2"
+                               max="10000"
+                               step="1"
+                               value="120">
+
+                    </div>
+
+
+                    <div class="discount-box">
+
+                        <p>FoodBridge Selling Price</p>
+
+                        <strong id="sellingPrice">
+                            NT$36
+                        </strong>
+
+                        <span class="discount-tag"
+                              id="discountTag">
+
+                            70% OFF
+
+                        </span>
+
+                        <p style="margin-top:12px;">
+                            Approximately 30% of the original price.
+                        </p>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <div class="range-heading">
+
+                            <label for="dailyItems">
+                                Daily Surplus Food
+                            </label>
+
+                            <span class="range-value"
+                                  id="dailyItemsValue">
+                                10 items
+                            </span>
+
+                        </div>
+
+                        <input type="range"
+                               id="dailyItems"
+                               min="1"
+                               max="100"
+                               value="10">
+
+                        <div class="range-labels">
+                            <span>1 item</span>
+                            <span>100 items</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <div class="range-heading">
+
+                            <label for="sellRate">
+                                Estimated Sell-through Rate
+                            </label>
+
+                            <span class="range-value"
+                                  id="sellRateValue">
+                                80%
+                            </span>
+
+                        </div>
+
+                        <input type="range"
+                               id="sellRate"
+                               min="0"
+                               max="100"
+                               step="5"
+                               value="80">
+
+                        <div class="range-labels">
+                            <span>0%</span>
+                            <span>100%</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <div class="range-heading">
+
+                            <label for="businessDays">
+                                Business Days per Month
+                            </label>
+
+                            <span class="range-value"
+                                  id="businessDaysValue">
+                                26 days
+                            </span>
+
+                        </div>
+
+                        <input type="range"
+                               id="businessDays"
+                               min="1"
+                               max="31"
+                               value="26">
+
+                        <div class="range-labels">
+                            <span>1 day</span>
+                            <span>31 days</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <div class="range-heading">
+
+                            <label for="foodWeight">
+                                Average Weight per Item
+                            </label>
+
+                            <span class="range-value"
+                                  id="foodWeightValue">
+                                0.40 kg
+                            </span>
+
+                        </div>
+
+                        <input type="range"
+                               id="foodWeight"
+                               min="0.05"
+                               max="2"
+                               step="0.05"
+                               value="0.40">
+
+                        <div class="range-labels">
+                            <span>0.05 kg</span>
+                            <span>2 kg</span>
+                        </div>
+
+                    </div>
+
+
+                    <button type="button"
+                            class="btn btn-outline btn-block"
+                            id="resetButton">
+
+                        Reset Calculator
+
+                    </button>
+
+                </section>
+
+
+                <!-- Calculator Results -->
+
+                <section class="calculator-card">
+
+                    <h2>Estimated Revenue</h2>
+
+                    <p class="card-description">
+                        Your projected gross sales from surplus food.
+                    </p>
+
+
+                    <div class="result-hero">
+
+                        <p>Potential Annual Revenue</p>
+
+                        <strong id="annualRevenue">
+                            NT$89,856
+                        </strong>
+
+                        <small>
+                            Based on your estimated sales and
+                            monthly business days.
+                        </small>
+
+                    </div>
+
+
+                    <div class="revenue-results">
+
+                        <div class="result-box">
+
+                            <p>Daily Revenue</p>
+
+                            <strong id="dailyRevenue">
+                                NT$288
+                            </strong>
+
+                        </div>
+
+                        <div class="result-box">
+
+                            <p>Monthly Revenue</p>
+
+                            <strong id="monthlyRevenue">
+                                NT$7,488
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <h3 class="result-section-title">
+                        🌱 Estimated Annual Impact
+                    </h3>
+
+
+                    <div class="impact-row">
+
+                        <span>Food Items Rescued</span>
+
+                        <strong id="annualItems">
+                            2,496 items
+                        </strong>
+
+                    </div>
+
+
+                    <div class="impact-row">
+
+                        <span>Customer Savings</span>
+
+                        <strong id="annualSavings">
+                            NT$209,664
+                        </strong>
+
+                    </div>
+
+
+                    <div class="impact-row">
+
+                        <span>Potential Food Waste Avoided</span>
+
+                        <strong id="annualWaste">
+                            998.40 kg
+                        </strong>
+
+                    </div>
+
+
+                    <div class="impact-row">
+
+                        <span>Estimated Unsold Items per Day</span>
+
+                        <strong id="unsoldItems">
+                            2 items
+                        </strong>
+
+                    </div>
+
+
+                    <div class="impact-row">
+
+                        <span>Revenue Recovered per Item</span>
+
+                        <strong id="recoveredPerItem">
+                            NT$36
+                        </strong>
+
+                    </div>
+
+
+                    <p class="demo-note">
+
+                        These results are estimates, not guaranteed
+                        revenue or net profit. Operating costs,
+                        packaging, taxes and platform fees are
+                        not included.
+
+                    </p>
+
+                </section>
+
+            </div>
+
+
+            <!-- Revenue Comparison -->
+
+            <section class="comparison-panel">
+
+                <div class="comparison-header">
+
+                    <h2>Revenue Comparison</h2>
+
+                    <select id="comparisonPeriod"
+                            aria-label="Comparison period">
+
+                        <option value="daily">Daily</option>
+
+                        <option value="monthly" selected>
+                            Monthly
+                        </option>
+
+                        <option value="annual">Annual</option>
+
+                    </select>
+
+                </div>
+
+                <p class="card-description">
+
+                    Compare gross revenue from discarding
+                    surplus food with selling it through FoodBridge.
+
+                </p>
+
+
+                <div class="chart-row">
+
+                    <div class="chart-label">
+
+                        <span>Discarding Surplus Food</span>
+
+                        <strong>NT$0</strong>
+
+                    </div>
+
+                    <div class="chart-track">
+
+                        <div class="chart-bar discard-bar"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-row">
+
+                    <div class="chart-label">
+
+                        <span>Selling Through FoodBridge</span>
+
+                        <strong id="comparisonRevenue">
+                            NT$7,488
+                        </strong>
+
+                    </div>
+
+                    <div class="chart-track">
+
+                        <div class="chart-bar foodbridge-bar"
+                             id="foodbridgeBar">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="comparison-note"
+                     id="comparisonNote">
+
+                    Your business could recover NT$7,488
+                    in gross sales each month instead of
+                    receiving no revenue from discarded food.
+
+                </div>
+
+            </section>
+
+
+            <!-- Actual Merchant Data -->
+
+            <section class="calculator-card">
+
+                <h2>Your FoodBridge Performance</h2>
+
+                <p class="card-description">
+
+                    Recorded results from completed demonstration
+                    orders for your selected store.
+
+                </p>
+
+                <div class="actual-stats">
+
+                    <div class="actual-stat">
+
+                        <div style="font-size:25px;">💰</div>
+
+                        <p>Completed Sales</p>
+
+                        <strong id="actualRevenue">
+                            NT$0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="actual-stat">
+
+                        <div style="font-size:25px;">🍽️</div>
+
+                        <p>Food Items Sold</p>
+
+                        <strong id="actualMeals">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="actual-stat">
+
+                        <div style="font-size:25px;">🌱</div>
+
+                        <p>Estimated Food Rescued</p>
+
+                        <strong id="actualWaste">
+                            0.00 kg
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <a href="orders.html"
+                   class="btn btn-outline"
+                   style="margin-top:22px;">
+
+                    View Completed Orders →
+
+                </a>
+
+            </section>
+
+
+            <!-- SDGs -->
+
+            <section class="sdg-section">
+
+                <article class="sdg-box">
+
+                    <img src="../sdg2.png"
+                         alt="SDG 2 Zero Hunger">
+
+                    <div>
+
+                        <h3>SDG 2: Zero Hunger</h3>
+
+                        <p>
+                            Make affordable food more accessible
+                            to the wider community.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="sdg-box">
+
+                    <img src="../sdg12.png"
+                         alt="SDG 12 Responsible Consumption">
+
+                    <div>
+
+                        <h3>SDG 12: Responsible Consumption</h3>
+
+                        <p>
+                            Reduce avoidable food waste and
+                            encourage sustainable business practices.
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <p class="demo-note">
+
+                FoodBridge is an educational demonstration.
+                Forecasts assume the same average selling price,
+                sell-through rate and business activity throughout
+                the year. Annual estimates equal twelve monthly
+                estimates, using a maximum of 365 business days.
+                Food waste estimates assume sold food would
+                otherwise have been discarded.
+
+                No real payments are processed.
+
+            </p>
+
+        </div>
+
+
+        <footer class="dashboard-footer">
+
+            © 2026 FoodBridge · Merchant Portal ·
+            Reducing waste, feeding hope.
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="../database.js"></script>
+
+<script>
+
+    const db = window.FoodBridgeDB;
+
+    const DISCOUNT = 70;
+
+    function element(id) {
+        return document.getElementById(id);
+    }
+
+    function setText(id, value) {
+        element(id).textContent = value;
+    }
+
+    function formatMoney(value) {
+
+        return "NT$" +
+            Math.round(value).toLocaleString("en-US");
+
+    }
+
+    function formatNumber(value) {
+
+        return Number(value).toLocaleString("en-US", {
+            maximumFractionDigits: 1
+        });
+
+    }
+
+    function getNumber(id, min, max, fallback) {
+
+        const raw = element(id).value;
+
+        const value = raw === ""
+            ? fallback
+            : Number(raw);
+
+        if (!Number.isFinite(value)) {
+            return fallback;
+        }
+
+        return Math.min(max, Math.max(min, value));
+
+    }
+
+
+    // Calculate Estimated Revenue
+
+    function calculateRevenue() {
+
+        const originalPrice = Math.round(
+            getNumber("originalPrice", 2, 10000, 120)
+        );
+
+        const dailyItems = getNumber(
+            "dailyItems", 1, 100, 10
+        );
+
+        const sellRate = getNumber(
+            "sellRate", 0, 100, 80
+        );
+
+        const businessDays = getNumber(
+            "businessDays", 1, 31, 26
+        );
+
+        const foodWeight = getNumber(
+            "foodWeight", 0.05, 2, 0.4
+        );
+
+
+        // FoodBridge Price
+
+        const sellingPrice = db.calculatePrice(
+            originalPrice,
+            DISCOUNT
+        );
+
+        const savingsPerItem =
+            originalPrice - sellingPrice;
+
+        const effectiveDiscount = Math.round(
+            savingsPerItem / originalPrice * 100
+        );
+
+
+        // Estimated Sales
+
+        const dailySold =
+            dailyItems * sellRate / 100;
+
+        const dailyUnsold =
+            dailyItems - dailySold;
+
+        const monthlySold =
+            dailySold * businessDays;
+
+        const annualBusinessDays =
+            Math.min(businessDays * 12, 365);
+
+        const annualSold =
+            dailySold * annualBusinessDays;
+
+
+        // Revenue
+
+        const dailyRevenue =
+            dailySold * sellingPrice;
+
+        const monthlyRevenue =
+            monthlySold * sellingPrice;
+
+        const annualRevenue =
+            annualSold * sellingPrice;
+
+
+        // Sustainability
+
+        const annualSavings =
+            annualSold * savingsPerItem;
+
+        const annualWaste =
+            annualSold * foodWeight;
+
+
+        // Input Labels
+
+        setText(
+            "dailyItemsValue",
+            dailyItems + " items"
+        );
+
+        setText(
+            "sellRateValue",
+            sellRate + "%"
+        );
+
+        setText(
+            "businessDaysValue",
+            businessDays + " days"
+        );
+
+        setText(
+            "foodWeightValue",
+            foodWeight.toFixed(2) + " kg"
+        );
+
+
+        // Price Results
+
+        setText(
+            "sellingPrice",
+            formatMoney(sellingPrice)
+        );
+
+        setText(
+            "discountTag",
+            effectiveDiscount + "% OFF"
+        );
+
+
+        // Revenue Results
+
+        setText(
+            "dailyRevenue",
+            formatMoney(dailyRevenue)
+        );
+
+        setText(
+            "monthlyRevenue",
+            formatMoney(monthlyRevenue)
+        );
+
+        setText(
+            "annualRevenue",
+            formatMoney(annualRevenue)
+        );
+
+
+        // Impact Results
+
+        setText(
+            "annualItems",
+            formatNumber(annualSold) + " items"
+        );
+
+        setText(
+            "annualSavings",
+            formatMoney(annualSavings)
+        );
+
+        setText(
+            "annualWaste",
+            annualWaste.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }) + " kg"
+        );
+
+        setText(
+            "unsoldItems",
+            formatNumber(dailyUnsold) + " items"
+        );
+
+        setText(
+            "recoveredPerItem",
+            formatMoney(sellingPrice)
+        );
+
+
+        // Comparison Chart
+
+        updateComparison({
+            daily: dailyRevenue,
+            monthly: monthlyRevenue,
+            annual: annualRevenue
+        });
+
+    }
+
+
+    // Update Revenue Comparison
+
+    function updateComparison(revenue) {
+
+        const period =
+            element("comparisonPeriod").value;
+
+        const amount =
+            revenue[period] || 0;
+
+        const periodLabels = {
+            daily: "day",
+            monthly: "month",
+            annual: "year"
+        };
+
+        setText(
+            "comparisonRevenue",
+            formatMoney(amount)
+        );
+
+        element("foodbridgeBar").style.width =
+            amount > 0 ? "100%" : "0%";
+
+        setText(
+            "comparisonNote",
+
+            "Your business could recover " +
+            formatMoney(amount) +
+            " in gross sales each " +
+            periodLabels[period] +
+            " instead of receiving no revenue " +
+            "from discarded food."
+        );
+
+    }
+
+
+    // Actual Merchant Statistics
+
+    function loadMerchantPerformance() {
+
+        const merchant =
+            db.getCurrentMerchant();
+
+        if (!merchant) {
+
+            setText(
+                "currentStore",
+                "No store selected"
+            );
+
+            return;
+
+        }
+
+        setText(
+            "currentStore",
+            merchant.name
+        );
+
+        const stats =
+            db.getMerchantStats(merchant.id);
+
+        setText(
+            "actualRevenue",
+            formatMoney(stats.revenue || 0)
+        );
+
+        setText(
+            "actualMeals",
+            formatNumber(stats.mealsSold || 0)
+        );
+
+        setText(
+            "actualWaste",
+            Number(stats.waste || 0).toFixed(2) + " kg"
+        );
+
+    }
+
+
+    // Reset Calculator
+
+    function resetCalculator() {
+
+        element("originalPrice").value = 120;
+
+        element("dailyItems").value = 10;
+
+        element("sellRate").value = 80;
+
+        element("businessDays").value = 26;
+
+        element("foodWeight").value = 0.40;
+
+        element("comparisonPeriod").value = "monthly";
+
+        calculateRevenue();
+
+    }
+
+
+    // Event Listeners
+
+    [
+        "originalPrice",
+        "dailyItems",
+        "sellRate",
+        "businessDays",
+        "foodWeight"
+    ].forEach(id => {
+
+        element(id).addEventListener(
+            "input",
+            calculateRevenue
+        );
+
+    });
+
+    element("originalPrice").addEventListener(
+        "change",
+        () => {
+
+            element("originalPrice").value = Math.round(
+                getNumber("originalPrice", 2, 10000, 120)
+            );
+
+            calculateRevenue();
+
+        }
+    );
+
+    element("comparisonPeriod").addEventListener(
+        "change",
+        calculateRevenue
+    );
+
+    element("resetButton").addEventListener(
+        "click",
+        resetCalculator
+    );
+
+    window.addEventListener(
+        "pageshow",
+        loadMerchantPerformance
+    );
+
+    window.addEventListener(
+        "storage",
+        loadMerchantPerformance
+    );
+
+
+    // Initialize Page
+
+    calculateRevenue();
+
+    loadMerchantPerformance();
+
+</script>
+
+</body>
+</html>
