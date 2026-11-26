@@ -1,19 +1,7 @@
 
-// FoodBridge - Food Listings and Interactive Features
-
-// 1. Pricing Strategy
-
-const discountRate = 0.70;
-
-function calculatePrice(originalPrice) {
-    return Math.round(originalPrice * (1 - discountRate));
-}
-
-
-// 2. Food Data
+/* FoodBridge - Interactive Food Platform */
 
 const defaultFoods = [
-
     {
         id: 1,
         name: "Freshly Baked Bread",
@@ -26,7 +14,6 @@ const defaultFoods = [
         pickup: "5:00 PM - 7:00 PM",
         image: "green-leaf.jpg"
     },
-
     {
         id: 2,
         name: "Assorted Pastries",
@@ -39,7 +26,6 @@ const defaultFoods = [
         pickup: "6:00 PM - 8:00 PM",
         image: "sweetbread.jpg"
     },
-
     {
         id: 3,
         name: "Traditional Bento",
@@ -52,21 +38,16 @@ const defaultFoods = [
         pickup: "5:00 PM - 7:00 PM",
         image: "sunny-bento.jpg"
     }
-
-];
-
-
-// 3. Initialize Data
-
-const storageKey = "foodbridge_discount_v4";
-
-let foods = defaultFoods.map(food => ({
-
+].map(food => ({
     ...food,
-
-    price: calculatePrice(food.originalPrice)
-
+    price: Math.round(food.originalPrice * 0.3)
 }));
+
+/* Initialize Data */
+
+const storageKey = "foodbridge_v5";
+
+let foods = defaultFoods.map(food => ({ ...food }));
 
 let impact = {
     meals: 0,
@@ -74,19 +55,15 @@ let impact = {
     money: 0
 };
 
-
-// 4. Load Saved Data
+/* Load Saved Data */
 
 try {
-
     const saved = JSON.parse(
         localStorage.getItem(storageKey)
     );
 
     if (saved && saved.stock) {
-
         foods.forEach(food => {
-
             const stock = saved.stock[food.id];
 
             if (
@@ -96,36 +73,36 @@ try {
             ) {
                 food.stock = stock;
             }
-
         });
-
     }
-
 } catch (error) {
-
     console.warn("Unable to load saved data.");
-
 }
 
+/* HTML Elements */
 
-// 5. HTML Elements
+const foodList =
+    document.getElementById("foodList");
 
-const foodList = document.getElementById("foodList");
+const searchInput =
+    document.getElementById("searchInput");
 
-const searchInput = document.getElementById("searchInput");
+const regionFilter =
+    document.getElementById("regionFilter");
 
-const regionFilter = document.getElementById("regionFilter");
+const categoryFilter =
+    document.getElementById("categoryFilter");
 
-const categoryFilter = document.getElementById("categoryFilter");
+const message =
+    document.getElementById("message");
 
-const message = document.getElementById("message");
+const contactForm =
+    document.getElementById("contactForm");
 
-const contactForm = document.getElementById("contactForm");
+const contactStatus =
+    document.getElementById("contactStatus");
 
-const contactStatus = document.getElementById("contactStatus");
-
-
-// 6. Display Food Cards
+/* Display Food Cards */
 
 function displayFoods(items) {
 
@@ -136,31 +113,24 @@ function displayFoods(items) {
         foodList.innerHTML = `
             <div class="empty-state">
                 <h3>No matching meals</h3>
-
-                <p>
-                    Try another search or change your filters.
-                </p>
+                <p>Try another search or change your filters.</p>
             </div>
         `;
 
         return;
-
     }
 
     items.forEach(food => {
+
+        const discount = Math.round(
+            (1 - food.price / food.originalPrice) * 100
+        );
 
         const card = document.createElement("article");
 
         card.className = "food-card";
 
-        const savings = food.originalPrice - food.price;
-
-        const actualDiscount = Math.round(
-            (savings / food.originalPrice) * 100
-        );
-
         card.innerHTML = `
-
             <div class="food-image">
 
                 <img
@@ -174,25 +144,9 @@ function displayFoods(items) {
             <div class="food-content">
 
                 <span class="stock">
-
                     ${food.stock > 0
                         ? food.stock + " available"
                         : "Sold out"}
-
-                </span>
-
-                <span style="
-                    display: inline-block;
-                    background: #304833;
-                    color: #ffffff;
-                    padding: 5px 10px;
-                    margin-left: 5px;
-                    font-size: 13px;
-                    font-weight: 600;
-                ">
-
-                    ${actualDiscount}% OFF
-
                 </span>
 
                 <h3>${food.name}</h3>
@@ -217,40 +171,30 @@ function displayFoods(items) {
                         NT$${food.originalPrice}
                     </span>
 
-                </div>
+                    <span class="discount-badge">
+                        ${discount}% OFF
+                    </span>
 
-                <p style="
-                    color: #304833;
-                    font-weight: 600;
-                    margin-bottom: 15px;
-                ">
-                    You save NT$${savings}
-                </p>
+                </div>
 
                 <button
                     class="reserve-btn"
                     data-id="${food.id}"
                     ${food.stock === 0 ? "disabled" : ""}
                 >
-
                     ${food.stock > 0
                         ? "Reserve"
                         : "Sold Out"}
-
                 </button>
 
             </div>
-
         `;
 
         foodList.appendChild(card);
-
     });
-
 }
 
-
-// 7. Search and Filter
+/* Search and Filter */
 
 function filterFoods() {
 
@@ -280,33 +224,25 @@ function filterFoods() {
             matchesRegion &&
             matchesCategory
         );
-
     });
 
     displayFoods(filteredFoods);
-
 }
 
-
-// 8. Reservation Preview
+/* Reservation Preview */
 
 function reserveFood(id) {
 
-    const food = foods.find(
-        item => item.id === id
-    );
+    const food = foods.find(item => item.id === id);
 
     if (!food || food.stock <= 0) {
-
-        showMessage(
-            "This item is no longer available."
-        );
-
+        showMessage("This item is no longer available.");
         return;
-
     }
 
-    const savings = food.originalPrice - food.price;
+    const discount = Math.round(
+        (1 - food.price / food.originalPrice) * 100
+    );
 
     const confirmed = window.confirm(
 
@@ -314,27 +250,21 @@ function reserveFood(id) {
 
         "Store: " + food.store + "\n" +
 
-        "Original Price: NT$" +
-        food.originalPrice + "\n" +
+        "Original Price: NT$" + food.originalPrice + "\n" +
 
-        "FoodBridge Price: NT$" +
-        food.price + "\n" +
+        "Special Price: NT$" + food.price + "\n" +
 
-        "You Save: NT$" +
-        savings + "\n" +
+        "Discount: " + discount + "% OFF\n" +
 
         "Pickup: " + food.pickup + "\n\n" +
 
         "Continue with reservation preview?\n" +
 
-        "No actual order or payment will be sent to the store."
-
+        "No order or payment will be sent to the store."
     );
 
     if (!confirmed) {
-
         return;
-
     }
 
     food.stock -= 1;
@@ -346,18 +276,12 @@ function reserveFood(id) {
     updateImpact();
 
     showMessage(
-
         food.name +
-        " selected successfully! " +
-        "Estimated savings: NT$" +
-        savings + "."
-
+        " selected. Reservation preview completed."
     );
-
 }
 
-
-// 9. Environmental Impact
+/* Environmental Impact */
 
 function updateImpact() {
 
@@ -373,18 +297,14 @@ function updateImpact() {
             item => item.id === food.id
         );
 
-        const reserved =
-            original.stock - food.stock;
+        const reserved = original.stock - food.stock;
 
         impact.meals += reserved;
 
-        impact.waste +=
-            reserved * food.weight;
+        impact.waste += reserved * food.weight;
 
         impact.money +=
-            reserved *
-            (food.originalPrice - food.price);
-
+            reserved * (food.originalPrice - food.price);
     });
 
     document.getElementById("savedMeals")
@@ -394,46 +314,30 @@ function updateImpact() {
         .textContent = impact.waste.toFixed(2);
 
     document.getElementById("savedMoney")
-        .textContent =
-            impact.money.toLocaleString("en-US");
-
+        .textContent = impact.money.toLocaleString("en-US");
 }
 
-
-// 10. Save Data
+/* Save Data */
 
 function saveData() {
 
     const stock = {};
 
     foods.forEach(food => {
-
         stock[food.id] = food.stock;
-
     });
 
     try {
-
         localStorage.setItem(
-
             storageKey,
-
-            JSON.stringify({
-                stock: stock
-            })
-
+            JSON.stringify({ stock: stock })
         );
-
     } catch (error) {
-
         console.warn("Unable to save data.");
-
     }
-
 }
 
-
-// 11. Notifications
+/* Notifications */
 
 let messageTimer;
 
@@ -444,36 +348,28 @@ function showMessage(text) {
     message.textContent = text;
 
     messageTimer = setTimeout(() => {
-
         message.textContent = "";
-
     }, 6000);
-
 }
 
-
-// 12. Store Links
+/* Store Links */
 
 document.querySelectorAll("[data-store]")
     .forEach(link => {
 
         link.addEventListener("click", () => {
 
-            searchInput.value =
-                link.dataset.store;
+            searchInput.value = link.dataset.store;
 
             regionFilter.value = "all";
 
             categoryFilter.value = "all";
 
             filterFoods();
-
         });
-
     });
 
-
-// 13. Contact Form
+/* Contact Form */
 
 contactForm.addEventListener("submit", event => {
 
@@ -494,7 +390,6 @@ contactForm.addEventListener("submit", event => {
             "Please complete all fields.";
 
         return;
-
     }
 
     window.alert(
@@ -506,49 +401,30 @@ contactForm.addEventListener("submit", event => {
         "Email: " + email + "\n\n" +
 
         feedback
-
     );
 
     contactStatus.textContent =
-        "Message preview completed. No message has been sent.";
-
+        "Your message is ready. Online messaging is coming soon.";
 });
 
+/* Event Listeners */
 
-// 14. Event Listeners
+searchInput.addEventListener("input", filterFoods);
 
-searchInput.addEventListener(
-    "input",
-    filterFoods
-);
+regionFilter.addEventListener("change", filterFoods);
 
-regionFilter.addEventListener(
-    "change",
-    filterFoods
-);
-
-categoryFilter.addEventListener(
-    "change",
-    filterFoods
-);
+categoryFilter.addEventListener("change", filterFoods);
 
 foodList.addEventListener("click", event => {
 
-    const button =
-        event.target.closest(".reserve-btn");
+    const button = event.target.closest(".reserve-btn");
 
     if (button && !button.disabled) {
-
-        reserveFood(
-            Number(button.dataset.id)
-        );
-
+        reserveFood(Number(button.dataset.id));
     }
-
 });
 
-
-// 15. Initialize Website
+/* Initialize Website */
 
 filterFoods();
 
