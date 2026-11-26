@@ -1,0 +1,1811 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders | FoodBridge</title>
+    <link rel="stylesheet" href="../style-v2.css">
+
+    <style>
+        .merchant-layout {
+            display: grid;
+            grid-template-columns: 250px minmax(0, 1fr);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: #203523;
+            color: white;
+            padding: 30px 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar .logo {
+            color: white;
+            font-size: 29px;
+        }
+
+        .sidebar-subtitle {
+            color: #b5c6ae;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin: 12px 0 35px;
+        }
+
+        .sidebar-label {
+            color: #a4b69e;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            margin: 25px 12px 12px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 15px;
+            color: #e0e8dd;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: #405b40;
+            color: white;
+        }
+
+        .sidebar-divider {
+            border: none;
+            border-top: 1px solid #49604a;
+            margin: 25px 0;
+        }
+
+        .merchant-main {
+            min-width: 0;
+            padding: 0;
+            background: #f7f4ec;
+        }
+
+        .merchant-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px 35px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topbar-title {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .store-label {
+            background: #e8eee4;
+            color: #304832;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .dashboard-content {
+            max-width: 1500px;
+            margin: auto;
+            padding: 35px;
+        }
+
+        .dashboard-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-heading h1 {
+            font-size: clamp(30px, 4vw, 42px);
+            margin: 8px 0;
+        }
+
+        .dashboard-heading p {
+            color: var(--muted);
+        }
+
+        .order-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .order-stat {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 23px;
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8eee4;
+            border-radius: 10px;
+            font-size: 23px;
+            margin-bottom: 15px;
+        }
+
+        .order-stat p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .order-stat strong {
+            display: block;
+            color: var(--green);
+            font-size: 30px;
+            overflow-wrap: anywhere;
+        }
+
+        .order-stat small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 8px;
+        }
+
+        .workflow-panel,
+        .filter-panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .workflow-panel h2,
+        .filter-panel h2 {
+            font-size: 23px;
+            margin-bottom: 20px;
+        }
+
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .workflow-step {
+            background: #f7f4ec;
+            border-radius: 10px;
+            padding: 20px 12px;
+            text-align: center;
+        }
+
+        .workflow-step strong {
+            display: block;
+            font-size: 27px;
+            margin: 10px 0;
+            color: var(--green);
+        }
+
+        .workflow-step p {
+            font-size: 12px;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .step-number {
+            display: inline-flex;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            background: #304832;
+        }
+
+        .order-filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .filter-field label {
+            display: block;
+            color: var(--green);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .filter-field input,
+        .filter-field select {
+            width: 100%;
+        }
+
+        .filter-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 18px;
+        }
+
+        .result-count {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .merchant-order-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            margin-bottom: 22px;
+            overflow: hidden;
+        }
+
+        .merchant-order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #f2f4ef;
+            padding: 22px 25px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .merchant-order-header h3 {
+            color: var(--green);
+            font-size: 19px;
+            margin: 0 0 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .order-date {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .order-body {
+            padding: 25px;
+        }
+
+        .customer-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .customer-details p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .customer-details strong {
+            color: var(--green);
+            font-size: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .merchant-order-item {
+            display: grid;
+            grid-template-columns: 85px minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 18px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .merchant-order-item img {
+            width: 85px;
+            height: 85px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .merchant-order-item h4 {
+            font-size: 17px;
+            color: var(--green);
+            margin: 0 0 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .merchant-order-item p {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 5px;
+        }
+
+        .item-total {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--green);
+            text-align: right;
+        }
+
+        .order-status-label {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status-pending {
+            background: #fff0d9;
+            color: #a66a23;
+        }
+
+        .status-confirmed {
+            background: #e5eef8;
+            color: #3c6994;
+        }
+
+        .status-ready {
+            background: #eee6f7;
+            color: #76529b;
+        }
+
+        .status-completed {
+            background: #e8eee4;
+            color: #304832;
+        }
+
+        .status-cancelled {
+            background: #fbe9e7;
+            color: #a43e38;
+        }
+
+        .status-mixed {
+            background: #eeeeee;
+            color: #555555;
+        }
+
+        .order-totals {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 22px 0;
+        }
+
+        .order-total-box {
+            background: #f7f4ec;
+            border-radius: 9px;
+            padding: 16px;
+        }
+
+        .order-total-box p {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+
+        .order-total-box strong {
+            color: var(--green);
+            font-size: 22px;
+            overflow-wrap: anywhere;
+        }
+
+        .order-progress {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            padding: 18px 0;
+        }
+
+        .progress-step {
+            text-align: center;
+            font-size: 11px;
+            color: #999999;
+        }
+
+        .progress-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #eeeeee;
+            color: #999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+        }
+
+        .progress-step.done {
+            color: #304832;
+            font-weight: 600;
+        }
+
+        .progress-step.done .progress-dot {
+            background: #304832;
+            color: white;
+        }
+
+        .order-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .action-note {
+            color: var(--muted);
+            font-size: 12px;
+            max-width: 430px;
+            line-height: 1.6;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .cancel-button {
+            background: white;
+            border: 1px solid #edcfcc;
+            color: #b74b45;
+            border-radius: 8px;
+            padding: 11px 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cancel-button:hover {
+            background: #fbe9e7;
+        }
+
+        .completed-message {
+            color: #304832;
+            background: #e8eee4;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .cancelled-message {
+            color: #a43e38;
+            background: #fbe9e7;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .empty-orders {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            text-align: center;
+            padding: 60px 25px;
+        }
+
+        .empty-orders h3 {
+            color: var(--green);
+            margin: 15px 0;
+        }
+
+        .empty-orders p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .demo-note {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+            margin-top: 20px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            max-width: 90vw;
+            background: #304832;
+            color: white;
+            padding: 16px 22px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            font-size: 14px;
+        }
+
+        .dashboard-footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            padding: 30px;
+        }
+
+        @media (max-width: 1150px) {
+            .order-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 760px) {
+            .merchant-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                height: auto;
+                padding: 20px;
+            }
+
+            .sidebar-subtitle {
+                margin-bottom: 20px;
+            }
+
+            .sidebar-nav {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .sidebar-nav a {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .merchant-topbar,
+            .dashboard-content {
+                padding: 20px;
+            }
+
+            .workflow {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .order-filters {
+                grid-template-columns: 1fr;
+            }
+
+            .order-body {
+                padding: 18px;
+            }
+
+            .order-totals {
+                grid-template-columns: 1fr;
+            }
+
+            .merchant-order-item {
+                grid-template-columns: 65px minmax(0, 1fr);
+            }
+
+            .merchant-order-item img {
+                width: 65px;
+                height: 65px;
+            }
+
+            .item-total {
+                grid-column: 2;
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .order-stat {
+                padding: 15px;
+            }
+
+            .order-stat strong {
+                font-size: 23px;
+            }
+
+            .customer-details {
+                grid-template-columns: 1fr;
+            }
+
+            .merchant-order-header {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="merchant-layout">
+
+    <!-- Merchant Sidebar -->
+
+    <aside class="sidebar">
+
+        <a href="../index.html" class="logo">
+            FoodBridge<span>.</span>
+        </a>
+
+        <div class="sidebar-subtitle">
+            MERCHANT PORTAL
+        </div>
+
+        <div class="sidebar-label">
+            MANAGEMENT
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="add-food.html">
+                <span>＋</span> Add Food
+            </a>
+
+            <a href="listings.html">
+                <span>📦</span> My Listings
+            </a>
+
+            <a href="orders.html"
+               class="active"
+               aria-current="page">
+                <span>📋</span> Manage Orders
+            </a>
+
+        </nav>
+
+        <div class="sidebar-label">
+            BUSINESS TOOLS
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="calculator.html">
+                <span>🧮</span> Revenue Calculator
+            </a>
+
+        </nav>
+
+        <hr class="sidebar-divider">
+
+        <div class="sidebar-label">
+            FOODBRIDGE
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="../index.html">
+                <span>⌂</span> Main Website
+            </a>
+
+            <a href="../customer/index.html">
+                <span>🛒</span> Customer Portal
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="merchant-main">
+
+        <header class="merchant-topbar">
+
+            <div class="topbar-title">
+                Merchant Management Center
+            </div>
+
+            <div class="store-label">
+                🏪 <span id="currentStore">Loading...</span>
+            </div>
+
+        </header>
+
+        <div class="dashboard-content">
+
+            <div class="dashboard-heading">
+
+                <div>
+
+                    <div class="eyebrow">
+                        Order Management
+                    </div>
+
+                    <h1>Manage Orders</h1>
+
+                    <p>
+                        Manage customer reservations and
+                        turn surplus food into meaningful impact.
+                    </p>
+
+                </div>
+
+                <button type="button"
+                        class="btn btn-outline"
+                        id="refreshButton">
+                    ↻ Refresh Orders
+                </button>
+
+            </div>
+
+            <!-- Order Statistics -->
+
+            <section class="order-stats">
+
+                <article class="order-stat">
+                    <div class="stat-icon">📋</div>
+                    <p>Total Orders</p>
+                    <strong id="totalOrders">0</strong>
+                    <small>All customer reservations</small>
+                </article>
+
+                <article class="order-stat">
+                    <div class="stat-icon">⏳</div>
+                    <p>Pending Orders</p>
+                    <strong id="pendingOrders">0</strong>
+                    <small>Waiting for confirmation</small>
+                </article>
+
+                <article class="order-stat">
+                    <div class="stat-icon">✓</div>
+                    <p>Completed Orders</p>
+                    <strong id="completedOrders">0</strong>
+                    <small>Successfully collected</small>
+                </article>
+
+                <article class="order-stat">
+                    <div class="stat-icon">💰</div>
+                    <p>Completed Sales</p>
+                    <strong id="totalRevenue">NT$0</strong>
+                    <small>Gross value of completed orders</small>
+                </article>
+
+            </section>
+
+            <!-- Order Workflow -->
+
+            <section class="workflow-panel">
+
+                <h2>Order Workflow</h2>
+
+                <div class="workflow">
+
+                    <article class="workflow-step">
+                        <span class="step-number">1</span>
+                        <strong id="workflowPending">0</strong>
+                        <p>Pending</p>
+                    </article>
+
+                    <article class="workflow-step">
+                        <span class="step-number">2</span>
+                        <strong id="workflowConfirmed">0</strong>
+                        <p>Confirmed</p>
+                    </article>
+
+                    <article class="workflow-step">
+                        <span class="step-number">3</span>
+                        <strong id="workflowReady">0</strong>
+                        <p>Ready for Pickup</p>
+                    </article>
+
+                    <article class="workflow-step">
+                        <span class="step-number">4</span>
+                        <strong id="workflowCompleted">0</strong>
+                        <p>Completed</p>
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- Search and Filters -->
+
+            <section class="filter-panel">
+
+                <h2>Search & Filter Orders</h2>
+
+                <div class="order-filters">
+
+                    <div class="filter-field">
+
+                        <label for="searchInput">
+                            Search Orders
+                        </label>
+
+                        <input type="search"
+                               id="searchInput"
+                               placeholder="Order ID, customer or food name...">
+
+                    </div>
+
+                    <div class="filter-field">
+
+                        <label for="statusFilter">
+                            Order Status
+                        </label>
+
+                        <select id="statusFilter">
+                            <option value="">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Ready for Pickup">
+                                Ready for Pickup
+                            </option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+
+                    </div>
+
+                    <div class="filter-field">
+
+                        <label for="sortFilter">
+                            Sort By
+                        </label>
+
+                        <select id="sortFilter">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="highest">Highest Order Value</option>
+                            <option value="lowest">Lowest Order Value</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="filter-bottom">
+
+                    <span class="result-count" id="resultCount">
+                        Showing 0 orders
+                    </span>
+
+                    <button type="button"
+                            class="btn btn-outline btn-small"
+                            id="clearFilters">
+                        Clear Filters
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- Order List -->
+
+            <section id="ordersContainer"
+                     aria-label="Customer orders">
+            </section>
+
+            <p class="demo-note">
+                FoodBridge is an educational demonstration.
+                Orders and inventory are stored in this browser.
+                Completed sales represent simulated gross revenue,
+                not verified payments or net profit.
+                No real payment, SMS or email notification is processed.
+            </p>
+
+        </div>
+
+        <footer class="dashboard-footer">
+            © 2026 FoodBridge · Merchant Portal ·
+            Reducing waste, feeding hope.
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="../database.js"></script>
+
+<script>
+
+    const db = window.FoodBridgeDB;
+
+    const WORKFLOW = [
+        "Pending",
+        "Confirmed",
+        "Ready for Pickup",
+        "Completed"
+    ];
+
+    let merchant = db.getCurrentMerchant();
+
+    let toastTimer;
+
+    // Utility Functions
+
+    function element(id) {
+        return document.getElementById(id);
+    }
+
+    function setText(id, value) {
+        element(id).textContent = value;
+    }
+
+    function escapeHTML(value) {
+        return String(value ?? "").replace(
+            /[&<>"']/g,
+            character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]
+        );
+    }
+
+    function formatMoney(value) {
+        return "NT$" +
+            Number(value || 0).toLocaleString("en-US");
+    }
+
+    function formatDate(value) {
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+            return "Date unavailable";
+        }
+
+        return date.toLocaleString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "numeric",
+            minute: "2-digit"
+        });
+
+    }
+
+    function getImagePath(image) {
+
+        const value = String(image || "bakery.jpg");
+
+        if (/^data:image\/(jpeg|png|webp|gif);base64,/i.test(value)) {
+            return value;
+        }
+
+        if (/^https?:\/\//i.test(value)) {
+            return value;
+        }
+
+        return "../" + value.replace(/^\/+/, "");
+
+    }
+
+    function showToast(message, isError = false) {
+
+        const existing = document.querySelector(".toast");
+
+        if (existing) {
+            existing.remove();
+        }
+
+        clearTimeout(toastTimer);
+
+        const toast = document.createElement("div");
+
+        toast.className = "toast";
+
+        toast.setAttribute("role", "status");
+
+        toast.textContent = message;
+
+        if (isError) {
+            toast.style.background = "#b74b45";
+        }
+
+        document.body.appendChild(toast);
+
+        toastTimer = setTimeout(
+            () => toast.remove(),
+            3500
+        );
+
+    }
+
+    // Merchant Orders
+
+    function getOrders() {
+
+        if (!merchant) {
+            return [];
+        }
+
+        return db.getMerchantOrders(merchant.id);
+
+    }
+
+    function getOrderStatus(order) {
+
+        const statuses = [
+            ...new Set(
+                order.items.map(
+                    item => item.status || "Pending"
+                )
+            )
+        ];
+
+        if (statuses.length === 1) {
+            return statuses[0];
+        }
+
+        return "Mixed";
+
+    }
+
+    function getStatusClass(status) {
+
+        const classes = {
+            "Pending": "status-pending",
+            "Confirmed": "status-confirmed",
+            "Ready for Pickup": "status-ready",
+            "Completed": "status-completed",
+            "Cancelled": "status-cancelled",
+            "Mixed": "status-mixed"
+        };
+
+        return classes[status] || "status-mixed";
+
+    }
+
+    function getOrderTotals(order) {
+
+        const activeItems = order.items.filter(
+            item => item.status !== "Cancelled"
+        );
+
+        return activeItems.reduce(
+            (totals, item) => {
+
+                const quantity = Number(item.quantity) || 0;
+                const price = Number(item.price) || 0;
+                const original = Number(item.originalPrice) || 0;
+                const weight = Number(item.weight) || 0;
+
+                totals.quantity += quantity;
+                totals.total += price * quantity;
+                totals.savings += (original - price) * quantity;
+                totals.waste += weight * quantity;
+
+                return totals;
+
+            },
+            {
+                quantity: 0,
+                total: 0,
+                savings: 0,
+                waste: 0
+            }
+        );
+
+    }
+
+    // Dashboard Statistics
+
+    function updateStatistics() {
+
+        const orders = getOrders();
+
+        const pending = orders.filter(
+            order => getOrderStatus(order) === "Pending"
+        ).length;
+
+        const confirmed = orders.filter(
+            order => getOrderStatus(order) === "Confirmed"
+        ).length;
+
+        const ready = orders.filter(
+            order => getOrderStatus(order) === "Ready for Pickup"
+        ).length;
+
+        const completed = orders.filter(
+            order => getOrderStatus(order) === "Completed"
+        ).length;
+
+        const revenue = orders.reduce(
+            (sum, order) => {
+
+                return sum + order.items
+                    .filter(item => item.status === "Completed")
+                    .reduce(
+                        (total, item) =>
+                            total + item.price * item.quantity,
+                        0
+                    );
+
+            },
+            0
+        );
+
+        setText("totalOrders", orders.length);
+        setText("pendingOrders", pending);
+        setText("completedOrders", completed);
+        setText("totalRevenue", formatMoney(revenue));
+
+        setText("workflowPending", pending);
+        setText("workflowConfirmed", confirmed);
+        setText("workflowReady", ready);
+        setText("workflowCompleted", completed);
+
+    }
+
+    // Search and Filter
+
+    function getFilteredOrders() {
+
+        const keyword = element("searchInput")
+            .value.trim().toLowerCase();
+
+        const status = element("statusFilter").value;
+
+        const sort = element("sortFilter").value;
+
+        let orders = getOrders().filter(order => {
+
+            const searchableText = [
+                order.id,
+                order.customerName,
+                ...order.items.map(item => item.name)
+            ].join(" ").toLowerCase();
+
+            const matchesKeyword =
+                searchableText.includes(keyword);
+
+            const matchesStatus =
+                !status ||
+                order.items.some(
+                    item => (item.status || "Pending") === status
+                );
+
+            return matchesKeyword && matchesStatus;
+
+        });
+
+        switch (sort) {
+
+            case "oldest":
+
+                orders.sort(
+                    (a, b) => new Date(a.date) - new Date(b.date)
+                );
+
+                break;
+
+            case "highest":
+
+                orders.sort(
+                    (a, b) =>
+                        getOrderTotals(b).total -
+                        getOrderTotals(a).total
+                );
+
+                break;
+
+            case "lowest":
+
+                orders.sort(
+                    (a, b) =>
+                        getOrderTotals(a).total -
+                        getOrderTotals(b).total
+                );
+
+                break;
+
+            default:
+
+                orders.sort(
+                    (a, b) => new Date(b.date) - new Date(a.date)
+                );
+
+        }
+
+        return orders;
+
+    }
+
+    // Order Progress
+
+    function renderProgress(status) {
+
+        if (status === "Cancelled" || status === "Mixed") {
+            return "";
+        }
+
+        const currentIndex = WORKFLOW.indexOf(status);
+
+        return `
+            <div class="order-progress">
+
+                ${WORKFLOW.map((step, index) => `
+
+                    <div class="progress-step
+                        ${index <= currentIndex ? "done" : ""}">
+
+                        <div class="progress-dot">
+                            ${index < currentIndex ? "✓" : index + 1}
+                        </div>
+
+                        ${step}
+
+                    </div>
+
+                `).join("")}
+
+            </div>
+        `;
+
+    }
+
+    // Order Action Buttons
+
+    function renderActions(order, status) {
+
+        const orderId = escapeHTML(order.id);
+
+        if (status === "Completed") {
+
+            return `
+                <div class="completed-message">
+                    ✓ Order successfully completed.
+                </div>
+            `;
+
+        }
+
+        if (status === "Cancelled") {
+
+            return `
+                <div class="cancelled-message">
+                    This order has been cancelled.
+                </div>
+            `;
+
+        }
+
+        if (status === "Mixed") {
+
+            return `
+                <p class="action-note">
+                    This order contains different item statuses.
+                    Review the individual items before making changes.
+                </p>
+            `;
+
+        }
+
+        const nextSteps = {
+
+            "Pending": {
+                status: "Confirmed",
+                label: "Confirm Order",
+                note: "Accept this customer reservation."
+            },
+
+            "Confirmed": {
+                status: "Ready for Pickup",
+                label: "Mark Ready for Pickup",
+                note: "Mark the food as ready for collection."
+            },
+
+            "Ready for Pickup": {
+                status: "Completed",
+                label: "Complete Order",
+                note: "Complete the order after the customer collects the food."
+            }
+
+        };
+
+        const next = nextSteps[status];
+
+        if (!next) {
+            return "";
+        }
+
+        return `
+
+            <p class="action-note">
+                ${next.note}
+            </p>
+
+            <div class="action-buttons">
+
+                <button type="button"
+                        class="cancel-button"
+                        data-order-id="${orderId}"
+                        data-status="Cancelled">
+                    Cancel Order
+                </button>
+
+                <button type="button"
+                        class="btn btn-primary"
+                        data-order-id="${orderId}"
+                        data-status="${next.status}">
+                    ${next.label} →
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+    // Render Orders
+
+    function renderOrders() {
+
+        const orders = getFilteredOrders();
+
+        const container = element("ordersContainer");
+
+        setText(
+            "resultCount",
+            "Showing " + orders.length +
+            " of " + getOrders().length + " orders"
+        );
+
+        if (orders.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty-orders">
+
+                    <div style="font-size:48px;">📋</div>
+
+                    <h3>No Orders Found</h3>
+
+                    <p>
+                        Customer reservations will appear here.
+                        Try adjusting your filters or placing
+                        a demonstration order.
+                    </p>
+
+                    <a href="../customer/food.html"
+                       class="btn btn-primary">
+                        Visit Customer Marketplace
+                    </a>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+        container.innerHTML = orders.map(order => {
+
+            const status = getOrderStatus(order);
+
+            const totals = getOrderTotals(order);
+
+            const items = order.items.map(item => {
+
+                const itemStatus = item.status || "Pending";
+
+                return `
+
+                    <div class="merchant-order-item">
+
+                        <img
+                            src="${escapeHTML(getImagePath(item.image))}"
+                            alt="${escapeHTML(item.name)}"
+                            onerror="this.onerror=null;this.src='../bakery.jpg';">
+
+                        <div>
+
+                            <h4>
+                                ${escapeHTML(item.name)}
+                            </h4>
+
+                            <p>
+                                Quantity: ${Number(item.quantity)}
+                                · ${formatMoney(item.price)} each
+                            </p>
+
+                            <p>
+                                🕒 Pickup:
+                                ${escapeHTML(item.pickup)}
+                            </p>
+
+                            <span class="order-status-label
+                                ${getStatusClass(itemStatus)}">
+
+                                ${escapeHTML(itemStatus)}
+
+                            </span>
+
+                        </div>
+
+                        <div class="item-total">
+                            ${formatMoney(
+                                item.price * item.quantity
+                            )}
+                        </div>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+            return `
+
+                <article class="merchant-order-card">
+
+                    <header class="merchant-order-header">
+
+                        <div>
+
+                            <h3>
+                                Order #${escapeHTML(order.id)}
+                            </h3>
+
+                            <div class="order-date">
+                                ${escapeHTML(formatDate(order.date))}
+                            </div>
+
+                        </div>
+
+                        <span class="order-status-label
+                            ${getStatusClass(status)}">
+
+                            ${escapeHTML(status)}
+
+                        </span>
+
+                    </header>
+
+                    <div class="order-body">
+
+                        <div class="customer-details">
+
+                            <div>
+                                <p>Customer Name</p>
+                                <strong>
+                                    ${escapeHTML(
+                                        order.customerName ||
+                                        "Guest Customer"
+                                    )}
+                                </strong>
+                            </div>
+
+                            <div>
+                                <p>Payment Method</p>
+                                <strong>Pay at Pickup (Demo)</strong>
+                            </div>
+
+                        </div>
+
+                        ${items}
+
+                        <div class="order-totals">
+
+                            <div class="order-total-box">
+                                <p>
+                                    ${status === "Completed"
+                                        ? "Completed Sales"
+                                        : "Active Order Value"}
+                                </p>
+                                <strong>
+                                    ${formatMoney(totals.total)}
+                                </strong>
+                            </div>
+
+                            <div class="order-total-box">
+                                <p>Customer Savings</p>
+                                <strong>
+                                    ${formatMoney(totals.savings)}
+                                </strong>
+                            </div>
+
+                            <div class="order-total-box">
+                                <p>
+                                    ${status === "Completed"
+                                        ? "Estimated Food Rescued"
+                                        : "Potential Food Rescued"}
+                                </p>
+                                <strong>
+                                    ${totals.waste.toFixed(2)} kg
+                                </strong>
+                            </div>
+
+                        </div>
+
+                        ${renderProgress(status)}
+
+                        <div class="order-actions">
+
+                            ${renderActions(order, status)}
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        }).join("");
+
+    }
+
+    // Update Order Status
+
+    function changeOrderStatus(orderId, newStatus) {
+
+        if (!merchant) {
+            return;
+        }
+
+        const order = getOrders().find(
+            item => String(item.id) === String(orderId)
+        );
+
+        if (!order) {
+
+            showToast("Order not found.", true);
+
+            return;
+
+        }
+
+        const currentStatus = getOrderStatus(order);
+
+        const allowedTransitions = {
+
+            "Pending": [
+                "Confirmed",
+                "Cancelled"
+            ],
+
+            "Confirmed": [
+                "Ready for Pickup",
+                "Cancelled"
+            ],
+
+            "Ready for Pickup": [
+                "Completed",
+                "Cancelled"
+            ],
+
+            "Completed": [],
+
+            "Cancelled": [],
+
+            "Mixed": []
+
+        };
+
+        if (
+            !(allowedTransitions[currentStatus] || [])
+                .includes(newStatus)
+        ) {
+
+            showToast(
+                "This order status cannot be changed.",
+                true
+            );
+
+            return;
+
+        }
+
+        if (newStatus === "Cancelled") {
+
+            const confirmed = window.confirm(
+
+                "Cancel this order?\n\n" +
+                "The reserved food quantity will be returned " +
+                "to the inventory. This action cannot be undone."
+
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+        }
+
+        if (newStatus === "Completed") {
+
+            const confirmed = window.confirm(
+
+                "Complete this order?\n\n" +
+                "Please confirm that the customer has collected " +
+                "the food. Completed sales and sustainability " +
+                "statistics will be updated."
+
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+        }
+
+        try {
+
+            const success = db.updateOrderStatus(
+                orderId,
+                merchant.id,
+                newStatus
+            );
+
+            if (!success) {
+
+                throw new Error(
+                    "Unable to update order status."
+                );
+
+            }
+
+            refreshPage();
+
+            const messages = {
+
+                "Confirmed":
+                    "Order confirmed successfully.",
+
+                "Ready for Pickup":
+                    "Order is now ready for pickup.",
+
+                "Completed":
+                    "Order completed. Impact statistics updated!",
+
+                "Cancelled":
+                    "Order cancelled. Inventory restored."
+
+            };
+
+            showToast(
+                messages[newStatus] ||
+                "Order status updated."
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+            showToast(
+                "Unable to update the order. Please refresh and try again.",
+                true
+            );
+
+        }
+
+    }
+
+    // Clear Filters
+
+    function clearFilters() {
+
+        element("searchInput").value = "";
+
+        element("statusFilter").value = "";
+
+        element("sortFilter").value = "newest";
+
+        renderOrders();
+
+    }
+
+    // Refresh Page
+
+    function refreshPage() {
+
+        merchant = db.getCurrentMerchant();
+
+        setText(
+            "currentStore",
+            merchant ? merchant.name : "No store selected"
+        );
+
+        updateStatistics();
+
+        renderOrders();
+
+    }
+
+    // Order Action Events
+
+    element("ordersContainer").addEventListener(
+        "click",
+        event => {
+
+            const button = event.target.closest(
+                "button[data-order-id][data-status]"
+            );
+
+            if (!button) {
+                return;
+            }
+
+            button.disabled = true;
+
+            try {
+
+                changeOrderStatus(
+                    button.dataset.orderId,
+                    button.dataset.status
+                );
+
+            } finally {
+
+                button.disabled = false;
+
+            }
+
+        }
+    );
+
+    // Filter Events
+
+    element("searchInput").addEventListener(
+        "input",
+        renderOrders
+    );
+
+    element("statusFilter").addEventListener(
+        "change",
+        renderOrders
+    );
+
+    element("sortFilter").addEventListener(
+        "change",
+        renderOrders
+    );
+
+    element("clearFilters").addEventListener(
+        "click",
+        clearFilters
+    );
+
+    element("refreshButton").addEventListener(
+        "click",
+        () => window.location.reload()
+    );
+
+    window.addEventListener(
+        "storage",
+        refreshPage
+    );
+
+    window.addEventListener(
+        "pageshow",
+        refreshPage
+    );
+
+    // Initialize Page
+
+    refreshPage();
+
+</script>
+
+</body>
+</html>
