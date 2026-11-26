@@ -4,339 +4,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="FoodBridge connects customers and local businesses to rescue surplus food, save money, and reduce food waste.">
+
     <title>FoodBridge | Reducing Waste, Feeding Hope</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-v2.css">
 </head>
 
 <body>
 
-    <header>
-        <nav class="navbar">
-            <a href="#home" class="logo">FoodBridge.</a>
+    <!-- Navigation -->
 
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#food">Find Food</a></li>
-                <li><a href="#stores">For Stores</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <header class="site-header">
+        <div class="container navbar">
 
-            <a href="#food" class="nav-button">Find a Meal</a>
-        </nav>
+            <a href="index.html" class="logo">
+                FoodBridge<span>.</span>
+            </a>
+
+            <nav aria-label="Main navigation">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#mission">Our Mission</a></li>
+                    <li><a href="#sdgs">SDGs</a></li>
+                </ul>
+            </nav>
+
+            <a href="#get-started" class="btn btn-primary">
+                Get Started
+            </a>
+
+        </div>
     </header>
+
+
+    <!-- Hero Section -->
 
     <main>
 
-        <!-- Homepage -->
+        <section class="hero" id="home">
+            <div class="container hero-grid">
 
-        <section id="home" class="hero">
-            <div class="hero-content">
+                <div class="hero-content">
 
-                <h1>Reducing waste,<br>feeding hope.</h1>
+                    <div class="eyebrow">
+                        A Sustainable Food Marketplace
+                    </div>
 
-                <p>
-                    Good food shouldn't go to waste.
-                    Discover delicious surplus meals at around 70% off.
-                    Affordable food for everyone, a better future for all.
-                </p>
+                    <h1>
+                        Reducing waste,<br>
+                        feeding hope.
+                    </h1>
 
-                <a href="#food" class="btn">Find Food</a>
-                <a href="#about" class="btn-outline">Learn More</a>
+                    <p>
+                        Good food deserves a second chance.
+                        FoodBridge connects local food businesses
+                        with customers to rescue surplus meals,
+                        save money, and build a more sustainable future.
+                    </p>
+
+                    <p>
+                        Enjoy delicious food at up to 70% off
+                        while making a positive difference
+                        for our community and planet.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a href="customer/index.html"
+                           class="btn btn-primary">
+                            Find Food
+                        </a>
+
+                        <a href="merchant/index.html"
+                           class="btn btn-outline">
+                            For Merchants
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div>
+                    <img src="hero.jpg"
+                         class="hero-image"
+                         alt="Fresh and delicious food">
+                </div>
 
             </div>
         </section>
 
 
-        <!-- About Us -->
+        <!-- Choose Your Role -->
 
-        <section id="about" class="section">
+        <section class="section section-white" id="get-started">
 
-            <div class="section-heading">
+            <div class="container">
 
-                <span class="eyebrow">ABOUT US</span>
+                <div class="section-heading center">
 
-                <h2>Good food deserves a second chance.</h2>
+                    <div class="eyebrow">
+                        Get Started
+                    </div>
 
-                <p>
-                    FoodBridge connects local food businesses with
-                    everyone looking for affordable meals.
-                    We believe good food should be accessible to all,
-                    regardless of age, occupation, or background.
-                </p>
-
-            </div>
-
-            <div class="feature-grid">
-
-                <article class="feature-card">
-
-                    <img src="reservation.jpg"
-                         alt="Online food reservations"
-                         loading="lazy">
-
-                    <h3>Easy Reservations</h3>
+                    <h2>
+                        One platform. Two ways to make a difference.
+                    </h2>
 
                     <p>
-                        Find your favorite meals and explore
-                        our simple reservation process.
+                        Choose how you would like to join
+                        the FoodBridge community.
                     </p>
 
-                </article>
+                </div>
 
-                <article class="feature-card">
+                <div class="grid-2">
 
-                    <img src="bakery.jpg"
-                         alt="Local food business"
-                         loading="lazy">
+                    <!-- Customer -->
 
-                    <h3>Affordable Food for All</h3>
+                    <article class="role-card">
 
-                    <p>
-                        Enjoy surplus food at approximately
-                        70% off the original price.
-                        Everyone is welcome.
-                    </p>
+                        <img src="reservation.jpg"
+                             alt="Customers discovering affordable food">
 
-                </article>
+                        <div class="role-content">
 
-                <article class="feature-card">
+                            <div class="eyebrow">
+                                Customer Portal
+                            </div>
 
-                    <img src="sustainability.jpg"
-                         alt="Sustainable food choices"
-                         loading="lazy">
+                            <h3>I'm a Customer</h3>
 
-                    <h3>Support Sustainability</h3>
+                            <p>
+                                Discover affordable surplus meals
+                                from local stores, reserve your
+                                favorite food, and track your
+                                personal sustainability impact.
+                            </p>
 
-                    <p>
-                        Make responsible food choices,
-                        support local businesses,
-                        and reduce unnecessary food waste.
-                    </p>
+                            <p>
+                                ✓ Discover discounted meals<br>
+                                ✓ Save money on everyday food<br>
+                                ✓ Reserve meals for pickup<br>
+                                ✓ Reduce food waste
+                            </p>
 
-                </article>
+                            <a href="customer/index.html"
+                               class="btn btn-primary btn-block">
+                                Start Shopping →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Merchant -->
+
+                    <article class="role-card">
+
+                        <img src="partner.jpg"
+                             alt="Local food business partner">
+
+                        <div class="role-content">
+
+                            <div class="eyebrow">
+                                Merchant Portal
+                            </div>
+
+                            <h3>I'm a Merchant</h3>
+
+                            <p>
+                                Give unsold food a second chance.
+                                Manage surplus inventory,
+                                receive reservations, and
+                                recover potential revenue.
+                            </p>
+
+                            <p>
+                                ✓ List surplus food<br>
+                                ✓ Manage inventory<br>
+                                ✓ Receive customer reservations<br>
+                                ✓ Track sales and sustainability
+                            </p>
+
+                            <a href="merchant/index.html"
+                               class="btn btn-primary btn-block">
+                                Enter Merchant Portal →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
 
             </div>
 
         </section>
 
 
-        <!-- Our Mission -->
+        <!-- About FoodBridge -->
 
-        <section class="mission-section">
+        <section class="section" id="about">
 
-            <div class="mission-image">
+            <div class="container">
 
-                <img src="mission.jpg"
-                     alt="Community food sharing"
-                     loading="lazy">
+                <div class="section-heading center">
+
+                    <div class="eyebrow">
+                        About FoodBridge
+                    </div>
+
+                    <h2>
+                        Good food deserves a second chance.
+                    </h2>
+
+                    <p>
+                        We believe that affordable food
+                        should be accessible to everyone,
+                        and that perfectly good surplus food
+                        should never go to waste.
+                    </p>
+
+                </div>
+
+                <div class="grid-3">
+
+                    <article class="role-card">
+
+                        <img src="reservation.jpg"
+                             alt="Food reservation service"
+                             loading="lazy">
+
+                        <div class="role-content">
+
+                            <h3>Easy Reservations</h3>
+
+                            <p>
+                                Browse available meals,
+                                reserve your favorites,
+                                and collect them directly
+                                from participating stores.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                    <article class="role-card">
+
+                        <img src="bakery.jpg"
+                             alt="Available bakery products"
+                             loading="lazy">
+
+                        <div class="role-content">
+
+                            <h3>Available Inventory</h3>
+
+                            <p>
+                                Discover surplus food from
+                                local bakeries, restaurants,
+                                and other food businesses.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                    <article class="role-card">
+
+                        <img src="sustainability.jpg"
+                             alt="Sustainable food choices"
+                             loading="lazy">
+
+                        <div class="role-content">
+
+                            <h3>Support Sustainability</h3>
+
+                            <p>
+                                Make responsible food choices
+                                and contribute to reducing
+                                unnecessary food waste.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
 
             </div>
-
-            <div class="mission-content">
-
-                <span class="eyebrow">OUR MISSION</span>
-
-                <h2>Making Good Food Accessible to Everyone</h2>
-
-                <p>
-                    Food should bring people together,
-                    not go to waste.
-                </p>
-
-                <p>
-                    Our mission is to make affordable food accessible
-                    to everyone while helping local businesses
-                    reduce unnecessary food waste.
-                </p>
-
-                <p>
-                    Together, we can build a more inclusive
-                    and sustainable food community.
-                </p>
-
-                <a href="#food" class="btn">Explore Food</a>
-
-            </div>
-
-        </section>
-
-
-        <!-- Find Food -->
-
-        <section id="food" class="section food-section">
-
-            <div class="section-heading">
-
-                <span class="eyebrow">FIND FOOD</span>
-
-                <h2>Save More. Waste Less.</h2>
-
-                <p>
-                    Discover delicious surplus food at around
-                    70% off the original price.
-                    Great food, better prices, and less waste.
-                </p>
-
-            </div>
-
-            <div class="filter-bar">
-
-                <input type="search"
-                       id="searchInput"
-                       placeholder="Search meals or stores"
-                       aria-label="Search meals or stores">
-
-                <select id="regionFilter" aria-label="Location">
-
-                    <option value="all">All Locations</option>
-                    <option value="Taipei">Taipei</option>
-                    <option value="New Taipei">New Taipei</option>
-                    <option value="Tainan">Tainan</option>
-
-                </select>
-
-                <select id="categoryFilter" aria-label="Food category">
-
-                    <option value="all">All Categories</option>
-                    <option value="Meals">Meals</option>
-                    <option value="Bakery">Bakery</option>
-
-                </select>
-
-            </div>
-
-            <p class="availability-note">
-                Everyone is welcome. Explore our sample menu
-                and reservation preview.
-                No actual orders or payments are processed.
-            </p>
-
-            <div id="foodList" class="food-grid"></div>
-
-            <p id="message"
-               role="status"
-               aria-live="polite"></p>
 
         </section>
 
 
         <!-- How It Works -->
 
-        <section id="how-it-works" class="section">
+        <section class="section section-green"
+                 id="how-it-works">
 
-            <div class="section-heading">
+            <div class="container">
 
-                <span class="eyebrow">GET STARTED</span>
+                <div class="section-heading center">
 
-                <h2>How It Works</h2>
+                    <div class="eyebrow">
+                        Simple and Convenient
+                    </div>
 
-            </div>
-
-            <div class="steps-grid">
-
-                <article class="step">
-
-                    <span class="step-number">01</span>
-
-                    <h3>Browse</h3>
+                    <h2>How FoodBridge Works</h2>
 
                     <p>
-                        Discover surplus food from
-                        local bakeries and eateries.
+                        Rescue delicious food in four simple steps.
                     </p>
 
-                </article>
+                </div>
 
-                <article class="step">
+                <div class="grid-4">
 
-                    <span class="step-number">02</span>
+                    <article class="feature-card">
 
-                    <h3>Choose</h3>
+                        <div class="feature-icon">🔍</div>
 
-                    <p>
-                        Select your favorite meal
-                        and enjoy approximately 70% off.
-                    </p>
+                        <h3>01. Browse</h3>
 
-                </article>
+                        <p>
+                            Explore available surplus meals
+                            from participating local stores.
+                        </p>
 
-                <article class="step">
+                    </article>
 
-                    <span class="step-number">03</span>
+                    <article class="feature-card">
 
-                    <h3>Reserve</h3>
+                        <div class="feature-icon">🛒</div>
 
-                    <p>
-                        Preview the simple online
-                        reservation process.
-                    </p>
+                        <h3>02. Choose</h3>
 
-                </article>
+                        <p>
+                            Select your favorite food
+                            at an affordable discounted price.
+                        </p>
 
-                <article class="step">
+                    </article>
 
-                    <span class="step-number">04</span>
+                    <article class="feature-card">
 
-                    <h3>Pick Up</h3>
+                        <div class="feature-icon">📋</div>
 
-                    <p>
-                        Once ordering launches,
-                        collect your meal during
-                        the scheduled pickup period.
-                    </p>
+                        <h3>03. Reserve</h3>
 
-                </article>
+                        <p>
+                            Add meals to your cart
+                            and complete your reservation.
+                        </p>
+
+                    </article>
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">🥡</div>
+
+                        <h3>04. Pick Up</h3>
+
+                        <p>
+                            Collect your food during
+                            the designated pickup period.
+                        </p>
+
+                    </article>
+
+                </div>
 
             </div>
 
         </section>
 
 
-        <!-- Environmental Impact -->
+        <!-- Mission -->
 
-        <section id="impact" class="section impact-section">
+        <section class="section section-white" id="mission">
 
-            <div class="section-heading">
-
-                <span class="eyebrow">SUSTAINABILITY</span>
-
-                <h2>Every Meal Makes a Difference</h2>
-
-                <p>
-                    Explore the potential environmental
-                    and financial benefits of saving surplus food.
-                </p>
-
-            </div>
-
-            <div class="impact-grid">
+            <div class="container hero-grid">
 
                 <div>
 
-                    <h3 id="savedMeals">0</h3>
-
-                    <p>Meals Selected</p>
+                    <img src="mission.jpg"
+                         class="hero-image"
+                         alt="Community food sustainability"
+                         loading="lazy">
 
                 </div>
 
-                <div>
+                <div class="hero-content">
 
-                    <h3><span id="savedWaste">0.00</span> kg</h3>
+                    <div class="eyebrow">
+                        Our Mission
+                    </div>
 
-                    <p>Potential Food Waste Avoided</p>
+                    <h2>
+                        Building a future with less food waste.
+                    </h2>
 
-                </div>
+                    <br>
 
-                <div>
+                    <p>
+                        FoodBridge aims to create a connection
+                        between businesses with surplus food
+                        and people looking for affordable meals.
+                    </p>
 
-                    <h3>NT$<span id="savedMoney">0</span></h3>
+                    <p>
+                        By giving unsold food another opportunity,
+                        we can support local businesses,
+                        improve access to affordable food,
+                        and encourage responsible consumption.
+                    </p>
 
-                    <p>Estimated Savings</p>
+                    <a href="#sdgs" class="btn btn-outline">
+                        Explore Our Sustainability Goals
+                    </a>
 
                 </div>
 
@@ -347,209 +438,118 @@
 
         <!-- SDGs -->
 
-        <section id="sdgs" class="section">
+        <section class="section" id="sdgs">
 
-            <div class="section-heading">
+            <div class="container">
 
-                <span class="eyebrow">OUR COMMITMENT</span>
+                <div class="section-heading center">
 
-                <h2>Building a Better Future</h2>
-
-            </div>
-
-            <div class="sdg-grid">
-
-                <article class="sdg-card">
-
-                    <img src="sdg2.png"
-                         alt="SDG 2 Zero Hunger"
-                         loading="lazy">
-
-                    <div>
-
-                        <h3>Zero Hunger</h3>
-
-                        <p>
-                            Supporting access to affordable food
-                            for everyone and raising awareness
-                            of food insecurity.
-                        </p>
-
+                    <div class="eyebrow">
+                        Sustainable Development Goals
                     </div>
 
-                </article>
+                    <h2>
+                        Small actions. Meaningful impact.
+                    </h2>
 
-                <article class="sdg-card">
+                    <p>
+                        FoodBridge supports the United Nations
+                        Sustainable Development Goals.
+                    </p>
 
-                    <img src="sdg12.png"
-                         alt="SDG 12 Responsible Consumption and Production"
-                         loading="lazy">
+                </div>
 
-                    <div>
+                <div class="grid-2">
 
-                        <h3>Responsible Consumption and Production</h3>
+                    <article class="sdg-card">
 
-                        <p>
-                            Encouraging responsible consumption
-                            and reducing unnecessary food waste.
-                        </p>
+                        <img src="sdg2.png"
+                             alt="SDG 2 Zero Hunger"
+                             loading="lazy">
 
+                        <div>
+
+                            <h3>SDG 2 — Zero Hunger</h3>
+
+                            <p>
+                                Improve access to affordable food
+                                and support a more inclusive
+                                food system.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                    <article class="sdg-card">
+
+                        <img src="sdg12.png"
+                             alt="SDG 12 Responsible Consumption and Production"
+                             loading="lazy">
+
+                        <div>
+
+                            <h3>
+                                SDG 12 — Responsible Consumption
+                                and Production
+                            </h3>
+
+                            <p>
+                                Encourage responsible consumption
+                                and reduce unnecessary food waste.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Call to Action -->
+
+        <section class="section section-green">
+
+            <div class="container center">
+
+                <div class="section-heading center">
+
+                    <div class="eyebrow">
+                        Join the Movement
                     </div>
 
-                </article>
+                    <h2>
+                        Be part of the change.
+                    </h2>
 
-            </div>
+                    <p>
+                        Whether you are a customer or a local
+                        business, every action can help
+                        create a more sustainable food system.
+                    </p>
 
-        </section>
+                </div>
 
+                <div class="hero-actions"
+                     style="justify-content: center;">
 
-        <!-- Stores -->
-
-        <section id="stores" class="section stores-section">
-
-            <div class="section-heading">
-
-                <span class="eyebrow">LOCAL FOOD</span>
-
-                <h2>Explore Our Store Listings</h2>
-
-                <p>
-                    Support local businesses and discover
-                    affordable food for everyone.
-                </p>
-
-            </div>
-
-            <div class="store-grid">
-
-                <article class="store-card">
-
-                    <img src="green-leaf.jpg"
-                         alt="Freshly baked bread"
-                         loading="lazy">
-
-                    <h3>Green Leaf Bakery</h3>
-
-                    <p>Bakery</p>
-
-                    <a href="#food"
-                       data-store="Green Leaf Bakery">
-                        Explore Food
+                    <a href="customer/index.html"
+                       class="btn btn-primary">
+                        Join as a Customer
                     </a>
 
-                </article>
-
-                <article class="store-card">
-
-                    <img src="sweetbread.jpg"
-                         alt="Assorted pastries"
-                         loading="lazy">
-
-                    <h3>Sweetbread Bakery</h3>
-
-                    <p>Bread &amp; Pastries</p>
-
-                    <a href="#food"
-                       data-store="Sweetbread Bakery">
-                        Explore Food
+                    <a href="merchant/index.html"
+                       class="btn btn-outline">
+                        Join as a Merchant
                     </a>
 
-                </article>
-
-                <article class="store-card">
-
-                    <img src="sunny-bento.jpg"
-                         alt="Traditional bento meals"
-                         loading="lazy">
-
-                    <h3>Sunny Bento Shop</h3>
-
-                    <p>Bento &amp; Rice Meals</p>
-
-                    <a href="#food"
-                       data-store="Sunny Bento Shop">
-                        Explore Food
-                    </a>
-
-                </article>
+                </div>
 
             </div>
-
-        </section>
-
-
-        <!-- Store Partnership -->
-
-        <section class="partner-section">
-
-            <div class="partner-content">
-
-                <span class="eyebrow">FOR BUSINESSES</span>
-
-                <h2>Have food to share?</h2>
-
-                <p>
-                    Give surplus food a second chance.
-                    Offer affordable meals, reduce food waste,
-                    and connect with your local community.
-                </p>
-
-                <a href="#contact" class="btn">Get in Touch</a>
-
-            </div>
-
-        </section>
-
-
-        <!-- Contact -->
-
-        <section id="contact" class="section contact-section">
-
-            <div class="section-heading">
-
-                <span class="eyebrow">CONTACT</span>
-
-                <h2>Let's Get in Touch</h2>
-
-                <p>
-                    Questions, ideas or partnership opportunities?
-                    We welcome everyone.
-                </p>
-
-            </div>
-
-            <form id="contactForm">
-
-                <label for="name">Name</label>
-
-                <input type="text"
-                       id="name"
-                       placeholder="Your name"
-                       required>
-
-                <label for="email">Email Address</label>
-
-                <input type="email"
-                       id="email"
-                       placeholder="Your email address"
-                       required>
-
-                <label for="feedback">Message</label>
-
-                <textarea id="feedback"
-                          rows="5"
-                          placeholder="How can we help?"
-                          required></textarea>
-
-                <button type="submit" class="btn">
-                    Preview Message
-                </button>
-
-                <p id="contactStatus"
-                   role="status"
-                   aria-live="polite"></p>
-
-            </form>
 
         </section>
 
@@ -558,39 +558,90 @@
 
     <!-- Footer -->
 
-    <footer>
+    <footer class="site-footer">
 
-        <div class="footer-content">
+        <div class="container">
 
-            <div>
+            <div class="footer-grid">
 
-                <h3>FoodBridge.</h3>
+                <div>
 
-                <p>Reducing waste, feeding hope.</p>
+                    <a href="index.html" class="logo">
+                        FoodBridge<span>.</span>
+                    </a>
 
-                <p>Affordable food for everyone.</p>
+                    <p style="margin-top: 15px;">
+                        Reducing waste, feeding hope.
+                    </p>
+
+                    <p>
+                        Connecting people, businesses,
+                        and sustainable food choices.
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <h3>Explore</h3>
+
+                    <div class="footer-links">
+
+                        <a href="#about">About Us</a>
+
+                        <a href="#how-it-works">
+                            How It Works
+                        </a>
+
+                        <a href="#mission">Our Mission</a>
+
+                        <a href="#sdgs">SDGs</a>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <h3>Our Platform</h3>
+
+                    <div class="footer-links">
+
+                        <a href="customer/index.html">
+                            Customer Portal
+                        </a>
+
+                        <a href="merchant/index.html">
+                            Merchant Portal
+                        </a>
+
+                        <a href="#get-started">
+                            Get Started
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <p>
-                Supporting SDG 2 and SDG 12.
-            </p>
+            <div class="footer-bottom">
 
-            <p>
-                &copy; 2026 FoodBridge.
-                Educational web programming project.
-            </p>
+                <p>
+                    © 2026 FoodBridge.
+                    A Sustainable Food Marketplace.
+                </p>
 
-            <p>
-                All store listings, prices and reservations
-                are for demonstration purposes only.
-            </p>
+                <p>
+                    Educational demonstration project.
+                    No real payments or transactions are processed.
+                </p>
+
+            </div>
 
         </div>
 
     </footer>
-
-    <script src="script.js?v=5"></script>
 
 </body>
 </html>
