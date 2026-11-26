@@ -1,0 +1,1334 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Find Food | FoodBridge</title>
+
+    <link rel="stylesheet" href="../style-v2.css">
+
+    <style>
+
+        .filter-bar {
+            grid-template-columns:
+                2fr 1fr 1fr 1fr 1fr;
+        }
+
+        .filter-field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        .results-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .results-count {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .results-count strong {
+            color: var(--green);
+        }
+
+        .shopping-banner {
+            background: var(--green-light);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .shopping-banner p {
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        .shopping-banner h3 {
+            margin-bottom: 8px;
+        }
+
+        .saving-note {
+            color: var(--green) !important;
+            font-weight: 600;
+            margin-bottom: 18px !important;
+        }
+
+        .food-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .food-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .food-content .food-actions {
+            margin-top: auto;
+        }
+
+        .quantity-select {
+            width: 75px;
+            flex-shrink: 0;
+        }
+
+        .food-actions {
+            align-items: center;
+        }
+
+        .filter-hint {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 1050px) {
+
+            .filter-bar {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 760px) {
+
+            .filter-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .shopping-banner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Customer Navigation -->
+
+    <header class="site-header">
+
+        <div class="container navbar">
+
+            <a href="../index.html" class="logo">
+                FoodBridge<span>.</span>
+            </a>
+
+            <nav aria-label="Customer navigation">
+
+                <ul class="nav-links">
+
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="food.html" class="active">
+                            Find Food
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="favorites.html">
+                            Favorites
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="orders.html">
+                            My Orders
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="calculator.html">
+                            Savings Calculator
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+            <div class="nav-actions">
+
+                <a href="cart.html"
+                   class="btn btn-primary btn-small">
+
+                    🛒 Cart
+
+                    <span class="cart-count"
+                          id="cartCount">0</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- Page Heading -->
+
+        <section class="page-header">
+
+            <div class="container">
+
+                <div class="eyebrow">
+                    Discover Local Surplus Food
+                </div>
+
+                <h1>Find Your Next Meal</h1>
+
+                <p>
+                    Delicious food, affordable prices,
+                    and a more sustainable future.
+                    Discover available surplus meals
+                    from local businesses.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Shopping Area -->
+
+        <section class="container"
+                 style="padding-bottom: 80px;">
+
+            <!-- Promotional Banner -->
+
+            <div class="shopping-banner">
+
+                <div>
+
+                    <h3>Good Food. Better Prices.</h3>
+
+                    <p>
+                        Enjoy surplus food at around 70% off
+                        and help reduce unnecessary food waste.
+                    </p>
+
+                </div>
+
+                <a href="calculator.html"
+                   class="btn btn-outline">
+
+                    Calculate Your Savings →
+
+                </a>
+
+            </div>
+
+
+            <!-- Search and Filters -->
+
+            <div class="filter-bar">
+
+                <!-- Keyword Search -->
+
+                <div class="filter-field">
+
+                    <label for="searchInput">
+                        Search
+                    </label>
+
+                    <input type="search"
+                           id="searchInput"
+                           placeholder="Food or store name...">
+
+                </div>
+
+
+                <!-- Region Filter -->
+
+                <div class="filter-field">
+
+                    <label for="regionFilter">
+                        Location
+                    </label>
+
+                    <select id="regionFilter">
+
+                        <option value="">
+                            All Locations
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Category Filter -->
+
+                <div class="filter-field">
+
+                    <label for="categoryFilter">
+                        Category
+                    </label>
+
+                    <select id="categoryFilter">
+
+                        <option value="">
+                            All Categories
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Price Filter -->
+
+                <div class="filter-field">
+
+                    <label for="priceFilter">
+                        Maximum Price
+                    </label>
+
+                    <select id="priceFilter">
+
+                        <option value="">
+                            Any Price
+                        </option>
+
+                        <option value="20">
+                            NT$20 or less
+                        </option>
+
+                        <option value="30">
+                            NT$30 or less
+                        </option>
+
+                        <option value="50">
+                            NT$50 or less
+                        </option>
+
+                        <option value="100">
+                            NT$100 or less
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Sort -->
+
+                <div class="filter-field">
+
+                    <label for="sortFilter">
+                        Sort By
+                    </label>
+
+                    <select id="sortFilter">
+
+                        <option value="default">
+                            Recommended
+                        </option>
+
+                        <option value="price-low">
+                            Price: Low to High
+                        </option>
+
+                        <option value="price-high">
+                            Price: High to Low
+                        </option>
+
+                        <option value="discount">
+                            Highest Discount
+                        </option>
+
+                        <option value="stock">
+                            Most Available
+                        </option>
+
+                        <option value="newest">
+                            Newest Listings
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- Results Toolbar -->
+
+            <div class="results-toolbar">
+
+                <div class="results-count"
+                     id="resultsCount"
+                     aria-live="polite">
+
+                    Loading available food...
+
+                </div>
+
+                <button type="button"
+                        class="btn btn-outline btn-small"
+                        id="resetFilters">
+
+                    Clear All Filters
+
+                </button>
+
+            </div>
+
+            <p class="filter-hint">
+                Availability is updated based on
+                the current demonstration inventory.
+            </p>
+
+
+            <!-- Food Listings -->
+
+            <div class="food-grid" id="foodList">
+
+                <!-- Generated by JavaScript -->
+
+            </div>
+
+        </section>
+
+
+        <!-- Sustainability Reminder -->
+
+        <section class="section section-green">
+
+            <div class="container center">
+
+                <div class="section-heading center">
+
+                    <div class="eyebrow">
+                        Shop Responsibly
+                    </div>
+
+                    <h2>Every Meal Makes a Difference.</h2>
+
+                    <p>
+                        By choosing surplus food,
+                        you can save money, support local
+                        businesses, and help reduce food waste.
+                    </p>
+
+                </div>
+
+                <a href="../index.html#sdgs"
+                   class="btn btn-primary">
+
+                    Explore Our Sustainability Goals
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div>
+
+                    <a href="../index.html" class="logo">
+                        FoodBridge<span>.</span>
+                    </a>
+
+                    <p style="margin-top: 15px;">
+                        Reducing waste, feeding hope.
+                    </p>
+
+                    <p>
+                        Affordable food.
+                        Responsible choices.
+                        A sustainable future.
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <h3>Customer Portal</h3>
+
+                    <div class="footer-links">
+
+                        <a href="index.html">Customer Home</a>
+
+                        <a href="food.html">Find Food</a>
+
+                        <a href="favorites.html">Favorites</a>
+
+                        <a href="cart.html">Shopping Cart</a>
+
+                        <a href="orders.html">My Orders</a>
+
+                        <a href="calculator.html">
+                            Savings Calculator
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <h3>FoodBridge</h3>
+
+                    <div class="footer-links">
+
+                        <a href="../index.html">
+                            Main Website
+                        </a>
+
+                        <a href="../index.html#about">
+                            About Us
+                        </a>
+
+                        <a href="../index.html#sdgs">
+                            Our SDGs
+                        </a>
+
+                        <a href="../merchant/index.html">
+                            Switch to Merchant Portal
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p>© 2026 FoodBridge.</p>
+
+                <p>
+                    Educational demonstration project.
+                    No real payments or transactions
+                    are processed.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Shared Database -->
+
+    <script src="../database.js"></script>
+
+
+    <!-- Food Search and Shopping Functions -->
+
+    <script>
+
+        const db = window.FoodBridgeDB;
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const regionFilter =
+            document.getElementById("regionFilter");
+
+        const categoryFilter =
+            document.getElementById("categoryFilter");
+
+        const priceFilter =
+            document.getElementById("priceFilter");
+
+        const sortFilter =
+            document.getElementById("sortFilter");
+
+        const foodList =
+            document.getElementById("foodList");
+
+        const resultsCount =
+            document.getElementById("resultsCount");
+
+
+        // Utility Functions
+
+        function escapeHTML(value) {
+
+            return String(value ?? "").replace(
+                /[&<>"']/g,
+                character => ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                })[character]
+            );
+
+        }
+
+        function formatMoney(value) {
+
+            return "NT$" +
+                Number(value).toLocaleString("en-US");
+
+        }
+
+        function getImagePath(image) {
+
+            const value =
+                String(image || "bakery.jpg");
+
+            if (/^https?:\/\//i.test(value)) {
+
+                return value;
+
+            }
+
+            if (
+                /^data:image\/(png|jpeg|webp|gif);base64,/i
+                    .test(value)
+            ) {
+
+                return value;
+
+            }
+
+            return "../" + value.replace(/^\/+/, "");
+
+        }
+
+        function getDiscount(food) {
+
+            if (food.originalPrice <= 0) {
+                return 0;
+            }
+
+            return Math.round(
+                (1 - food.price / food.originalPrice) * 100
+            );
+
+        }
+
+
+        // Cart Counter
+
+        function updateCartCount() {
+
+            document.getElementById(
+                "cartCount"
+            ).textContent =
+                db.getCartTotals().quantity;
+
+        }
+
+
+        // Dynamic Filter Options
+
+        function updateFilterOptions() {
+
+            const foods = db.getFoods().filter(
+                food => food.active
+            );
+
+            const selectedRegion =
+                regionFilter.value;
+
+            const selectedCategory =
+                categoryFilter.value;
+
+            const regions = [
+                ...new Set(
+                    foods.map(food => food.region)
+                        .filter(Boolean)
+                )
+            ].sort();
+
+            const categories = [
+                ...new Set(
+                    foods.map(food => food.category)
+                        .filter(Boolean)
+                )
+            ].sort();
+
+
+            regionFilter.innerHTML = `
+                <option value="">
+                    All Locations
+                </option>
+            `;
+
+            regions.forEach(region => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = region;
+
+                option.textContent = region;
+
+                regionFilter.appendChild(option);
+
+            });
+
+
+            categoryFilter.innerHTML = `
+                <option value="">
+                    All Categories
+                </option>
+            `;
+
+            categories.forEach(category => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = category;
+
+                option.textContent = category;
+
+                categoryFilter.appendChild(option);
+
+            });
+
+
+            if (regions.includes(selectedRegion)) {
+
+                regionFilter.value = selectedRegion;
+
+            }
+
+            if (categories.includes(selectedCategory)) {
+
+                categoryFilter.value = selectedCategory;
+
+            }
+
+        }
+
+
+        // Search and Filter Foods
+
+        function filterFoods() {
+
+            const keyword =
+                searchInput.value.trim().toLowerCase();
+
+            const region =
+                regionFilter.value;
+
+            const category =
+                categoryFilter.value;
+
+            const maxPrice =
+                priceFilter.value;
+
+            const sort =
+                sortFilter.value;
+
+
+            let foods = db.getAvailableFoods();
+
+
+            // Keyword Search
+
+            if (keyword) {
+
+                foods = foods.filter(food => {
+
+                    const searchableText = [
+
+                        food.name,
+                        food.store,
+                        food.region,
+                        food.category
+
+                    ].join(" ").toLowerCase();
+
+                    return searchableText.includes(keyword);
+
+                });
+
+            }
+
+
+            // Region Filter
+
+            if (region) {
+
+                foods = foods.filter(
+                    food => food.region === region
+                );
+
+            }
+
+
+            // Category Filter
+
+            if (category) {
+
+                foods = foods.filter(
+                    food => food.category === category
+                );
+
+            }
+
+
+            // Maximum Price Filter
+
+            if (maxPrice) {
+
+                foods = foods.filter(
+                    food => food.price <= Number(maxPrice)
+                );
+
+            }
+
+
+            // Sorting
+
+            switch (sort) {
+
+                case "price-low":
+
+                    foods.sort(
+                        (a, b) => a.price - b.price
+                    );
+
+                    break;
+
+
+                case "price-high":
+
+                    foods.sort(
+                        (a, b) => b.price - a.price
+                    );
+
+                    break;
+
+
+                case "discount":
+
+                    foods.sort(
+                        (a, b) =>
+                            getDiscount(b) - getDiscount(a)
+                    );
+
+                    break;
+
+
+                case "stock":
+
+                    foods.sort(
+                        (a, b) => b.stock - a.stock
+                    );
+
+                    break;
+
+
+                case "newest":
+
+                    foods.sort(
+                        (a, b) => b.id - a.id
+                    );
+
+                    break;
+
+
+                default:
+
+                    foods.sort(
+                        (a, b) => a.id - b.id
+                    );
+
+            }
+
+            displayFoods(foods);
+
+        }
+
+
+        // Render Food Cards
+
+        function displayFoods(foods) {
+
+            resultsCount.innerHTML = `
+                Showing <strong>${foods.length}</strong>
+                ${foods.length === 1
+                    ? "food listing"
+                    : "food listings"}
+            `;
+
+
+            if (foods.length === 0) {
+
+                foodList.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            🔍
+                        </div>
+
+                        <h3>No Matching Food Found</h3>
+
+                        <p>
+                            Try another keyword or change
+                            your search filters.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="clearFilters()">
+
+                            Clear Filters
+
+                        </button>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            const cart = db.getCart();
+
+
+            foodList.innerHTML = foods.map(food => {
+
+                const favorite =
+                    db.isFavorite(food.id);
+
+                const cartItem = cart.find(
+                    item => item.foodId === food.id
+                );
+
+                const inCart =
+                    cartItem ? cartItem.quantity : 0;
+
+                const remaining =
+                    Math.max(0, food.stock - inCart);
+
+                const discount =
+                    getDiscount(food);
+
+                const savings =
+                    food.originalPrice - food.price;
+
+
+                const quantityOptions = Array.from(
+
+                    {
+                        length: Math.min(remaining, 20)
+                    },
+
+                    (_, index) => {
+
+                        const quantity = index + 1;
+
+                        return `
+                            <option value="${quantity}">
+                                ${quantity}
+                            </option>
+                        `;
+
+                    }
+
+                ).join("");
+
+
+                return `
+
+                    <article class="food-card">
+
+                        <div class="food-image">
+
+                            <img
+                                src="${escapeHTML(
+                                    getImagePath(food.image)
+                                )}"
+                                alt="${escapeHTML(food.name)}"
+                                loading="lazy">
+
+                            <button
+                                type="button"
+                                class="favorite-btn
+                                    ${favorite ? "active" : ""}"
+                                aria-label="${favorite
+                                    ? "Remove from favorites"
+                                    : "Add to favorites"}"
+                                aria-pressed="${favorite}"
+                                onclick="toggleFavorite(
+                                    ${Number(food.id)}
+                                )">
+
+                                ${favorite ? "♥" : "♡"}
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="food-content">
+
+                            <span class="stock"
+                                  style="align-self: flex-start;">
+
+                                ${food.stock} available
+
+                            </span>
+
+
+                            <h3>
+                                ${escapeHTML(food.name)}
+                            </h3>
+
+
+                            <p>
+                                🏪 ${escapeHTML(food.store)}
+                            </p>
+
+
+                            <p>
+                                📍 ${escapeHTML(food.region)}
+                                · ${escapeHTML(food.category)}
+                            </p>
+
+
+                            <p>
+                                🕒 ${escapeHTML(food.pickup)}
+                            </p>
+
+
+                            <p>
+                                🌱 Estimated weight:
+                                ${Number(food.weight).toFixed(2)}
+                                kg per item
+                            </p>
+
+
+                            <div class="price-row">
+
+                                <span class="price">
+
+                                    ${formatMoney(food.price)}
+
+                                </span>
+
+
+                                <span class="original-price">
+
+                                    ${formatMoney(
+                                        food.originalPrice
+                                    )}
+
+                                </span>
+
+
+                                <span class="discount-badge">
+
+                                    ${discount}% OFF
+
+                                </span>
+
+                            </div>
+
+
+                            <p class="saving-note">
+
+                                You save ${formatMoney(savings)}
+                                per item!
+
+                            </p>
+
+
+                            ${inCart > 0 ? `
+
+                                <p class="form-note">
+
+                                    ${inCart} already in your cart
+
+                                </p>
+
+                            ` : ""}
+
+
+                            <div class="food-actions">
+
+                                <select
+                                    class="quantity-select"
+                                    id="quantity-${food.id}"
+                                    aria-label="Quantity"
+                                    ${remaining === 0
+                                        ? "disabled"
+                                        : ""}>
+
+                                    ${remaining > 0
+                                        ? quantityOptions
+                                        : '<option>0</option>'}
+
+                                </select>
+
+
+                                <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    onclick="addFoodToCart(
+                                        ${Number(food.id)}
+                                    )"
+                                    ${remaining === 0
+                                        ? "disabled"
+                                        : ""}>
+
+                                    ${remaining > 0
+                                        ? "Add to Cart"
+                                        : "Limit Reached"}
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }).join("");
+
+
+            // Image Fallback
+
+            foodList.querySelectorAll("img").forEach(img => {
+
+                img.addEventListener("error", () => {
+
+                    if (!img.dataset.fallback) {
+
+                        img.dataset.fallback = "true";
+
+                        img.src = "../bakery.jpg";
+
+                    }
+
+                });
+
+            });
+
+        }
+
+
+        // Favorites
+
+        function toggleFavorite(id) {
+
+            const favorite =
+                db.toggleFavorite(id);
+
+            showToast(
+
+                favorite
+                    ? "Added to your favorites!"
+                    : "Removed from your favorites."
+
+            );
+
+            filterFoods();
+
+        }
+
+
+        // Add to Cart
+
+        function addFoodToCart(id) {
+
+            const quantitySelect =
+                document.getElementById(
+                    "quantity-" + id
+                );
+
+            const quantity =
+                Number(quantitySelect.value);
+
+            const result =
+                db.addToCart(id, quantity);
+
+            showToast(
+                result.message,
+                !result.success
+            );
+
+            updateCartCount();
+
+            filterFoods();
+
+        }
+
+
+        // Clear Filters
+
+        function clearFilters() {
+
+            searchInput.value = "";
+
+            regionFilter.value = "";
+
+            categoryFilter.value = "";
+
+            priceFilter.value = "";
+
+            sortFilter.value = "default";
+
+            filterFoods();
+
+        }
+
+
+        // Toast Notification
+
+        let toastTimer;
+
+        function showToast(message, isError = false) {
+
+            const existing =
+                document.querySelector(".toast");
+
+            if (existing) {
+
+                existing.remove();
+
+            }
+
+            clearTimeout(toastTimer);
+
+            const toast =
+                document.createElement("div");
+
+            toast.className = "toast";
+
+            toast.setAttribute("role", "status");
+
+            toast.textContent = message;
+
+            if (isError) {
+
+                toast.style.background = "#b74b45";
+
+            }
+
+            document.body.appendChild(toast);
+
+            toastTimer = setTimeout(() => {
+
+                toast.remove();
+
+            }, 3000);
+
+        }
+
+
+        // Event Listeners
+
+        searchInput.addEventListener(
+            "input",
+            filterFoods
+        );
+
+        regionFilter.addEventListener(
+            "change",
+            filterFoods
+        );
+
+        categoryFilter.addEventListener(
+            "change",
+            filterFoods
+        );
+
+        priceFilter.addEventListener(
+            "change",
+            filterFoods
+        );
+
+        sortFilter.addEventListener(
+            "change",
+            filterFoods
+        );
+
+        document.getElementById(
+            "resetFilters"
+        ).addEventListener(
+            "click",
+            clearFilters
+        );
+
+
+        // Refresh Shared Data
+
+        function refreshPage() {
+
+            updateFilterOptions();
+
+            updateCartCount();
+
+            filterFoods();
+
+        }
+
+        window.addEventListener(
+            "storage",
+            refreshPage
+        );
+
+        window.addEventListener(
+            "pageshow",
+            refreshPage
+        );
+
+
+        // Initialize Page
+
+        refreshPage();
+
+    </script>
+
+</body>
+</html>
